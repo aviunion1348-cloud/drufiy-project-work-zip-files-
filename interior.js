@@ -79,6 +79,17 @@
 
   function setupSound() {
     const button = document.querySelector(".detail-sound");
+    const volume = document.querySelector(".detail-volume-input");
+    const volumeOutput = document.querySelector(".detail-volume output");
+    const initialVolume = Math.round((window.DrufiySound?.getVolume?.() ?? 0.82) * 100);
+    if (volume) volume.value = String(initialVolume);
+    if (volumeOutput) volumeOutput.textContent = String(initialVolume);
+    volume?.addEventListener("input", () => {
+      const value = Number(volume.value);
+      window.DrufiySound?.setVolume(value / 100);
+      if (volumeOutput) volumeOutput.textContent = String(value);
+    });
+    volume?.addEventListener("change", () => sound("energy:highMid:soft", 0.46));
     if (!button) return;
     button.addEventListener("click", async () => {
       const requested = button.getAttribute("aria-pressed") !== "true";

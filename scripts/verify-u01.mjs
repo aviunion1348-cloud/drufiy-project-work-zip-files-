@@ -65,6 +65,7 @@ await import(pathToFileURL(join(root, "design-system/sound-catalog.js")));
 await import(pathToFileURL(join(root, "design-system/experience-catalog.js")));
 assert(globalThis.DrufiyMotion.size === 1200, "motion catalog exposes 1,200 recipes");
 assert(globalThis.DrufiySound.size === 512, "sound catalog exposes 512 recipes");
+assert(globalThis.DrufiySound.setVolume(0.91) === 0.91 && globalThis.DrufiySound.getVolume() === 0.91, "sound catalog exposes persistent master-volume control");
 assert(globalThis.DrufiyExperience.size === 1024, "experience catalog exposes 1,024 executable ideas");
 const idea = globalThis.DrufiyExperience.get("correlate:terminal:precise");
 assert(Boolean(idea?.rationale && idea?.motion && idea?.sound), "experience recipes carry rationale, motion, and sound semantics");

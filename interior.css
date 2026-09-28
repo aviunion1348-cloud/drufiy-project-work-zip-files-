@@ -118,6 +118,24 @@
   background: rgb(var(--page-accent-rgb) / 8%);
 }
 
+.detail-volume {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  background: rgb(255 255 255 / 3%);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.09em;
+}
+
+.detail-volume input { width: 66px; height: 3px; accent-color: var(--page-accent); cursor: pointer; }
+.detail-volume output { min-width: 17px; color: var(--page-accent); text-align: right; }
+
 .detail-progress {
   position: fixed;
   z-index: 80;
@@ -170,15 +188,15 @@
 }
 
 .detail-hero-video.is-ready {
-  opacity: 0.86;
+  opacity: 0.94;
 }
 
 .detail-hero-scrim {
   z-index: -3;
   background:
     radial-gradient(circle at 76% 25%, rgb(var(--page-accent-rgb) / 16%), transparent 30%),
-    linear-gradient(90deg, rgb(5 7 7 / 74%), rgb(5 7 7 / 20%) 68%, rgb(5 7 7 / 42%)),
-    linear-gradient(180deg, rgb(5 7 7 / 25%), transparent 32%, rgb(5 7 7 / 90%));
+    linear-gradient(90deg, rgb(5 7 7 / 60%), rgb(5 7 7 / 12%) 68%, rgb(5 7 7 / 30%)),
+    linear-gradient(180deg, rgb(5 7 7 / 18%), transparent 32%, rgb(5 7 7 / 82%));
 }
 
 .detail-hero-grid {
@@ -864,6 +882,10 @@ html[data-frame-tier="eco"] .detail-terminal { box-shadow: 0 28px 80px rgb(0 0 0
   .detail-nav { min-height: 70px; grid-template-columns: 1fr auto; }
   .detail-nav-center { display: none; }
   .detail-nav-actions a { display: none; }
+  .detail-volume { padding-inline: 9px; }
+  .detail-volume span,
+  .detail-volume output { display: none; }
+  .detail-volume input { width: 50px; }
   .detail-progress { top: 69px; }
   .detail-hero { min-height: 780px; padding-top: 120px; }
   .detail-hero h1 { font-size: clamp(5rem, 25vw, 8rem); }

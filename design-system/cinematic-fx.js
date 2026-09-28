@@ -260,7 +260,7 @@
   }
 
   function setupSceneGating() {
-    const scenes = [...document.querySelectorAll(".experience-chapter, .foundation-hangar, .detail-hero, .detail-section")];
+    const scenes = [...document.querySelectorAll(".cinema-scroll, .experience-chapter, .foundation-hangar, .detail-hero, .detail-section")];
     scenes.forEach((scene) => scene.classList.add("scene-managed"));
     if (!("IntersectionObserver" in global)) {
       scenes.forEach((scene) => scene.classList.add("is-scene-active"));

@@ -141,7 +141,7 @@ Every recipe has a stable ID and exposes duration, easing, keyframes, family, di
 - 4 pitch registers: low, lowMid, highMid, high
 - 4 intensities: subtle, soft, firm, peak
 
-Formula: `32 × 4 × 4 = 512`. A dynamics compressor, stereo positioning, family-specific filters, and bidirectional pitch motion give interaction classes distinct audio identities while remaining opt-in.
+Formula: `32 × 4 × 4 = 512`. A dynamics compressor, stereo positioning, family-specific filters, and bidirectional pitch motion give interaction classes distinct audio identities while remaining opt-in. The louder remaster uses a persistent 0–100 master-volume API and visible range controls across the main and internal routes.
 
 `design-system/experience-catalog.js` adds 1,024 executable experience ideas:
 
@@ -184,17 +184,17 @@ The infinite rail creates three cloned sets and normalizes back into the middle 
 
 ## 9. Live film treatment
 
-The design specimen after the entry uses a remote NASA-imagery rocket film from Pixabay:
+The design specimen after the entry uses a remote 4K fighter-aircraft film from Pixabay:
 
-`https://cdn.pixabay.com/video/2015/08/10/236-135863777_large.mp4`
+`https://cdn.pixabay.com/video/2024/12/02/244334_large.mp4`
 
 The poster is:
 
-`https://cdn.pixabay.com/video/2015/08/10/236-135863777_tiny.jpg`
+`https://cdn.pixabay.com/video/2024/12/02/244334_tiny.jpg`
 
 The film is muted, looped, plays inline, and is treated as decorative. A layered scrim guarantees text contrast. If video loading fails, the section remains fully usable on the canvas background. Under reduced motion, the video is hidden.
 
-The repository stores no video or image payload, keeping the workspace well below the requested 80 MB ceiling.
+The repository stores no remote film payload, preserving a compact, portable package while still delivering high-resolution cinema when connected.
 
 ## 10. Accessibility foundation
 

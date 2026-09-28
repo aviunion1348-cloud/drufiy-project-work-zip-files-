@@ -42,8 +42,23 @@
 .world {
   inset: 0;
   overflow: hidden;
-  background: #79b7dd;
+  background: #020609;
 }
+
+.entry-jet-film {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.025);
+  transition: opacity 900ms var(--ease-out);
+}
+
+.entry-jet-film.is-ready { opacity: 0.92; }
 
 .site-header {
   z-index: 10;
@@ -182,17 +197,18 @@
 }
 
 .sky-img {
-  z-index: 0;
+  z-index: 1;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.24;
   transform: none;
   filter: none;
 }
 
 .back-stack {
-  z-index: 1;
+  z-index: 2;
   top: 0;
   right: -3vw;
   bottom: 0;
@@ -647,7 +663,7 @@
 .foundation-video {
   z-index: -3;
   object-fit: cover;
-  opacity: 0.66;
+  opacity: 0.86;
   filter: none;
 }
 
@@ -655,7 +671,7 @@
   z-index: -2;
   background:
     radial-gradient(circle at 72% 10%, rgb(6 182 212 / 14%), transparent 34%),
-    linear-gradient(180deg, rgb(8 9 10 / 36%) 0%, rgb(8 9 10 / 76%) 24%, rgb(8 9 10 / 92%) 100%);
+    linear-gradient(180deg, rgb(8 9 10 / 22%) 0%, rgb(8 9 10 / 58%) 24%, rgb(8 9 10 / 78%) 100%);
 }
 
 .foundation-grid {
@@ -1080,6 +1096,34 @@
 .video-toggle[aria-pressed="true"] { color: var(--color-accent-solid); }
 .video-toggle-icon { font-size: 10px; letter-spacing: -0.18em; }
 
+.audio-volume-control {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 9px;
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.audio-volume {
+  width: 76px;
+  height: 3px;
+  accent-color: var(--color-accent-solid);
+  cursor: pointer;
+}
+
+.audio-volume-value {
+  min-width: 18px;
+  color: var(--color-accent-solid);
+  font-size: 8px;
+  text-align: right;
+}
+
 .sound-bars {
   display: inline-flex;
   height: 13px;
@@ -1242,8 +1286,14 @@
   .principles-grid { grid-template-columns: 1fr; }
   .principles-grid article { min-height: 180px; }
   .type-display-card p { font-size: 2.7rem; }
-  .experience-controls { right: 12px; bottom: 12px; }
-  .scroll-progress { width: 36px; }
+  .experience-controls { right: 12px; bottom: 12px; gap: 4px; padding-left: 9px; }
+  .scroll-progress { width: 28px; }
+  .audio-volume-control > span,
+  .audio-volume-value,
+  .video-label { display: none; }
+  .audio-volume { width: 54px; }
+  .sound-toggle,
+  .video-toggle { padding-inline: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -56,7 +56,7 @@ npm run build
 ## Included
 
 - 3,700px sticky-scroll entry with pointer parallax and infinite card rail
-- Seven live remote film surfaces across the primary experience
+- Ten governed live-film surfaces, including full-screen fighter-jet cinema, across the primary experience
 - Dedicated live-film hero treatment for every detail page
 - Lazy video activation, pause/resume behavior, poster fallbacks, and reduced-motion fallbacks
 - Interactive signal theatre and signal architecture
@@ -67,7 +67,8 @@ npm run build
 - **1,200 deterministic motion recipes**
 - **512 opt-in procedural cinematic sound recipes** across 32 contextual families
 - **1,024 executable human-intent experience ideas**
-- Nine governed live-film surfaces plus live-film heroes across all five internal routes
+- High-technology HUD, spacecraft, warp, data-network, and multiple 4K jet-film backgrounds
+- Louder compressed procedural audio with persistent master-volume controls on every route
 - Interaction-driven cinematic canvas VFX for controls, links, forms, focus, and validation
 - Adaptive 60/90/100/120/144Hz requestAnimationFrame scheduling and quality tiers
 - W3C-style machine-readable design tokens

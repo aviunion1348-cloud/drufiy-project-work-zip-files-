@@ -258,6 +258,20 @@
   function setupExperienceControls() {
     const soundToggle = document.querySelector(".sound-toggle");
     const soundLabel = document.querySelector(".sound-label");
+    const volumeControl = document.querySelector(".audio-volume");
+    const volumeValue = document.querySelector(".audio-volume-value");
+    const initialVolume = Math.round((window.DrufiySound?.getVolume?.() ?? 0.82) * 100);
+    if (volumeControl) volumeControl.value = String(initialVolume);
+    if (volumeValue) volumeValue.textContent = String(initialVolume);
+    volumeControl?.addEventListener("input", () => {
+      const value = Number(volumeControl.value);
+      window.DrufiySound?.setVolume(value / 100);
+      if (volumeValue) volumeValue.textContent = String(value);
+    });
+    volumeControl?.addEventListener("change", () => {
+      window.DrufiySound?.play("energy:highMid:soft", { level: 0.42 });
+      showStatus(`Cinematic audio level · ${volumeControl.value}%`);
+    });
 
     soundToggle?.addEventListener("click", async () => {
       const nextState = soundToggle.getAttribute("aria-pressed") !== "true";

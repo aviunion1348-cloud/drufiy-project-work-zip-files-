@@ -46,10 +46,10 @@
 
   const pitchHz = { low: 110, lowMid: 164.81, highMid: 246.94, high: 369.99 };
   const intensityValue = {
-    subtle: { gain: 0.018, duration: 0.09 },
-    soft: { gain: 0.032, duration: 0.16 },
-    firm: { gain: 0.052, duration: 0.28 },
-    peak: { gain: 0.072, duration: 0.46 },
+    subtle: { gain: 0.035, duration: 0.1 },
+    soft: { gain: 0.065, duration: 0.17 },
+    firm: { gain: 0.11, duration: 0.3 },
+    peak: { gain: 0.17, duration: 0.48 },
   };
 
   const familyValue = {
@@ -121,6 +121,12 @@
   let master = null;
   let compressor = null;
   let enabled = false;
+  let masterVolume = 0.82;
+  try {
+    const stored = global.localStorage?.getItem("drufiy-volume");
+    const storedVolume = Number(stored);
+    if (stored !== null && Number.isFinite(storedVolume) && storedVolume >= 0 && storedVolume <= 1) masterVolume = storedVolume;
+  } catch {}
 
   function ensureContext() {
     if (context) return context;
@@ -129,8 +135,8 @@
     context = new AudioContext();
     master = context.createGain();
     compressor = context.createDynamicsCompressor();
-    master.gain.value = 0.64;
-    compressor.threshold.value = -22;
+    master.gain.value = masterVolume;
+    compressor.threshold.value = -18;
     compressor.knee.value = 18;
     compressor.ratio.value = 6;
     compressor.attack.value = 0.004;
@@ -150,6 +156,17 @@
     }
     if (ctx.state === "suspended") await ctx.resume();
     return true;
+  }
+
+  function setVolume(nextVolume) {
+    masterVolume = Math.max(0, Math.min(1, Number(nextVolume) || 0));
+    if (master && context) master.gain.setTargetAtTime(masterVolume, context.currentTime, 0.018);
+    try { global.localStorage?.setItem("drufiy-volume", String(masterVolume)); } catch {}
+    return masterVolume;
+  }
+
+  function getVolume() {
+    return masterVolume;
   }
 
   function midiRatio(semitones) {
@@ -246,7 +263,7 @@
   }
 
   global.DrufiySound = Object.freeze({
-    version: "1.0.0",
+    version: "1.1.0",
     catalog,
     size: catalog.size,
     families: Object.freeze([...families]),
@@ -255,6 +272,8 @@
     get: (id) => catalog.get(id),
     isEnabled,
     setEnabled,
+    getVolume,
+    setVolume,
     play,
   });
 })(window);

@@ -1,6 +1,6 @@
 # DrufiyAI Post-Entry Ultra-Immersive Experience
 
-**Version:** 3.1.0
+**Version:** 3.2.0
 
 **Date:** 2026-09-28
 
@@ -12,20 +12,20 @@ The post-entry layer is intentionally cinematic without hiding product meaning. 
 
 ## Primary journey
 
-1. **Cinematic threshold** — supplied layered landscape composition, 3,700px scroll choreography, pointer parallax, story panels, and infinite card rail.
-2. **Reasoning field** — high-technology film backdrop, radar instrument, chapter rail, and primary positioning statement.
-3. **Model deck** — full-height Lear and Prash film cards with dedicated routes.
-4. **Signal theatre** — animated network canvas, selectable source signals, reasoning core, output models, and investigation terminal.
-5. **How we build** — live network film, three-step method sequence, and dedicated method route.
-6. **Principles vault** — orbital film, four interactive boundary tiles, and deep-linked principle route.
-7. **Open channel** — rocket-launch film and functional contact UI.
+1. **Fighter-jet cinematic threshold** — a full-screen 4K jet film under the supplied layered landscape composition, targeting reticle, 3,700px scroll choreography, pointer parallax, story panels, and infinite card rail.
+2. **Reasoning field** — 60 FPS futuristic HUD film, radar instrument, chapter rail, and primary positioning statement.
+3. **Model deck** — full-height fighter-jet, spacecraft, and holographic display film cards with dedicated routes.
+4. **Signal theatre** — fighter-aircraft film, animated network canvas, selectable source signals, reasoning core, output models, and investigation terminal.
+5. **How we build** — live advanced-data film, three-step method sequence, and dedicated method route.
+6. **Principles vault** — warp-speed film, four interactive boundary tiles, and deep-linked principle route.
+7. **Open channel** — jet-above-clouds film and functional contact UI.
 8. **Design-system specimen** — U-01 token, typography, motion, and accessibility reference remains available below the public journey.
 
 ## Dedicated pages
 
 ### `lear.html`
 
-- Live orbit-film hero.
+- Live spacecraft-flight-deck hero.
 - Protected Lear description and status.
 - Runs locally, connects your stack, and acts with approval capability surfaces.
 - Replayable Lear investigation terminal.
@@ -34,7 +34,7 @@ The post-entry layer is intentionally cinematic without hiding product meaning. 
 
 ### `prash.html`
 
-- Live digital-field hero.
+- Live 60 FPS futuristic-HUD hero.
 - Protected Prash model history.
 - CI/CD, repository-context, and verification surfaces.
 - Replayable Prash repair terminal using the supplied sequence.
@@ -42,42 +42,42 @@ The post-entry layer is intentionally cinematic without hiding product meaning. 
 
 ### `method.html`
 
-- Live technology-network hero.
+- Live advanced data-network hero.
 - Complete three-step build sequence.
 - Protected How We Build content.
 - Route into Principles.
 
 ### `principles.html`
 
-- Live orbital hero.
+- Live warp-speed hero.
 - Deep links for approval, proof, local operation, and honest boundaries.
 - All four protected principle statements.
 - Route into signal architecture.
 
 ### `signal-map.html`
 
-- Live cyberspace hero.
+- Live fighter-jet hero.
 - Interactive CI/code, cloud, observability, DrufiyAI, Lear, and Prash nodes.
 - Animated SVG signal paths.
 - Dynamic node detail readout.
 
 ## Live film architecture
 
-Films are remote and are never committed into the repository. All nine main-page film surfaces begin with `preload="none"`; a two-stage IntersectionObserver preloads only near the viewport and a cinematic governor plays only the most visible feed. Ultra-tier devices may decode two simultaneous films; every other tier decodes one. Paused films retain their poster or latest frame, so the composition remains premium without wasting decoder/GPU capacity. Every film includes a remote poster, a live-film HUD, an error fallback, and a visitor-facing Films on/pause control. Reduced-motion mode removes decorative film playback.
+Films are remote and are never committed into the repository. All ten main-page film surfaces begin with `preload="none"`; a two-stage IntersectionObserver preloads only near the viewport and a cinematic governor plays only the most visible feed. Ultra-tier devices may decode two simultaneous films; every other tier decodes one. Paused films retain their poster or latest frame, so the composition remains premium without wasting decoder/GPU capacity. Every film includes a remote poster, a live-film HUD, an error fallback, and a visitor-facing Films on/pause control. Reduced-motion mode removes decorative film playback.
 
-Current film sources:
+Current aerospace/high-technology film sources:
 
-- Cyberspace field: `https://cdn.pixabay.com/video/2025/04/07/270341_large.mp4`
-- Futuristic model deck: `https://cdn.pixabay.com/video/2020/08/30/48566-454914159_large.mp4`
-- Earth orbit / Lear: `https://cdn.pixabay.com/video/2023/10/05/183651-871678756_large.mp4`
-- Digital lines / Prash: `https://cdn.pixabay.com/video/2016/08/22/4760-179739327_large.mp4`
-- Technology network / Method: `https://cdn.pixabay.com/video/2017/11/02/12716-241674181_large.mp4`
-- Orbital Earth / Principles: `https://cdn.pixabay.com/video/2024/08/30/228835_large.mp4`
-- Rocket launch / Contact: `https://cdn.pixabay.com/video/2019/05/22/23882-338327769_large.mp4`
-- Signal-theatre orbital uplink reuses the documented Earth-orbit source with a distinct crop and signal treatment.
-- Foundation ascent: `https://cdn.pixabay.com/video/2015/08/10/236-135863777_large.mp4`
+- 4K fighter-jet cinematic threshold and model deck: `https://cdn.pixabay.com/video/2025/09/14/303918_large.mp4`
+- 4K / 60 FPS science-fiction HUD reasoning field and Prash: `https://cdn.pixabay.com/video/2025/04/14/271927_large.mp4`
+- Spacecraft traveler interior / Lear: `https://cdn.pixabay.com/video/2022/08/05/126832-737028191_large.mp4`
+- Futuristic heads-up display / Prash card: `https://cdn.pixabay.com/video/2016/11/15/6421-191721132_large.mp4`
+- 4K fighter-plane signal theatre: `https://cdn.pixabay.com/video/2024/12/02/244392_large.mp4`
+- 4K advanced-data field / Method: `https://cdn.pixabay.com/video/2023/10/19/185631-876210585_large.mp4`
+- 4K speed-of-light warp / Principles: `https://cdn.pixabay.com/video/2024/05/28/214105_large.mp4`
+- 4K jet above clouds / Contact: `https://cdn.pixabay.com/video/2025/06/19/286684_large.mp4`
+- 4K fighter-aircraft foundation ascent: `https://cdn.pixabay.com/video/2024/12/02/244334_large.mp4`
 
-All film surfaces have brighter presentation, premium frame telemetry, and restrained contrast scrims. Failed video requests leave complete CSS compositions rather than empty black blocks.
+The source asset pages identify these films as free to use and download under the Pixabay Content License. Direct videos are deliberately referenced rather than repackaged so the portable ZIP stays small. All film surfaces have brighter presentation, premium aerospace frame telemetry, and restrained contrast scrims. Failed video requests leave complete CSS compositions rather than empty black blocks.
 
 ## Interaction systems
 
@@ -114,7 +114,7 @@ A website cannot force 100 FPS on a 60Hz display; this architecture renders at t
 
 ### Procedural sound
 
-The Web Audio catalog now exposes **512 opt-in recipes** across 32 sound families, four pitch registers, and four intensities. Dedicated identities cover hover, focus, typing, data, impact, portal, reveal, approval, denial, alert, ignition, warp, cinematic transitions, success, and failure in addition to the original interaction families. A master dynamics compressor, stereo interaction positioning, family-specific filtering, and controlled pitch motion create a richer cinematic field without binary audio assets. No sound autoplays.
+The Web Audio catalog now exposes **512 opt-in recipes** across 32 sound families, four pitch registers, and four intensities. Dedicated identities cover hover, focus, typing, data, impact, portal, reveal, approval, denial, alert, ignition, warp, cinematic transitions, success, and failure in addition to the original interaction families. A louder intensity remaster, master dynamics compressor, stereo interaction positioning, family-specific filtering, and controlled pitch motion create a richer cinematic field without binary audio assets. Every route exposes a visible 0–100 master-volume control, persists the visitor's selected level locally, and starts at a useful 82% default. Sound remains muted until the visitor explicitly enables it; no sound autoplays.
 
 ### Cinematic interaction VFX
 

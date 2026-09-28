@@ -41,14 +41,22 @@ for (const pageName of pages) {
 }
 
 const index = readFileSync(join(root, "index.html"), "utf8");
-assert((index.match(/<video\b/g) || []).length >= 9, "main experience contains at least nine live film surfaces");
+assert((index.match(/<video\b/g) || []).length >= 10, "main experience contains at least ten live film surfaces");
 assert(index.includes('name="name"') && index.includes('name="email"') && index.includes('name="message"'), "contact form preserves all three required fields");
 assert(index.includes("Drufiy AI Private Limited") && index.includes("© 2026 DrufiyAI"), "legal identity and copyright remain present");
 assert(index.includes("lear.html") && index.includes("prash.html"), "Lear and Prash route to dedicated pages");
 assert(index.includes("experience-catalog.js") && index.includes("performance.js") && index.includes("cinematic-fx.js"), "experience, adaptive-performance, and cinematic VFX runtimes are loaded");
-assert((index.match(/data-src="https:\/\/cdn\.pixabay\.com\/video\//g) || []).length >= 9, "main films use governed lazy remote sources");
+assert((index.match(/data-src="https:\/\/cdn\.pixabay\.com\/video\//g) || []).length >= 10, "main films use governed lazy remote sources");
+assert((index.match(/preload="none"/g) || []).length >= 10, "all main films begin with network-idle preload governance");
+assert(index.includes("303918_large.mp4") && index.includes("244392_large.mp4") && index.includes("286684_large.mp4"), "jet-cinema film sources are present");
+assert(index.includes("271927_large.mp4") && index.includes("126832-737028191_large.mp4"), "high-technology HUD and spacecraft films are present");
 assert(index.includes("video-toggle") && index.includes("data-film-label"), "film controls and live-film telemetry are exposed");
+assert(index.includes("audio-volume") && index.includes("audio-volume-value"), "cinematic master-volume control is exposed");
 assert(index.includes("1,024") && index.includes("data-frame-readout"), "idea count and live FPS readout are exposed");
+for (const pageName of pages.slice(1)) {
+  const html = readFileSync(join(root, pageName), "utf8");
+  assert(html.includes("detail-volume-input"), `${pageName} includes visible master-volume control`);
+}
 
 for (const stylesheet of ["experience.css", "interior.css"]) {
   const css = readFileSync(join(root, stylesheet), "utf8");
@@ -56,7 +64,7 @@ for (const stylesheet of ["experience.css", "interior.css"]) {
 }
 
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-assert(packageJson.version === "3.1.0", "package is version 3.1.0");
+assert(packageJson.version === "3.2.0", "package is version 3.2.0");
 for (const script of ["dev", "start", "test", "build", "package"]) {
   assert(Boolean(packageJson.scripts?.[script]), `npm script ${script} exists`);
 }
