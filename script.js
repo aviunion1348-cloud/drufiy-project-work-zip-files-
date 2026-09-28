@@ -26,6 +26,8 @@
   let sightCards = [];
   let activeSight = originalSightCount;
   let statusTimeout = 0;
+  let lastFrameTime = performance.now();
+  const frameDuration = 1000 / 60;
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
   const smoothstep = (edge0, edge1, value) => {
@@ -33,6 +35,7 @@
     return x * x * (3 - 2 * x);
   };
   const lerp = (a, b, amount) => a + (b - a) * amount;
+  const refreshRateBlend = (baseAmount, delta) => 1 - Math.pow(1 - baseAmount, delta / frameDuration);
   const segmentInOut = (scroll, a, b, c, d) => {
     const enter = smoothstep(a, b, scroll);
     const exit = smoothstep(c, d, scroll);
@@ -52,20 +55,24 @@
     if (bar) bar.style.transform = `scaleX(${pageProgress.toFixed(5)})`;
   }
 
-  function update() {
+  function update(timestamp = performance.now()) {
     rafPending = false;
+    const delta = clamp(timestamp - lastFrameTime, 4, 34);
+    lastFrameTime = timestamp;
+    const scrollBlend = refreshRateBlend(0.14, delta);
+    const pointerBlend = refreshRateBlend(0.12, delta);
     targetScroll = getScrollDistance();
 
     if (!initialized || reduceMotion.matches) {
       smoothScroll = targetScroll;
       initialized = true;
     } else {
-      smoothScroll = lerp(smoothScroll, targetScroll, 0.14);
+      smoothScroll = lerp(smoothScroll, targetScroll, scrollBlend);
     }
     if (Math.abs(smoothScroll - targetScroll) < 0.08) smoothScroll = targetScroll;
 
-    mouseX = lerp(mouseX, targetMouseX, 0.12);
-    mouseY = lerp(mouseY, targetMouseY, 0.12);
+    mouseX = lerp(mouseX, targetMouseX, pointerBlend);
+    mouseY = lerp(mouseY, targetMouseY, pointerBlend);
 
     const frame2 = segmentInOut(smoothScroll, 560, 900, 1300, 1620);
     const frame3 = segmentInOut(smoothScroll, 1760, 2140, 2540, 2700);

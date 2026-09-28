@@ -1,13 +1,30 @@
 /*
  * DrufiyAI U-01 procedural sound catalog
- * 8 families × 4 pitch registers × 4 intensities = 128 lightweight sound recipes.
+ * 16 families × 4 pitch registers × 4 intensities = 256 lightweight sound recipes.
  * No audio files are shipped. Nothing plays until a user explicitly enables sound.
  */
 
 (function bootstrapSoundCatalog(global) {
   "use strict";
 
-  const families = ["ui", "navigation", "confirm", "caution", "error", "pulse", "scan", "launch"];
+  const families = [
+    "ui",
+    "navigation",
+    "confirm",
+    "caution",
+    "error",
+    "pulse",
+    "scan",
+    "launch",
+    "hover",
+    "select",
+    "open",
+    "close",
+    "transmit",
+    "resolve",
+    "boundary",
+    "orbit",
+  ];
   const pitches = ["low", "lowMid", "highMid", "high"];
   const intensities = ["subtle", "soft", "firm", "peak"];
 
@@ -28,6 +45,14 @@
     pulse: { waveform: "sine", intervals: [-12, 0], speed: 0.09, filter: 1800, noise: 0 },
     scan: { waveform: "triangle", intervals: [-12, 0, 7, 12], speed: 0.045, filter: 3600, noise: 0.025 },
     launch: { waveform: "sawtooth", intervals: [-24, -12, 0, 12], speed: 0.12, filter: 1200, noise: 0.12 },
+    hover: { waveform: "sine", intervals: [0, 12], speed: 0.025, filter: 4200, noise: 0 },
+    select: { waveform: "triangle", intervals: [0, 5, 12], speed: 0.04, filter: 3000, noise: 0 },
+    open: { waveform: "sine", intervals: [-12, 0, 12], speed: 0.07, filter: 3400, noise: 0.012 },
+    close: { waveform: "triangle", intervals: [12, 0, -12], speed: 0.055, filter: 2200, noise: 0.008 },
+    transmit: { waveform: "square", intervals: [-5, 0, 7, 12], speed: 0.035, filter: 2800, noise: 0.015 },
+    resolve: { waveform: "sine", intervals: [0, 7, 12, 16], speed: 0.052, filter: 3900, noise: 0 },
+    boundary: { waveform: "square", intervals: [0, 1], speed: 0.12, filter: 800, noise: 0.03 },
+    orbit: { waveform: "sine", intervals: [-24, -12, 0, 7, 12], speed: 0.08, filter: 2600, noise: 0.018 },
   };
 
   function makeRecipe(family, pitch, intensity) {

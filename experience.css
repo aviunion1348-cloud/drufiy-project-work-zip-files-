@@ -108,6 +108,15 @@
   color: var(--color-status-live);
 }
 
+.dock-state b {
+  padding-left: 9px;
+  border-left: 1px solid rgb(255 255 255 / 12%);
+  color: var(--color-text-muted);
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
 .dock-state i {
   animation: lux-pulse 1.8s ease-in-out infinite;
 }
@@ -185,6 +194,15 @@
   background: #070a0b;
 }
 
+.product-chapter,
+.signal-chapter,
+.build-chapter,
+.principles-chapter,
+.contact-chapter {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
 .experience-chapter::before {
   position: absolute;
   z-index: 3;
@@ -227,13 +245,15 @@
   max-width: none;
   object-fit: cover;
   opacity: 0;
-  filter: saturate(0.7) contrast(1.18) brightness(0.74);
+  filter: saturate(0.82) contrast(1.12) brightness(0.93);
   transform: scale(1.04);
   transition: opacity 1400ms var(--ease-out), transform 8s linear;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
 .chapter-video.is-ready {
-  opacity: 0.58;
+  opacity: 0.72;
   transform: scale(1);
 }
 
@@ -245,34 +265,34 @@
 .gateway-scrim {
   background:
     radial-gradient(circle at 72% 45%, rgb(6 182 212 / 16%), transparent 33%),
-    linear-gradient(90deg, rgb(5 7 7 / 94%) 0%, rgb(5 7 7 / 72%) 48%, rgb(5 7 7 / 28%) 100%),
-    linear-gradient(180deg, rgb(5 7 7 / 64%), transparent 34%, rgb(5 7 7 / 92%));
+    linear-gradient(90deg, rgb(5 7 7 / 84%) 0%, rgb(5 7 7 / 61%) 48%, rgb(5 7 7 / 20%) 100%),
+    linear-gradient(180deg, rgb(5 7 7 / 50%), transparent 34%, rgb(5 7 7 / 86%));
 }
 
 .product-scrim {
   background:
     radial-gradient(circle at 21% 25%, rgb(52 211 153 / 13%), transparent 27%),
     radial-gradient(circle at 78% 70%, rgb(6 182 212 / 14%), transparent 33%),
-    linear-gradient(180deg, rgb(5 7 7 / 84%), rgb(5 7 7 / 68%) 44%, rgb(5 7 7 / 96%));
+    linear-gradient(180deg, rgb(5 7 7 / 70%), rgb(5 7 7 / 55%) 44%, rgb(5 7 7 / 90%));
 }
 
 .build-scrim {
   background:
-    linear-gradient(110deg, rgb(5 7 7 / 94%) 8%, rgb(5 7 7 / 54%) 56%, rgb(5 7 7 / 90%)),
+    linear-gradient(110deg, rgb(5 7 7 / 82%) 8%, rgb(5 7 7 / 42%) 56%, rgb(5 7 7 / 82%)),
     radial-gradient(circle at 70% 42%, rgb(6 182 212 / 16%), transparent 38%);
 }
 
 .principles-scrim {
   background:
     radial-gradient(circle at 50% 38%, rgb(52 211 153 / 10%), transparent 31%),
-    linear-gradient(180deg, rgb(5 7 7 / 86%), rgb(5 7 7 / 64%), rgb(5 7 7 / 96%));
+    linear-gradient(180deg, rgb(5 7 7 / 72%), rgb(5 7 7 / 50%), rgb(5 7 7 / 90%));
 }
 
 .contact-scrim {
   background:
     radial-gradient(circle at 12% 72%, rgb(248 113 113 / 9%), transparent 31%),
-    linear-gradient(90deg, rgb(5 7 7 / 92%), rgb(5 7 7 / 58%) 52%, rgb(5 7 7 / 84%)),
-    linear-gradient(180deg, rgb(5 7 7 / 55%), rgb(5 7 7 / 96%));
+    linear-gradient(90deg, rgb(5 7 7 / 80%), rgb(5 7 7 / 45%) 52%, rgb(5 7 7 / 74%)),
+    linear-gradient(180deg, rgb(5 7 7 / 42%), rgb(5 7 7 / 90%));
 }
 
 .chapter-inner {
@@ -667,6 +687,8 @@
   box-shadow: 0 34px 110px rgb(0 0 0 / 46%);
   transform: perspective(1400px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+  contain: layout paint style;
   transition: border-color 350ms var(--ease-out), box-shadow 350ms var(--ease-out), transform 120ms linear;
 }
 
@@ -687,13 +709,13 @@
   max-width: none;
   object-fit: cover;
   opacity: 0;
-  filter: saturate(0.68) contrast(1.17) brightness(0.78);
+  filter: saturate(0.8) contrast(1.12) brightness(0.92);
   transform: scale(1.06);
   transition: opacity 1200ms var(--ease-out), transform 10s linear;
 }
 
 .model-film.is-ready {
-  opacity: 0.62;
+  opacity: 0.72;
   transform: scale(1);
 }
 
@@ -1641,6 +1663,18 @@ body.has-lux-cursor .lux-cursor.is-hovering { width: 58px; height: 58px; border-
   0%, 48% { opacity: 1; }
   49%, 100% { opacity: 0; }
 }
+
+/* ------------------------------------------------------------------
+   Adaptive frame tiers
+   ------------------------------------------------------------------ */
+
+html[data-frame-tier="balanced"] .experience-shell::before { display: none; }
+html[data-frame-tier="balanced"] .experience-shell .ds-glass { backdrop-filter: blur(8px); }
+html[data-frame-tier="balanced"] .chapter-video,
+html[data-frame-tier="balanced"] .model-film { filter: saturate(0.84) brightness(1.02); }
+html[data-frame-tier="balanced"] .model-card { box-shadow: 0 24px 70px rgb(0 0 0 / 42%); }
+html[data-frame-tier="balanced"] .signal-aurora { filter: blur(56px); }
+html[data-frame-tier="ultra"] .dock-state b { color: var(--color-accent-solid); }
 
 /* ------------------------------------------------------------------
    Responsive and accessibility

@@ -646,8 +646,8 @@
 .foundation-video {
   z-index: -3;
   object-fit: cover;
-  opacity: 0.34;
-  filter: saturate(0.72) contrast(1.18) hue-rotate(126deg);
+  opacity: 0.48;
+  filter: saturate(0.82) contrast(1.12) brightness(0.94) hue-rotate(126deg);
 }
 
 .foundation-video-scrim {

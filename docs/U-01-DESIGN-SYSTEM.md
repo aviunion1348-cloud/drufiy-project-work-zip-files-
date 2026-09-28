@@ -17,7 +17,8 @@ U-01 establishes a framework-agnostic visual and interaction foundation for the 
 - A machine-readable W3C-style token file (`design-system/tokens.json`).
 - A portable global reset/accessibility foundation.
 - A deterministic catalog expanded to **1,200 motion recipes** while retaining the original recipe identifiers.
-- A procedural, opt-in catalog of **128 sound recipes**, generated with Web Audio and shipped without binary audio assets.
+- A procedural, opt-in catalog expanded to **256 sound recipes**, generated with Web Audio and shipped without binary audio assets.
+- A catalog of **1,024 executable human-intent experience ideas** across interface surfaces and cognitive modes.
 - A live rocket-film backdrop after the cinematic entry, with a poster fallback and reduced-motion fallback.
 - A safe, idempotent adapter that can install the U-01 foundation into common vanilla, React, Vite, Next, Remix, Astro, Vue, or Svelte project layouts.
 - A live style specimen for color, typography, motion, and product principles.
@@ -134,13 +135,21 @@ Every recipe has a stable ID and exposes duration, easing, keyframes, family, di
 
 ## 7. Sound system
 
-`design-system/sound-catalog.js` creates 128 procedural recipes:
+`design-system/sound-catalog.js` creates 256 procedural recipes:
 
-- 8 families: ui, navigation, confirm, caution, error, pulse, scan, launch
+- 16 families: ui, navigation, confirm, caution, error, pulse, scan, launch, hover, select, open, close, transmit, resolve, boundary, orbit
 - 4 pitch registers: low, lowMid, highMid, high
 - 4 intensities: subtle, soft, firm, peak
 
-Formula: `8 × 4 × 4 = 128`.
+Formula: `16 × 4 × 4 = 256`.
+
+`design-system/experience-catalog.js` adds 1,024 executable experience ideas:
+
+- 16 human intents
+- 8 interface surfaces
+- 8 cognitive modes
+
+Formula: `16 × 8 × 8 = 1,024`.
 
 Use:
 
@@ -243,7 +252,9 @@ It intentionally does **not** push Git commits, execute package scripts, rewrite
 │   ├── tokens.json                    # machine-readable token mirror
 │   ├── foundation.css                 # reset, accessibility, portable primitives
 │   ├── motion-catalog.js              # 1,200 motion recipes
-│   └── sound-catalog.js               # 128 procedural audio recipes
+│   ├── sound-catalog.js               # 256 procedural audio recipes
+│   ├── experience-catalog.js          # 1,024 executable experience ideas
+│   └── performance.js                 # adaptive high-refresh scheduler
 ├── scripts/
 │   └── apply-u01.mjs                  # safe cross-repository installer
 └── docs/
@@ -264,7 +275,7 @@ Open `http://localhost:4173` locally or the provided preview URL in Arena.
 ## 14. Verification performed
 
 - JavaScript syntax checks for all runtime files.
-- Catalog cardinality checks: motion = 1,200; sound = 128.
+- Catalog cardinality checks: motion = 1,200; sound = 256; experience ideas = 1,024.
 - HTML parsing check and duplicate-ID check.
 - CSS brace balance check.
 - Portable adapter dry run and fixture install test.

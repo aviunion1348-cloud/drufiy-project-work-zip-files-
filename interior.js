@@ -96,7 +96,7 @@
       const activate = () => {
         nodes.forEach((item) => item.classList.toggle("is-active", item === node));
         if (detail) detail.textContent = node.dataset.detail;
-        sound("pulse:highMid:subtle");
+        sound("select:highMid:subtle");
       };
       node.addEventListener("click", activate);
       node.addEventListener("focus", activate);
@@ -116,7 +116,7 @@
         if (destination.pathname === window.location.pathname && destination.hash) return;
         event.preventDefault();
         veil.classList.add("is-active");
-        sound("navigation:highMid:soft");
+        sound("open:highMid:soft");
         window.setTimeout(() => window.location.assign(destination.href), reducedMotion.matches ? 0 : 500);
       });
     });
@@ -126,17 +126,24 @@
     if (reducedMotion.matches || !window.matchMedia("(pointer: fine)").matches) return;
     const title = document.querySelector(".detail-hero h1");
     const video = document.querySelector(".detail-hero-video");
+    let targetX = 0;
+    let targetY = 0;
+    let frame = 0;
+    const render = () => {
+      frame = 0;
+      if (title) title.style.transform = `translate3d(${(targetX * -13).toFixed(2)}px, ${(targetY * -8).toFixed(2)}px, 0)`;
+      if (video) video.style.objectPosition = `${(50 + targetX * 2.5).toFixed(2)}% ${(50 + targetY * 2).toFixed(2)}%`;
+    };
     window.addEventListener("pointermove", (event) => {
-      const x = event.clientX / window.innerWidth - 0.5;
-      const y = event.clientY / window.innerHeight - 0.5;
-      if (title) title.style.transform = `translate3d(${(x * -13).toFixed(2)}px, ${(y * -8).toFixed(2)}px, 0)`;
-      if (video) video.style.objectPosition = `${(50 + x * 2.5).toFixed(2)}% ${(50 + y * 2).toFixed(2)}%`;
+      targetX = event.clientX / window.innerWidth - 0.5;
+      targetY = event.clientY / window.innerHeight - 0.5;
+      if (!frame) frame = requestAnimationFrame(render);
     }, { passive: true });
   }
 
   function setupInteractiveSounds() {
     document.querySelectorAll("a, button").forEach((element) => {
-      element.addEventListener("pointerenter", () => sound("ui:highMid:subtle", 0.18));
+      element.addEventListener("pointerenter", () => sound("hover:highMid:subtle", 0.16));
     });
   }
 

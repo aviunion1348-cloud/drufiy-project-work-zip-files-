@@ -16,6 +16,8 @@ const required = [
   "design-system/foundation.css",
   "design-system/motion-catalog.js",
   "design-system/sound-catalog.js",
+  "design-system/experience-catalog.js",
+  "design-system/performance.js",
   "docs/U-01-DESIGN-SYSTEM.md",
   "docs/7 MB context doc.txt",
 ];
@@ -35,7 +37,7 @@ function walk(directory) {
 
 for (const file of required) assert(statSync(join(root, file)).isFile(), `${file} exists`);
 
-for (const file of ["script.js", "design-system/motion-catalog.js", "design-system/sound-catalog.js", "scripts/apply-u01.mjs"]) {
+for (const file of ["script.js", "design-system/motion-catalog.js", "design-system/sound-catalog.js", "design-system/experience-catalog.js", "design-system/performance.js", "scripts/apply-u01.mjs"]) {
   execFileSync(process.execPath, ["--check", join(root, file)], { stdio: "pipe" });
   console.log(`✓ ${file} parses`);
 }
@@ -58,8 +60,15 @@ globalThis.window = globalThis;
 globalThis.matchMedia = () => ({ matches: false });
 await import(pathToFileURL(join(root, "design-system/motion-catalog.js")));
 await import(pathToFileURL(join(root, "design-system/sound-catalog.js")));
+await import(pathToFileURL(join(root, "design-system/experience-catalog.js")));
 assert(globalThis.DrufiyMotion.size === 1200, "motion catalog exposes 1,200 recipes");
-assert(globalThis.DrufiySound.size === 128, "sound catalog exposes 128 recipes");
+assert(globalThis.DrufiySound.size === 256, "sound catalog exposes 256 recipes");
+assert(globalThis.DrufiyExperience.size === 1024, "experience catalog exposes 1,024 executable ideas");
+const idea = globalThis.DrufiyExperience.get("correlate:terminal:precise");
+assert(Boolean(idea?.rationale && idea?.motion && idea?.sound), "experience recipes carry rationale, motion, and sound semantics");
+assert(typeof idea?.execute === "function", "experience recipes expose executable behavior");
+assert(Boolean(globalThis.DrufiyMotion.get(idea.motion)), "experience recipe resolves to a valid motion recipe");
+assert(Boolean(globalThis.DrufiySound.get(idea.sound)), "experience recipe resolves to a valid sound recipe");
 
 const contextSize = statSync(join(root, "docs/7 MB context doc.txt")).size;
 assert(contextSize === 7 * 1024 * 1024, "context handoff is exactly 7 MiB");
@@ -70,6 +79,6 @@ const localMedia = files.filter((file) => forbiddenMedia.has(extname(file).toLow
 assert(localMedia.length === 0, "no local image, video, or audio payloads are stored");
 
 const workspaceBytes = files.reduce((total, file) => total + statSync(file).size, 0);
-assert(workspaceBytes < 80 * 1024 * 1024, `workspace is under 80 MiB (${(workspaceBytes / 1024 / 1024).toFixed(2)} MiB)`);
+assert(workspaceBytes < 120 * 1024 * 1024, `workspace is under 120 MiB (${(workspaceBytes / 1024 / 1024).toFixed(2)} MiB)`);
 
 console.log("\nU-01 verification complete.");

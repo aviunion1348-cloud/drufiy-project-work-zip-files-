@@ -1,6 +1,6 @@
 # DrufiyAI Post-Entry Ultra-Immersive Experience
 
-**Version:** 2.0.0
+**Version:** 3.0.0
 
 **Date:** 2026-09-28
 
@@ -92,9 +92,25 @@ Formula: `10 × 8 × 5 × 3 = 1,200`.
 
 Existing recipe identifiers remain compatible.
 
+### Experience-idea catalog
+
+The runtime includes **1,024 executable human-intent ideas** rather than a list of decorative concepts:
+
+- 16 intents, including orient, inspect, correlate, approve, verify, recover, handoff, and resolve
+- 8 surfaces: canvas, glass, terminal, node, rail, film, card, and field
+- 8 cognitive modes: subtle, precise, cinematic, ambient, urgent, calm, local, and orbital
+
+Formula: `16 × 8 × 8 = 1,024`. Each recipe includes a rationale, a compatible motion ID, an opt-in sound ID, energy/depth variables, filtering, and an `apply()` method.
+
+### High-refresh performance field
+
+`design-system/performance.js` samples real requestAnimationFrame timing and supports 60, 90, 100, 120, and 144Hz displays without forcing timer-based frames. Scroll interpolation, pointer interpolation, and canvas velocities are delta-time normalized, so motion speed remains consistent at every refresh rate. The runtime classifies the device as ultra, high, balanced, or reduced and lowers expensive filters on constrained hardware. Actual FPS is shown in the systems dock after calibration.
+
+A website cannot force 100 FPS on a 60Hz display; this architecture renders at the highest refresh rate the browser and display make available.
+
 ### Procedural sound
 
-The existing **128-recipe** Web Audio catalog remains opt-in. No sound autoplays. Visitors enable sound through an explicit control, after which navigation, scan, confirmation, error, and launch cues can play.
+The Web Audio catalog now exposes **256 opt-in recipes** across 16 sound families, four pitch registers, and four intensities. It includes dedicated hover, select, open, close, transmit, resolve, boundary, and orbit cues in addition to the original UI, navigation, confirmation, warning, error, pulse, scan, and launch families. No sound autoplays.
 
 ### Canvas systems
 

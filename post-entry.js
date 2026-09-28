@@ -23,6 +23,11 @@
   let dotY = -100;
   let cursorTargetX = -100;
   let cursorTargetY = -100;
+  let cursorElement = null;
+  let cursorDotElement = null;
+  let pointerLastTime = performance.now();
+  const frameDuration = 1000 / 60;
+  const refreshRateBlend = (baseAmount, delta) => 1 - Math.pow(1 - baseAmount, delta / frameDuration);
 
   function setupLazyVideos() {
     const videos = [...experience.querySelectorAll("video")];
@@ -108,7 +113,7 @@
         if (isActive) link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
       });
-      sound("scan:highMid:subtle", 0.42);
+      sound("orbit:highMid:subtle", 0.42);
     };
 
     const observer = new IntersectionObserver(
@@ -129,22 +134,25 @@
     engagementObserver.observe(experience);
   }
 
-  function updatePointerField() {
+  function updatePointerField(timestamp = performance.now()) {
     pointerFrame = 0;
-    pointerX = lerp(pointerX, pointerTargetX, 0.09);
-    pointerY = lerp(pointerY, pointerTargetY, 0.09);
+    const delta = clamp(timestamp - pointerLastTime, 4, 34);
+    pointerLastTime = timestamp;
+    const fieldBlend = refreshRateBlend(0.09, delta);
+    const cursorBlend = refreshRateBlend(0.16, delta);
+    const dotBlend = refreshRateBlend(0.42, delta);
+    pointerX = lerp(pointerX, pointerTargetX, fieldBlend);
+    pointerY = lerp(pointerY, pointerTargetY, fieldBlend);
     experience.style.setProperty("--lux-x", pointerX.toFixed(4));
     experience.style.setProperty("--lux-y", pointerY.toFixed(4));
 
-    cursorX = lerp(cursorX, cursorTargetX, 0.16);
-    cursorY = lerp(cursorY, cursorTargetY, 0.16);
-    dotX = lerp(dotX, cursorTargetX, 0.42);
-    dotY = lerp(dotY, cursorTargetY, 0.42);
+    cursorX = lerp(cursorX, cursorTargetX, cursorBlend);
+    cursorY = lerp(cursorY, cursorTargetY, cursorBlend);
+    dotX = lerp(dotX, cursorTargetX, dotBlend);
+    dotY = lerp(dotY, cursorTargetY, dotBlend);
 
-    const cursor = document.querySelector(".lux-cursor");
-    const dot = document.querySelector(".lux-cursor-dot");
-    if (cursor) cursor.style.transform = `translate3d(${(cursorX - 19).toFixed(2)}px, ${(cursorY - 19).toFixed(2)}px, 0)`;
-    if (dot) dot.style.transform = `translate3d(${(dotX - 2).toFixed(2)}px, ${(dotY - 2).toFixed(2)}px, 0)`;
+    if (cursorElement) cursorElement.style.transform = `translate3d(${(cursorX - 19).toFixed(2)}px, ${(cursorY - 19).toFixed(2)}px, 0)`;
+    if (cursorDotElement) cursorDotElement.style.transform = `translate3d(${(dotX - 2).toFixed(2)}px, ${(dotY - 2).toFixed(2)}px, 0)`;
 
     if (
       Math.abs(pointerX - pointerTargetX) > 0.0005 ||
@@ -165,6 +173,8 @@
 
     const cursor = document.createElement("i");
     const dot = document.createElement("i");
+    cursorElement = cursor;
+    cursorDotElement = dot;
     cursor.className = "lux-cursor";
     dot.className = "lux-cursor-dot";
     cursor.setAttribute("aria-hidden", "true");
@@ -187,7 +197,10 @@
     document.addEventListener("pointerleave", () => document.body.classList.remove("has-lux-cursor"));
     const interactive = experience.querySelectorAll("a, button, input, textarea, [role='button']");
     interactive.forEach((element) => {
-      element.addEventListener("pointerenter", () => cursor.classList.add("is-hovering"));
+      element.addEventListener("pointerenter", () => {
+        cursor.classList.add("is-hovering");
+        sound("hover:highMid:subtle", 0.16);
+      });
       element.addEventListener("pointerleave", () => cursor.classList.remove("is-hovering"));
     });
   }
@@ -195,16 +208,27 @@
   function setupTiltSurfaces() {
     if (!finePointer.matches || reducedMotion.matches) return;
     experience.querySelectorAll(".tilt-surface").forEach((surface) => {
-      surface.addEventListener("pointermove", (event) => {
+      let frame = 0;
+      let clientX = 0;
+      let clientY = 0;
+      const render = () => {
+        frame = 0;
         const rect = surface.getBoundingClientRect();
-        const x = clamp((event.clientX - rect.left) / rect.width);
-        const y = clamp((event.clientY - rect.top) / rect.height);
+        const x = clamp((clientX - rect.left) / rect.width);
+        const y = clamp((clientY - rect.top) / rect.height);
         surface.style.setProperty("--tilt-x", `${((0.5 - y) * 5).toFixed(2)}deg`);
         surface.style.setProperty("--tilt-y", `${((x - 0.5) * 5).toFixed(2)}deg`);
         surface.style.setProperty("--card-x", `${(x * 100).toFixed(1)}%`);
         surface.style.setProperty("--card-y", `${(y * 100).toFixed(1)}%`);
+      };
+      surface.addEventListener("pointermove", (event) => {
+        clientX = event.clientX;
+        clientY = event.clientY;
+        if (!frame) frame = requestAnimationFrame(render);
       });
       surface.addEventListener("pointerleave", () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
         surface.style.setProperty("--tilt-x", "0deg");
         surface.style.setProperty("--tilt-y", "0deg");
       });
@@ -214,14 +238,25 @@
   function setupMagneticControls() {
     if (!finePointer.matches || reducedMotion.matches) return;
     experience.querySelectorAll(".magnetic").forEach((element) => {
-      element.addEventListener("pointermove", (event) => {
+      let frame = 0;
+      let clientX = 0;
+      let clientY = 0;
+      const render = () => {
+        frame = 0;
         const rect = element.getBoundingClientRect();
-        const x = (event.clientX - rect.left - rect.width / 2) * 0.12;
-        const y = (event.clientY - rect.top - rect.height / 2) * 0.16;
+        const x = (clientX - rect.left - rect.width / 2) * 0.12;
+        const y = (clientY - rect.top - rect.height / 2) * 0.16;
         element.style.setProperty("--magnetic-x", `${x.toFixed(2)}px`);
         element.style.setProperty("--magnetic-y", `${y.toFixed(2)}px`);
+      };
+      element.addEventListener("pointermove", (event) => {
+        clientX = event.clientX;
+        clientY = event.clientY;
+        if (!frame) frame = requestAnimationFrame(render);
       });
       element.addEventListener("pointerleave", () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
         element.style.setProperty("--magnetic-x", "0px");
         element.style.setProperty("--magnetic-y", "0px");
       });
@@ -236,12 +271,14 @@
     let dpr = 1;
     let animationFrame = 0;
     let visible = false;
+    let lastDrawTime = 0;
     const points = [];
     const pointCount = type === "star" ? 105 : 64;
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const adaptiveDpr = window.DrufiyPerformance?.quality?.dpr || 1.5;
+      dpr = Math.min(window.devicePixelRatio || 1, adaptiveDpr);
       width = Math.max(1, rect.width);
       height = Math.max(1, rect.height);
       canvas.width = Math.round(width * dpr);
@@ -261,14 +298,19 @@
       }
     }
 
-    function draw(time = 0) {
+    function draw(time = performance.now()) {
       animationFrame = 0;
       if (!visible || reducedMotion.matches || document.hidden) return;
+      const frameScale = lastDrawTime ? clamp((time - lastDrawTime) / frameDuration, 0.25, 2) : 1;
+      lastDrawTime = time;
       context.clearRect(0, 0, width, height);
+      const particleFactor = window.DrufiyPerformance?.quality?.particles ?? 1;
+      const activeCount = Math.max(0, Math.round(points.length * particleFactor));
 
-      for (const point of points) {
-        point.x += point.vx;
-        point.y += point.vy;
+      for (let index = 0; index < activeCount; index += 1) {
+        const point = points[index];
+        point.x += point.vx * frameScale;
+        point.y += point.vy * frameScale;
         if (point.x < -20) point.x = width + 20;
         if (point.x > width + 20) point.x = -20;
         if (point.y < -20) point.y = height + 20;
@@ -276,8 +318,8 @@
       }
 
       if (type === "network") {
-        for (let a = 0; a < points.length; a += 1) {
-          for (let b = a + 1; b < points.length; b += 1) {
+        for (let a = 0; a < activeCount; a += 1) {
+          for (let b = a + 1; b < activeCount; b += 1) {
             const dx = points[a].x - points[b].x;
             const dy = points[a].y - points[b].y;
             const distance = Math.hypot(dx, dy);
@@ -292,19 +334,21 @@
         }
       }
 
-      points.forEach((point) => {
+      for (let index = 0; index < activeCount; index += 1) {
+        const point = points[index];
         const pulse = 0.5 + Math.sin(time * 0.0015 + point.phase) * 0.35;
         context.beginPath();
         context.arc(point.x, point.y, point.size, 0, Math.PI * 2);
         context.fillStyle = type === "star" ? `rgba(240, 242, 245, ${0.16 + pulse * 0.35})` : `rgba(59, 232, 176, ${0.2 + pulse * 0.42})`;
         context.fill();
-      });
+      }
 
       animationFrame = requestAnimationFrame(draw);
     }
 
     function setVisible(next) {
       visible = next;
+      if (visible) lastDrawTime = performance.now();
       if (visible && !animationFrame) animationFrame = requestAnimationFrame(draw);
       if (!visible && animationFrame) cancelAnimationFrame(animationFrame);
       if (!visible) animationFrame = 0;
@@ -328,6 +372,22 @@
       { rootMargin: "20% 0px 20% 0px" },
     );
     canvases.forEach(([canvas]) => observer.observe(canvas));
+    window.addEventListener("drufiy:frame-tier", () => {
+      engines.forEach((engine) => engine?.resize());
+    });
+  }
+
+  function setupPerformanceReadout() {
+    const readout = experience.querySelector("[data-frame-readout]");
+    if (!readout) return;
+    const update = ({ detail }) => {
+      const suffix = detail.tier === "ultra" ? " / ULTRA" : "";
+      readout.textContent = `FPS / ${detail.fps}${suffix}`;
+    };
+    window.addEventListener("drufiy:frame-tier", update);
+    if (window.DrufiyPerformance) {
+      readout.textContent = `FPS / ${window.DrufiyPerformance.fps}`;
+    }
   }
 
   function setupSignalConsole() {
@@ -336,10 +396,12 @@
     sourceChips.forEach((chip) => {
       chip.addEventListener("click", () => {
         sourceChips.forEach((item) => item.classList.toggle("is-active", item === chip));
-        sound("scan:highMid:soft");
+        sound("transmit:highMid:soft");
         if (consoleElement) {
           consoleElement.classList.remove("is-visible");
           requestAnimationFrame(() => consoleElement.classList.add("is-visible"));
+          const terminal = consoleElement.querySelector(".console-terminal");
+          window.DrufiyExperience?.apply(terminal, "correlate:terminal:precise", { sound: false });
         }
       });
     });
@@ -358,7 +420,7 @@
       submit.disabled = true;
       status.className = "form-status";
       status.textContent = "Opening encrypted channel…";
-      sound("scan:lowMid:soft");
+      sound("transmit:lowMid:soft");
 
       try {
         const response = await fetch("/api/contact", {
@@ -370,7 +432,8 @@
         status.classList.add("is-success");
         status.textContent = "Message received. We'll get back to you shortly.";
         form.reset();
-        sound("confirm:highMid:firm");
+        window.DrufiyExperience?.apply(status, "resolve:glass:calm", { sound: false });
+        sound("resolve:highMid:firm");
       } catch {
         status.classList.add("is-error");
         status.textContent = "Channel unavailable. Please try again.";
@@ -393,7 +456,7 @@
         event.preventDefault();
         const destination = link.href;
         veil.classList.add("is-active");
-        sound("launch:low:soft", 0.54);
+        sound("open:low:soft", 0.54);
         window.setTimeout(() => window.location.assign(destination), reducedMotion.matches ? 0 : 520);
       });
     });
@@ -423,6 +486,7 @@
   setupTiltSurfaces();
   setupMagneticControls();
   setupCanvases();
+  setupPerformanceReadout();
   setupSignalConsole();
   setupContactForm();
   setupRouteTransitions();
