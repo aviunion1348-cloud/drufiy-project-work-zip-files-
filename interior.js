@@ -27,6 +27,17 @@
       window.setTimeout(reveal, 1800);
     }
     video.play().catch(() => reveal());
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !document.hidden && !reducedMotion.matches) video.play().catch(() => {});
+        else video.pause();
+      }, { threshold: 0.04 });
+      observer.observe(video);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) video.pause();
+        else if (video.getBoundingClientRect().bottom > 0) video.play().catch(() => {});
+      });
+    }
   }
 
   function setupReveals() {
@@ -132,19 +143,13 @@
     const render = () => {
       frame = 0;
       if (title) title.style.transform = `translate3d(${(targetX * -13).toFixed(2)}px, ${(targetY * -8).toFixed(2)}px, 0)`;
-      if (video) video.style.objectPosition = `${(50 + targetX * 2.5).toFixed(2)}% ${(50 + targetY * 2).toFixed(2)}%`;
+      if (video) video.style.transform = `translate3d(${(targetX * 7).toFixed(2)}px, ${(targetY * 5).toFixed(2)}px, 0) scale(1.045)`;
     };
     window.addEventListener("pointermove", (event) => {
       targetX = event.clientX / window.innerWidth - 0.5;
       targetY = event.clientY / window.innerHeight - 0.5;
       if (!frame) frame = requestAnimationFrame(render);
     }, { passive: true });
-  }
-
-  function setupInteractiveSounds() {
-    document.querySelectorAll("a, button").forEach((element) => {
-      element.addEventListener("pointerenter", () => sound("hover:highMid:subtle", 0.16));
-    });
   }
 
   setupLoaderAndVideo();
@@ -155,5 +160,4 @@
   setupArchitecture();
   setupRouteTransitions();
   setupHeroParallax();
-  setupInteractiveSounds();
 })();

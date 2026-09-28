@@ -46,15 +46,16 @@ WHAT IS IMPLEMENTED
 -------------------
 - Supplied Mostar-inspired 3,700px sticky cinematic entry and infinite card rail.
 - Full post-entry systems experience in index.html, experience.css, post-entry.js.
-- Seven lazy live-film surfaces plus live-film heroes on five detail pages.
+- Nine governed live-film surfaces plus live-film heroes on five detail pages.
 - Dedicated Lear, Prash, Method, Principles, and Signal Architecture routes.
 - Interactive radar, starfield, network canvas, signal console, terminal sequences,
   magnetic controls, 3D tilt, route transitions, custom cursor, and chapter rail.
 - 1,200 deterministic Web Animations recipes (10 x 8 x 5 x 3).
-- 256 opt-in procedural Web Audio recipes (16 x 4 x 4).
+- 512 opt-in procedural Web Audio recipes (32 x 4 x 4).
 - 1,024 executable human-intent interaction ideas (16 x 8 x 8).
-- Native requestAnimationFrame scheduling with delta-time normalization and adaptive
-  quality tiers for 60/90/100/120/144Hz-capable displays.
+- Event-driven cinematic canvas VFX and live-film HUDs across interactive surfaces.
+- Native requestAnimationFrame scheduling with delta-time normalization, decoder governance,
+  and adaptive quality tiers for 60/90/100/120/144Hz-capable displays.
 - Functional development POST /api/contact validation with no PII persistence.
 - Dependency-free npm server, automated tests, packaging command, and ZIP checksum.
 - Portable CSS/JSON design tokens and safe cross-repository foundation adapter.
@@ -126,7 +127,7 @@ const redundancyTemplate = (index) => Buffer.from(
   `\n[RETRIEVAL REDUNDANCY BLOCK ${String(index).padStart(6, "0")}]\n` +
     `Scope includes the U-01 foundation and post-entry multi-page experience. ` +
     `Canonical tokens: design-system/tokens.css and tokens.json. Motion catalog: 1200. ` +
-    `Sound catalog: 256. Executable experience ideas: 1024. Adaptive high-refresh field: enabled. ` +
+    `Sound catalog: 512. Executable experience ideas: 1024. Adaptive high-refresh field: enabled. ` +
     `Entry engine: script.js. Post-entry runtime: post-entry.js. ` +
     `Detail runtime: interior.js. Routes: Lear, Prash, Method, Principles, Signal Map. ` +
     `Npm server: scripts/dev-server.mjs. Package: npm run build. No Notion changes. ` +

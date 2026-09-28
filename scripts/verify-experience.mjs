@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const pages = ["index.html", "lear.html", "prash.html", "method.html", "principles.html", "signal-map.html"];
-const runtimeFiles = ["script.js", "post-entry.js", "interior.js", "design-system/experience-catalog.js", "design-system/performance.js", "scripts/dev-server.mjs", "scripts/package-release.mjs"];
+const runtimeFiles = ["script.js", "post-entry.js", "interior.js", "design-system/experience-catalog.js", "design-system/performance.js", "design-system/cinematic-fx.js", "scripts/dev-server.mjs", "scripts/package-release.mjs"];
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -41,11 +41,13 @@ for (const pageName of pages) {
 }
 
 const index = readFileSync(join(root, "index.html"), "utf8");
-assert((index.match(/<video\b/g) || []).length >= 7, "main experience contains at least seven live film surfaces");
+assert((index.match(/<video\b/g) || []).length >= 9, "main experience contains at least nine live film surfaces");
 assert(index.includes('name="name"') && index.includes('name="email"') && index.includes('name="message"'), "contact form preserves all three required fields");
 assert(index.includes("Drufiy AI Private Limited") && index.includes("© 2026 DrufiyAI"), "legal identity and copyright remain present");
 assert(index.includes("lear.html") && index.includes("prash.html"), "Lear and Prash route to dedicated pages");
-assert(index.includes("experience-catalog.js") && index.includes("performance.js"), "experience and adaptive-performance runtimes are loaded");
+assert(index.includes("experience-catalog.js") && index.includes("performance.js") && index.includes("cinematic-fx.js"), "experience, adaptive-performance, and cinematic VFX runtimes are loaded");
+assert((index.match(/data-src="https:\/\/cdn\.pixabay\.com\/video\//g) || []).length >= 9, "main films use governed lazy remote sources");
+assert(index.includes("video-toggle") && index.includes("data-film-label"), "film controls and live-film telemetry are exposed");
 assert(index.includes("1,024") && index.includes("data-frame-readout"), "idea count and live FPS readout are exposed");
 
 for (const stylesheet of ["experience.css", "interior.css"]) {
@@ -54,7 +56,7 @@ for (const stylesheet of ["experience.css", "interior.css"]) {
 }
 
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-assert(packageJson.version === "3.0.0", "package is version 3.0.0");
+assert(packageJson.version === "3.1.0", "package is version 3.1.0");
 for (const script of ["dev", "start", "test", "build", "package"]) {
   assert(Boolean(packageJson.scripts?.[script]), `npm script ${script} exists`);
 }

@@ -12,6 +12,7 @@
   const sightNext = document.querySelector(".sight-next");
   const originalSightCards = sightsTrack ? [...sightsTrack.querySelectorAll(".sight-card")] : [];
   const originalSightCount = originalSightCards.length;
+  const progressBar = document.querySelector(".scroll-progress i");
 
   if (!section || !sightsTrack || !sightsControls || !originalSightCount) return;
 
@@ -27,6 +28,9 @@
   let activeSight = originalSightCount;
   let statusTimeout = 0;
   let lastFrameTime = performance.now();
+  let sectionTop = 0;
+  let sectionTravel = 1;
+  let maxPageScroll = 1;
   const frameDuration = 1000 / 60;
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
@@ -41,18 +45,21 @@
     const exit = smoothstep(c, d, scroll);
     return { enter, exit, active: enter * (1 - exit) };
   };
-  const getScrollDistance = () =>
-    clamp(-section.getBoundingClientRect().top, 0, section.offsetHeight - window.innerHeight);
+  function measureLayout() {
+    sectionTop = section.offsetTop;
+    sectionTravel = Math.max(1, section.offsetHeight - window.innerHeight);
+    maxPageScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  }
+
+  const getScrollDistance = () => clamp(window.scrollY - sectionTop, 0, sectionTravel);
 
   function write(name, value) {
     root.style.setProperty(name, value);
   }
 
   function updateProgress() {
-    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const pageProgress = clamp(window.scrollY / maxScroll);
-    const bar = document.querySelector(".scroll-progress i");
-    if (bar) bar.style.transform = `scaleX(${pageProgress.toFixed(5)})`;
+    const pageProgress = clamp(window.scrollY / maxPageScroll);
+    if (progressBar) progressBar.style.transform = `scaleX(${pageProgress.toFixed(5)})`;
   }
 
   function update(timestamp = performance.now()) {
@@ -104,11 +111,6 @@
     write("--four-y", `${(10 + progress * 10).toFixed(3)}vh`);
     write("--four-scale", (0.78 + progress * 0.16).toFixed(5));
     write("--bazaar-y", `${(20 - progress * 8).toFixed(3)}vh`);
-    write("--blur-px", `${(blurActive * 14).toFixed(3)}px`);
-    write("--back-brightness", (1 - blurActive * 0.255).toFixed(5));
-    write("--bazaar-blur-px", `${(frame2.active * 14).toFixed(3)}px`);
-    write("--bazaar-brightness", (1 - frame2.active * 0.255 - frame3.active * 0.06).toFixed(5));
-    write("--bazaar-saturation", (1 + frame3.active * 0.18).toFixed(5));
     write("--shade-opacity", "1");
     write("--shade-z", frame2.active > 0.02 ? "2" : "0");
     write("--shade-top-alpha", (blurActive * 0.465).toFixed(5));
@@ -311,13 +313,13 @@
       video.hidden = true;
       showStatus("Ambient film unavailable · static visual fallback active");
     });
-    if (!reduceMotion.matches) video.play().catch(() => {});
   }
 
   window.addEventListener("scroll", requestTick, { passive: true });
   window.addEventListener(
     "resize",
     () => {
+      measureLayout();
       updateSightSlider();
       requestTick();
     },
@@ -337,6 +339,7 @@
   sightNext?.addEventListener("click", () => moveSightSlider(1));
   reduceMotion.addEventListener?.("change", requestTick);
 
+  measureLayout();
   setupSightSlider();
   setupExperienceControls();
   setupReveals();

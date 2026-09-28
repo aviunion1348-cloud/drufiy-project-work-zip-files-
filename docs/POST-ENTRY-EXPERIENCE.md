@@ -1,6 +1,6 @@
 # DrufiyAI Post-Entry Ultra-Immersive Experience
 
-**Version:** 3.0.0
+**Version:** 3.1.0
 
 **Date:** 2026-09-28
 
@@ -63,7 +63,7 @@ The post-entry layer is intentionally cinematic without hiding product meaning. 
 
 ## Live film architecture
 
-Films are remote and are never committed into the repository. Non-hero films begin with `preload="none"`; an IntersectionObserver attaches the source only near the viewport, starts playback while relevant, and pauses playback after exit. Every film includes a remote poster. Reduced-motion mode removes decorative film playback.
+Films are remote and are never committed into the repository. All nine main-page film surfaces begin with `preload="none"`; a two-stage IntersectionObserver preloads only near the viewport and a cinematic governor plays only the most visible feed. Ultra-tier devices may decode two simultaneous films; every other tier decodes one. Paused films retain their poster or latest frame, so the composition remains premium without wasting decoder/GPU capacity. Every film includes a remote poster, a live-film HUD, an error fallback, and a visitor-facing Films on/pause control. Reduced-motion mode removes decorative film playback.
 
 Current film sources:
 
@@ -74,8 +74,10 @@ Current film sources:
 - Technology network / Method: `https://cdn.pixabay.com/video/2017/11/02/12716-241674181_large.mp4`
 - Orbital Earth / Principles: `https://cdn.pixabay.com/video/2024/08/30/228835_large.mp4`
 - Rocket launch / Contact: `https://cdn.pixabay.com/video/2019/05/22/23882-338327769_large.mp4`
+- Signal-theatre orbital uplink reuses the documented Earth-orbit source with a distinct crop and signal treatment.
+- Foundation ascent: `https://cdn.pixabay.com/video/2015/08/10/236-135863777_large.mp4`
 
-All film surfaces have contrast scrims. Failed video requests leave complete CSS compositions rather than empty black blocks.
+All film surfaces have brighter presentation, premium frame telemetry, and restrained contrast scrims. Failed video requests leave complete CSS compositions rather than empty black blocks.
 
 ## Interaction systems
 
@@ -104,13 +106,19 @@ Formula: `16 × 8 × 8 = 1,024`. Each recipe includes a rationale, a compatible 
 
 ### High-refresh performance field
 
-`design-system/performance.js` samples real requestAnimationFrame timing and supports 60, 90, 100, 120, and 144Hz displays without forcing timer-based frames. Scroll interpolation, pointer interpolation, and canvas velocities are delta-time normalized, so motion speed remains consistent at every refresh rate. The runtime classifies the device as ultra, high, balanced, or reduced and lowers expensive filters on constrained hardware. Actual FPS is shown in the systems dock after calibration.
+`design-system/performance.js` samples real requestAnimationFrame timing and supports 60, 90, 100, 120, and 144Hz displays without forcing timer-based frames. Scroll interpolation, pointer interpolation, and canvas velocities are delta-time normalized, so motion speed remains consistent at every refresh rate. The runtime classifies delivery as ultra, high, balanced, eco, or reduced and adapts decoder count, canvas DPR, particle density, VFX density, backdrop filters, and ambient fields. Actual FPS and the active tier are shown in the systems dock after calibration.
+
+The cinematic entry no longer animates full-viewport blur filters or performs layout reads every frame. Network lines draw in one batched canvas path, videos and internal-page heroes pause offscreen, offscreen section animations are suspended, and interaction VFX render only during short event-driven bursts.
 
 A website cannot force 100 FPS on a 60Hz display; this architecture renders at the highest refresh rate the browser and display make available.
 
 ### Procedural sound
 
-The Web Audio catalog now exposes **256 opt-in recipes** across 16 sound families, four pitch registers, and four intensities. It includes dedicated hover, select, open, close, transmit, resolve, boundary, and orbit cues in addition to the original UI, navigation, confirmation, warning, error, pulse, scan, and launch families. No sound autoplays.
+The Web Audio catalog now exposes **512 opt-in recipes** across 32 sound families, four pitch registers, and four intensities. Dedicated identities cover hover, focus, typing, data, impact, portal, reveal, approval, denial, alert, ignition, warp, cinematic transitions, success, and failure in addition to the original interaction families. A master dynamics compressor, stereo interaction positioning, family-specific filtering, and controlled pitch motion create a richer cinematic field without binary audio assets. No sound autoplays.
+
+### Cinematic interaction VFX
+
+`design-system/cinematic-fx.js` provides one pooled, fixed canvas that remains idle until an interaction occurs. Links, buttons, controls, form focus, typing, validation, terminals, route changes, and chapter transitions receive contextual short-lived particles, energy rings, control pulses, stereo cues, or film telemetry. Event delegation avoids hundreds of duplicate listeners, frame work stops as soon as a burst completes, and reduced-motion mode removes the effect layer.
 
 ### Canvas systems
 

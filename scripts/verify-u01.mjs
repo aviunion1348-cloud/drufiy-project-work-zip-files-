@@ -18,6 +18,8 @@ const required = [
   "design-system/sound-catalog.js",
   "design-system/experience-catalog.js",
   "design-system/performance.js",
+  "design-system/cinematic-fx.css",
+  "design-system/cinematic-fx.js",
   "docs/U-01-DESIGN-SYSTEM.md",
   "docs/7 MB context doc.txt",
 ];
@@ -37,7 +39,7 @@ function walk(directory) {
 
 for (const file of required) assert(statSync(join(root, file)).isFile(), `${file} exists`);
 
-for (const file of ["script.js", "design-system/motion-catalog.js", "design-system/sound-catalog.js", "design-system/experience-catalog.js", "design-system/performance.js", "scripts/apply-u01.mjs"]) {
+for (const file of ["script.js", "design-system/motion-catalog.js", "design-system/sound-catalog.js", "design-system/experience-catalog.js", "design-system/performance.js", "design-system/cinematic-fx.js", "scripts/apply-u01.mjs"]) {
   execFileSync(process.execPath, ["--check", join(root, file)], { stdio: "pipe" });
   console.log(`✓ ${file} parses`);
 }
@@ -49,7 +51,7 @@ for (const href of [...html.matchAll(/href="#([^"]+)"/g)].map((match) => match[1
   assert(ids.includes(href), `anchor #${href} resolves`);
 }
 
-for (const file of ["styles.css", "design-system/tokens.css", "design-system/foundation.css"]) {
+for (const file of ["styles.css", "design-system/tokens.css", "design-system/foundation.css", "design-system/cinematic-fx.css"]) {
   const css = readFileSync(join(root, file), "utf8");
   assert(css.split("{").length === css.split("}").length, `${file} braces balance`);
 }
@@ -62,7 +64,7 @@ await import(pathToFileURL(join(root, "design-system/motion-catalog.js")));
 await import(pathToFileURL(join(root, "design-system/sound-catalog.js")));
 await import(pathToFileURL(join(root, "design-system/experience-catalog.js")));
 assert(globalThis.DrufiyMotion.size === 1200, "motion catalog exposes 1,200 recipes");
-assert(globalThis.DrufiySound.size === 256, "sound catalog exposes 256 recipes");
+assert(globalThis.DrufiySound.size === 512, "sound catalog exposes 512 recipes");
 assert(globalThis.DrufiyExperience.size === 1024, "experience catalog exposes 1,024 executable ideas");
 const idea = globalThis.DrufiyExperience.get("correlate:terminal:precise");
 assert(Boolean(idea?.rationale && idea?.motion && idea?.sound), "experience recipes carry rationale, motion, and sound semantics");

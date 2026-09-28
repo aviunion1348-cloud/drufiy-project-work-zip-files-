@@ -1,6 +1,6 @@
 /*
  * DrufiyAI U-01 procedural sound catalog
- * 16 families × 4 pitch registers × 4 intensities = 256 lightweight sound recipes.
+ * 32 families × 4 pitch registers × 4 intensities = 512 lightweight sound recipes.
  * No audio files are shipped. Nothing plays until a user explicitly enables sound.
  */
 
@@ -24,6 +24,22 @@
     "resolve",
     "boundary",
     "orbit",
+    "ignite",
+    "shimmer",
+    "impact",
+    "warp",
+    "data",
+    "focus",
+    "reveal",
+    "approve",
+    "deny",
+    "alert",
+    "typing",
+    "portal",
+    "cinematic",
+    "energy",
+    "success",
+    "failure",
   ];
   const pitches = ["low", "lowMid", "highMid", "high"];
   const intensities = ["subtle", "soft", "firm", "peak"];
@@ -53,6 +69,22 @@
     resolve: { waveform: "sine", intervals: [0, 7, 12, 16], speed: 0.052, filter: 3900, noise: 0 },
     boundary: { waveform: "square", intervals: [0, 1], speed: 0.12, filter: 800, noise: 0.03 },
     orbit: { waveform: "sine", intervals: [-24, -12, 0, 7, 12], speed: 0.08, filter: 2600, noise: 0.018 },
+    ignite: { waveform: "sawtooth", intervals: [-24, -12, 0, 7], speed: 0.065, filter: 1650, noise: 0.08 },
+    shimmer: { waveform: "sine", intervals: [0, 12, 19, 24], speed: 0.032, filter: 5200, noise: 0.006 },
+    impact: { waveform: "triangle", intervals: [-24, -12, 0], speed: 0.026, filter: 980, noise: 0.14 },
+    warp: { waveform: "sawtooth", intervals: [-12, 0, 12, 24], speed: 0.045, filter: 2300, noise: 0.05 },
+    data: { waveform: "square", intervals: [0, 7, 2, 12], speed: 0.022, filter: 4100, noise: 0.01 },
+    focus: { waveform: "sine", intervals: [-5, 0, 7], speed: 0.052, filter: 3000, noise: 0 },
+    reveal: { waveform: "triangle", intervals: [-12, 0, 7, 12], speed: 0.06, filter: 3600, noise: 0.012 },
+    approve: { waveform: "sine", intervals: [0, 4, 7, 12], speed: 0.055, filter: 4300, noise: 0 },
+    deny: { waveform: "square", intervals: [0, -2, -7], speed: 0.065, filter: 1200, noise: 0.04 },
+    alert: { waveform: "triangle", intervals: [0, 12, 0], speed: 0.085, filter: 2100, noise: 0.025 },
+    typing: { waveform: "square", intervals: [0], speed: 0.018, filter: 4800, noise: 0.008 },
+    portal: { waveform: "sine", intervals: [-24, -7, 0, 12, 24], speed: 0.055, filter: 3300, noise: 0.035 },
+    cinematic: { waveform: "triangle", intervals: [-24, -12, 0, 7, 12], speed: 0.095, filter: 1900, noise: 0.07 },
+    energy: { waveform: "sawtooth", intervals: [-12, 0, 5, 12], speed: 0.038, filter: 2700, noise: 0.045 },
+    success: { waveform: "sine", intervals: [0, 4, 7, 12, 19], speed: 0.052, filter: 4600, noise: 0 },
+    failure: { waveform: "sawtooth", intervals: [0, -5, -12, -19], speed: 0.06, filter: 860, noise: 0.09 },
   };
 
   function makeRecipe(family, pitch, intensity) {
@@ -87,6 +119,7 @@
 
   let context = null;
   let master = null;
+  let compressor = null;
   let enabled = false;
 
   function ensureContext() {
@@ -95,8 +128,15 @@
     if (!AudioContext) return null;
     context = new AudioContext();
     master = context.createGain();
-    master.gain.value = 0.7;
-    master.connect(context.destination);
+    compressor = context.createDynamicsCompressor();
+    master.gain.value = 0.64;
+    compressor.threshold.value = -22;
+    compressor.knee.value = 18;
+    compressor.ratio.value = 6;
+    compressor.attack.value = 0.004;
+    compressor.release.value = 0.18;
+    master.connect(compressor);
+    compressor.connect(context.destination);
     return context;
   }
 
@@ -156,9 +196,16 @@
     output.gain.value = level;
     filter.type = "lowpass";
     filter.frequency.setValueAtTime(recipe.filter, startAt);
-    filter.Q.value = recipe.family === "scan" ? 4.2 : 0.8;
+    filter.Q.value = ["scan", "data", "shimmer"].includes(recipe.family) ? 4.2 : 0.8;
     filter.connect(output);
-    output.connect(master);
+    if (typeof context.createStereoPanner === "function") {
+      const panner = context.createStereoPanner();
+      panner.pan.value = Math.max(-0.9, Math.min(0.9, options.pan ?? 0));
+      output.connect(panner);
+      panner.connect(master);
+    } else {
+      output.connect(master);
+    }
 
     recipe.intervals.forEach((interval, index) => {
       const noteAt = startAt + index * recipe.speed;
@@ -168,9 +215,15 @@
       oscillator.type = recipe.waveform;
       oscillator.frequency.setValueAtTime(recipe.base * midiRatio(interval), noteAt);
 
-      if (recipe.family === "launch") {
+      if (["launch", "ignite", "warp", "portal", "cinematic"].includes(recipe.family)) {
+        const lift = recipe.family === "cinematic" ? 7 : 12;
         oscillator.frequency.exponentialRampToValueAtTime(
-          Math.max(40, recipe.base * midiRatio(interval + 12)),
+          Math.max(40, recipe.base * midiRatio(interval + lift)),
+          endAt,
+        );
+      } else if (["impact", "failure", "deny"].includes(recipe.family)) {
+        oscillator.frequency.exponentialRampToValueAtTime(
+          Math.max(40, recipe.base * midiRatio(interval - 7)),
           endAt,
         );
       }

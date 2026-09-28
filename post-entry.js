@@ -25,53 +25,86 @@
   let cursorTargetY = -100;
   let cursorElement = null;
   let cursorDotElement = null;
+  let experienceActive = false;
   let pointerLastTime = performance.now();
   const frameDuration = 1000 / 60;
   const refreshRateBlend = (baseAmount, delta) => 1 - Math.pow(1 - baseAmount, delta / frameDuration);
 
-  function setupLazyVideos() {
-    const videos = [...experience.querySelectorAll("video")];
+  function setupCinematicVideos() {
+    const videos = [...document.querySelectorAll("video")];
+    const visibility = new Map(videos.map((video) => [video, 0]));
+    let filmsEnabled = true;
 
-    const activateVideo = (video) => {
+    const ensureSource = (video) => {
       const source = video.querySelector("source[data-src]");
-      if (source && !source.src) {
-        source.src = source.dataset.src;
-        video.load();
-      }
-
-      const markReady = () => video.classList.add("is-ready");
-      if (video.readyState >= 2) markReady();
-      else video.addEventListener("canplay", markReady, { once: true });
-
-      if (!reducedMotion.matches) {
-        video.play().catch(() => video.classList.add("is-blocked"));
-      }
+      if (!source || source.src) return;
+      source.src = source.dataset.src;
+      video.load();
     };
 
-    const pauseVideo = (video) => {
-      if (!video.closest(".gateway-chapter")) video.pause();
+    const activeLimit = () => window.DrufiyPerformance?.quality?.videos ?? 1;
+
+    const reconcile = () => {
+      const candidates = videos
+        .filter((video) => (visibility.get(video) || 0) > 0)
+        .sort((a, b) => (visibility.get(b) || 0) - (visibility.get(a) || 0));
+      const selected = new Set(filmsEnabled && !reducedMotion.matches && !document.hidden
+        ? candidates.slice(0, activeLimit())
+        : []);
+
+      videos.forEach((video) => {
+        const shouldPlay = selected.has(video);
+        if (shouldPlay) {
+          ensureSource(video);
+          if (video.paused) {
+            video.play().then(() => video.classList.add("is-playing")).catch(() => video.classList.add("is-blocked"));
+          }
+        } else {
+          video.pause();
+          video.classList.remove("is-playing");
+        }
+      });
     };
 
-    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
-      if (!reducedMotion.matches) videos.forEach(activateVideo);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
+    const loadObserver = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting && filmsEnabled && !reducedMotion.matches) ensureSource(entry.target);
+      }),
+      { rootMargin: "40% 0px 40% 0px", threshold: 0.01 },
+    );
+    const playObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target;
-          if (entry.isIntersecting) activateVideo(video);
-          else pauseVideo(video);
-        });
+        entries.forEach((entry) => visibility.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
+        reconcile();
       },
-      { rootMargin: "75% 0px 75% 0px", threshold: 0.01 },
+      { threshold: [0, 0.08, 0.2, 0.4, 0.65, 0.9] },
     );
 
     videos.forEach((video) => {
+      const markReady = () => video.classList.add("is-ready");
+      video.addEventListener("canplay", markReady);
       video.addEventListener("error", () => video.classList.add("has-error"));
-      observer.observe(video);
+      if (video.readyState >= 2) markReady();
+      loadObserver.observe(video);
+      playObserver.observe(video);
     });
+
+    const toggle = document.querySelector(".video-toggle");
+    const label = toggle?.querySelector(".video-label");
+    const icon = toggle?.querySelector(".video-toggle-icon");
+    toggle?.addEventListener("click", () => {
+      filmsEnabled = !filmsEnabled;
+      toggle.setAttribute("aria-pressed", String(filmsEnabled));
+      if (label) label.textContent = filmsEnabled ? "Films on" : "Films paused";
+      if (icon) icon.textContent = filmsEnabled ? "Ⅱ" : "▶";
+      if (filmsEnabled) sound("cinematic:low:soft", 0.34);
+      reconcile();
+    });
+
+    document.addEventListener("visibilitychange", reconcile);
+    reducedMotion.addEventListener?.("change", reconcile);
+    window.addEventListener("drufiy:frame-tier", reconcile);
+    return { reconcile };
   }
 
   function setupReveals() {
@@ -113,7 +146,16 @@
         if (isActive) link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
       });
-      sound("orbit:highMid:subtle", 0.42);
+      const chapterCues = {
+        experience: "portal:lowMid:subtle",
+        products: "reveal:highMid:soft",
+        "signal-theatre": "data:highMid:soft",
+        "how-we-build": "cinematic:lowMid:soft",
+        principles: "shimmer:highMid:soft",
+        contact: "ignite:lowMid:soft",
+      };
+      window.DrufiyFX?.emit(window.innerWidth * 0.5, window.innerHeight * 0.42, "cinematic", 0.72);
+      sound(chapterCues[id] || "orbit:highMid:subtle", 0.34);
     };
 
     const observer = new IntersectionObserver(
@@ -128,7 +170,12 @@
     chapters.forEach((chapter) => observer.observe(chapter));
 
     const engagementObserver = new IntersectionObserver(
-      ([entry]) => experience.classList.toggle("is-engaged", entry.isIntersecting),
+      ([entry]) => {
+        experienceActive = entry.isIntersecting;
+        experience.classList.toggle("is-engaged", experienceActive);
+        if (!experienceActive) document.body.classList.remove("has-lux-cursor");
+        window.dispatchEvent(new CustomEvent("drufiy:experience-active", { detail: { active: experienceActive } }));
+      },
       { threshold: 0.01 },
     );
     engagementObserver.observe(experience);
@@ -184,6 +231,7 @@
     window.addEventListener(
       "pointermove",
       (event) => {
+        if (!experienceActive) return;
         pointerTargetX = event.clientX / window.innerWidth - 0.5;
         pointerTargetY = event.clientY / window.innerHeight - 0.5;
         cursorTargetX = event.clientX;
@@ -199,7 +247,6 @@
     interactive.forEach((element) => {
       element.addEventListener("pointerenter", () => {
         cursor.classList.add("is-hovering");
-        sound("hover:highMid:subtle", 0.16);
       });
       element.addEventListener("pointerleave", () => cursor.classList.remove("is-hovering"));
     });
@@ -318,20 +365,19 @@
       }
 
       if (type === "network") {
+        context.beginPath();
         for (let a = 0; a < activeCount; a += 1) {
           for (let b = a + 1; b < activeCount; b += 1) {
             const dx = points[a].x - points[b].x;
             const dy = points[a].y - points[b].y;
-            const distance = Math.hypot(dx, dy);
-            if (distance > 145) continue;
-            context.beginPath();
+            if ((dx * dx) + (dy * dy) > 21025) continue;
             context.moveTo(points[a].x, points[a].y);
             context.lineTo(points[b].x, points[b].y);
-            context.strokeStyle = `rgba(59, 232, 176, ${((1 - distance / 145) * 0.12).toFixed(3)})`;
-            context.lineWidth = 0.7;
-            context.stroke();
           }
         }
+        context.strokeStyle = "rgba(59, 232, 176, 0.075)";
+        context.lineWidth = 0.7;
+        context.stroke();
       }
 
       for (let index = 0; index < activeCount; index += 1) {
@@ -381,12 +427,12 @@
     const readout = experience.querySelector("[data-frame-readout]");
     if (!readout) return;
     const update = ({ detail }) => {
-      const suffix = detail.tier === "ultra" ? " / ULTRA" : "";
-      readout.textContent = `FPS / ${detail.fps}${suffix}`;
+      readout.textContent = `FPS / ${detail.fps} · ${detail.tier.toUpperCase()}`;
+      readout.title = `Measured frame delivery: ${detail.fps} FPS. Rendering tier: ${detail.tier}.`;
     };
     window.addEventListener("drufiy:frame-tier", update);
     if (window.DrufiyPerformance) {
-      readout.textContent = `FPS / ${window.DrufiyPerformance.fps}`;
+      readout.textContent = `FPS / ${window.DrufiyPerformance.fps} · ${window.DrufiyPerformance.tier.toUpperCase()}`;
     }
   }
 
@@ -466,20 +512,23 @@
     let scheduled = false;
     const update = () => {
       scheduled = false;
+      if (!experienceActive) return;
       const rect = experience.getBoundingClientRect();
       const distance = Math.max(1, experience.offsetHeight - window.innerHeight);
       const progress = clamp(-rect.top / distance);
       experience.style.setProperty("--chapter-progress", progress.toFixed(5));
     };
     window.addEventListener("scroll", () => {
-      if (scheduled) return;
+      if (!experienceActive || scheduled) return;
       scheduled = true;
       requestAnimationFrame(update);
     }, { passive: true });
-    update();
+    window.addEventListener("drufiy:experience-active", ({ detail }) => {
+      if (detail.active) update();
+    });
   }
 
-  setupLazyVideos();
+  setupCinematicVideos();
   setupReveals();
   setupChapterNavigation();
   setupPointerExperience();

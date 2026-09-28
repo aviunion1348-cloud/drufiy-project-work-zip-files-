@@ -38,7 +38,6 @@
   opacity: 0.028;
   background-image: repeating-radial-gradient(circle, #fff 0 1px, transparent 1px 4px);
   background-size: 6px 6px;
-  mix-blend-mode: soft-light;
   content: "";
   pointer-events: none;
 }
@@ -57,7 +56,7 @@
   padding: 0 clamp(20px, 4vw, 60px);
   border-bottom: 1px solid rgb(255 255 255 / 8%);
   background: rgb(5 7 7 / 58%);
-  backdrop-filter: blur(22px);
+  backdrop-filter: blur(8px);
 }
 
 .detail-logo {
@@ -163,23 +162,22 @@
   max-width: none;
   object-fit: cover;
   opacity: 0;
-  filter: saturate(0.82) contrast(1.14) brightness(0.92);
-  transform: scale(1.06);
-  transition: opacity 1400ms var(--ease-out), transform 9s linear;
+  filter: none;
+  transform: translate3d(0, 0, 0) scale(1.045);
+  transition: opacity 1000ms var(--ease-out);
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
 
 .detail-hero-video.is-ready {
-  opacity: 0.76;
-  transform: scale(1);
+  opacity: 0.86;
 }
 
 .detail-hero-scrim {
   z-index: -3;
   background:
     radial-gradient(circle at 76% 25%, rgb(var(--page-accent-rgb) / 16%), transparent 30%),
-    linear-gradient(90deg, rgb(5 7 7 / 82%), rgb(5 7 7 / 28%) 68%, rgb(5 7 7 / 50%)),
+    linear-gradient(90deg, rgb(5 7 7 / 74%), rgb(5 7 7 / 20%) 68%, rgb(5 7 7 / 42%)),
     linear-gradient(180deg, rgb(5 7 7 / 25%), transparent 32%, rgb(5 7 7 / 90%));
 }
 
@@ -839,11 +837,16 @@
 @keyframes halo-turn { to { transform: rotate(1turn); } }
 @keyframes lux-pulse { 0%, 100% { opacity: 0.45; transform: scale(0.82); } 50% { opacity: 1; transform: scale(1.13); } }
 
-html[data-frame-tier="balanced"] .detail-page::before { display: none; }
+html[data-frame-tier="balanced"] .detail-page::before,
+html[data-frame-tier="eco"] .detail-page::before { display: none; }
+html[data-frame-tier="high"] .detail-nav,
+html[data-frame-tier="high"] .detail-terminal,
 html[data-frame-tier="balanced"] .detail-nav,
-html[data-frame-tier="balanced"] .detail-terminal { backdrop-filter: none; }
-html[data-frame-tier="balanced"] .detail-hero-video { filter: saturate(0.84) brightness(1.02); }
-html[data-frame-tier="balanced"] .detail-terminal { box-shadow: 0 28px 80px rgb(0 0 0 / 42%); }
+html[data-frame-tier="balanced"] .detail-terminal,
+html[data-frame-tier="eco"] .detail-nav,
+html[data-frame-tier="eco"] .detail-terminal { backdrop-filter: none; }
+html[data-frame-tier="balanced"] .detail-terminal,
+html[data-frame-tier="eco"] .detail-terminal { box-shadow: 0 28px 80px rgb(0 0 0 / 42%); }
 
 @media (max-width: 1000px) {
   .detail-hero-bottom,

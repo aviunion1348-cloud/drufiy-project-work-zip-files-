@@ -12,10 +12,11 @@
   const samples = [];
   const maxSamples = 180;
   const profiles = Object.freeze({
-    ultra: Object.freeze({ dpr: 1.75, particles: 1, filters: true }),
-    high: Object.freeze({ dpr: 1.5, particles: 0.88, filters: true }),
-    balanced: Object.freeze({ dpr: 1.15, particles: 0.62, filters: false }),
-    reduced: Object.freeze({ dpr: 1, particles: 0, filters: false }),
+    ultra: Object.freeze({ dpr: 1.4, particles: 0.82, effects: 1, videos: 2, filters: true }),
+    high: Object.freeze({ dpr: 1.25, particles: 0.64, effects: 0.78, videos: 1, filters: false }),
+    balanced: Object.freeze({ dpr: 1, particles: 0.42, effects: 0.56, videos: 1, filters: false }),
+    eco: Object.freeze({ dpr: 0.85, particles: 0.22, effects: 0.34, videos: 1, filters: false }),
+    reduced: Object.freeze({ dpr: 1, particles: 0, effects: 0, videos: 0, filters: false }),
   });
   let previous = 0;
   let frame = 0;
@@ -25,9 +26,10 @@
 
   function classify(fps) {
     if (reducedMotion.matches) return "reduced";
-    if (fps >= 85) return "ultra";
-    if (fps >= 52) return "high";
-    return "balanced";
+    if (fps >= 95) return "ultra";
+    if (fps >= 55) return "high";
+    if (fps >= 40) return "balanced";
+    return "eco";
   }
 
   function setTier(nextTier) {

@@ -65,8 +65,10 @@ npm run build
 - Functional development contact endpoint with field and email validation; no PII persistence
 - Responsive color, typography, spacing, radius, elevation, focus, and motion tokens
 - **1,200 deterministic motion recipes**
-- **256 opt-in procedural sound recipes**
+- **512 opt-in procedural cinematic sound recipes** across 32 contextual families
 - **1,024 executable human-intent experience ideas**
+- Nine governed live-film surfaces plus live-film heroes across all five internal routes
+- Interaction-driven cinematic canvas VFX for controls, links, forms, focus, and validation
 - Adaptive 60/90/100/120/144Hz requestAnimationFrame scheduling and quality tiers
 - W3C-style machine-readable design tokens
 - Safe cross-repository foundation adapter
