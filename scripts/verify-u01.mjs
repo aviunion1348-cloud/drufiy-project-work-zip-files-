@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+/** Dependency-free U-01 verification. */
+
+import { execFileSync } from "node:child_process";
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, extname, join, relative, resolve } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const required = [
+  "index.html",
+  "styles.css",
+  "script.js",
+  "design-system/tokens.css",
+  "design-system/tokens.json",
+  "design-system/foundation.css",
+  "design-system/motion-catalog.js",
+  "design-system/sound-catalog.js",
+  "docs/U-01-DESIGN-SYSTEM.md",
+  "docs/7 MB context doc.txt",
+];
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+  console.log(`✓ ${message}`);
+}
+
+function walk(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.name === ".git") return [];
+    const absolute = join(directory, entry.name);
+    return entry.isDirectory() ? walk(absolute) : [absolute];
+  });
+}
+
+for (const file of required) assert(statSync(join(root, file)).isFile(), `${file} exists`);
+
+for (const file of ["script.js", "design-system/motion-catalog.js", "design-system/sound-catalog.js", "scripts/apply-u01.mjs"]) {
+  execFileSync(process.execPath, ["--check", join(root, file)], { stdio: "pipe" });
+  console.log(`✓ ${file} parses`);
+}
+
+const html = readFileSync(join(root, "index.html"), "utf8");
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
+assert(new Set(ids).size === ids.length, "HTML IDs are unique");
+for (const href of [...html.matchAll(/href="#([^"]+)"/g)].map((match) => match[1])) {
+  assert(ids.includes(href), `anchor #${href} resolves`);
+}
+
+for (const file of ["styles.css", "design-system/tokens.css", "design-system/foundation.css"]) {
+  const css = readFileSync(join(root, file), "utf8");
+  assert(css.split("{").length === css.split("}").length, `${file} braces balance`);
+}
+
+// Browser catalogs are intentionally globals. A minimal window mock is enough to
+// initialize and verify their cardinality without creating an AudioContext.
+globalThis.window = globalThis;
+globalThis.matchMedia = () => ({ matches: false });
+await import(pathToFileURL(join(root, "design-system/motion-catalog.js")));
+await import(pathToFileURL(join(root, "design-system/sound-catalog.js")));
+assert(globalThis.DrufiyMotion.size === 320, "motion catalog exposes 320 recipes");
+assert(globalThis.DrufiySound.size === 128, "sound catalog exposes 128 recipes");
+
+const contextSize = statSync(join(root, "docs/7 MB context doc.txt")).size;
+assert(contextSize === 7 * 1024 * 1024, "context handoff is exactly 7 MiB");
+
+const files = walk(root);
+const forbiddenMedia = new Set([".mp3", ".wav", ".ogg", ".mp4", ".webm", ".mov", ".png", ".jpg", ".jpeg", ".webp"]);
+const localMedia = files.filter((file) => forbiddenMedia.has(extname(file).toLowerCase()));
+assert(localMedia.length === 0, "no local image, video, or audio payloads are stored");
+
+const workspaceBytes = files.reduce((total, file) => total + statSync(file).size, 0);
+assert(workspaceBytes < 80 * 1024 * 1024, `workspace is under 80 MiB (${(workspaceBytes / 1024 / 1024).toFixed(2)} MiB)`);
+
+console.log("\nU-01 verification complete.");
