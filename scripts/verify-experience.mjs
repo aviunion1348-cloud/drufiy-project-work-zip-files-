@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+/** Dependency-free verification for the post-entry multi-page experience. */
+
+import { execFileSync } from "node:child_process";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { dirname, extname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const pages = ["index.html", "lear.html", "prash.html", "method.html", "principles.html", "signal-map.html"];
+const runtimeFiles = ["script.js", "post-entry.js", "interior.js", "design-system/experience-catalog.js", "design-system/performance.js", "design-system/cinematic-fx.js", "scripts/dev-server.mjs", "scripts/package-release.mjs"];
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+  console.log(`✓ ${message}`);
+}
+
+for (const file of runtimeFiles) {
+  execFileSync(process.execPath, ["--check", join(root, file)], { stdio: "pipe" });
+  console.log(`✓ ${file} parses`);
+}
+
+for (const pageName of pages) {
+  const pagePath = join(root, pageName);
+  assert(existsSync(pagePath), `${pageName} exists`);
+  const html = readFileSync(pagePath, "utf8");
+  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
+  assert(new Set(ids).size === ids.length, `${pageName} IDs are unique`);
+
+  const localAssets = [...html.matchAll(/(?:href|src)="(\.\/[^"#?]+)"/g)].map((match) => match[1]);
+  for (const asset of localAssets) {
+    const assetPath = join(root, asset.slice(2));
+    assert(existsSync(assetPath), `${pageName} resolves ${asset}`);
+  }
+
+  for (const target of [...html.matchAll(/href="#([^"]+)"/g)].map((match) => match[1])) {
+    assert(ids.includes(target), `${pageName} anchor #${target} resolves`);
+  }
+
+  assert(!/href="#"/.test(html), `${pageName} has no placeholder links`);
+}
+
+const index = readFileSync(join(root, "index.html"), "utf8");
+assert((index.match(/<video\b/g) || []).length >= 10, "main experience contains at least ten live film surfaces");
+assert(index.includes('name="name"') && index.includes('name="email"') && index.includes('name="message"'), "contact form preserves all three required fields");
+assert(index.includes("Drufiy AI Private Limited") && index.includes("© 2026 DrufiyAI"), "legal identity and copyright remain present");
+assert(index.includes("lear.html") && index.includes("prash.html"), "Lear and Prash route to dedicated pages");
+assert(index.includes("experience-catalog.js") && index.includes("performance.js") && index.includes("cinematic-fx.js"), "experience, adaptive-performance, and cinematic VFX runtimes are loaded");
+assert((index.match(/data-src="https:\/\/cdn\.pixabay\.com\/video\//g) || []).length >= 10, "main films use governed lazy remote sources");
+assert((index.match(/preload="none"/g) || []).length >= 10, "all main films begin with network-idle preload governance");
+assert(index.includes("303918_large.mp4") && index.includes("244392_large.mp4") && index.includes("286684_large.mp4"), "jet-cinema film sources are present");
+assert(index.includes("271927_large.mp4") && index.includes("126832-737028191_large.mp4"), "high-technology HUD and spacecraft films are present");
+assert(index.includes("video-toggle") && index.includes("data-film-label"), "film controls and live-film telemetry are exposed");
+assert(index.includes("audio-volume") && index.includes("audio-volume-value"), "cinematic master-volume control is exposed");
+assert(index.includes("1,024") && index.includes("data-frame-readout"), "idea count and live FPS readout are exposed");
+for (const pageName of pages.slice(1)) {
+  const html = readFileSync(join(root, pageName), "utf8");
+  assert(html.includes("detail-volume-input"), `${pageName} includes visible master-volume control`);
+}
+
+for (const stylesheet of ["experience.css", "interior.css"]) {
+  const css = readFileSync(join(root, stylesheet), "utf8");
+  assert(css.split("{").length === css.split("}").length, `${stylesheet} braces balance`);
+}
+
+const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+assert(packageJson.version === "3.2.0", "package is version 3.2.0");
+for (const script of ["dev", "start", "test", "build", "package"]) {
+  assert(Boolean(packageJson.scripts?.[script]), `npm script ${script} exists`);
+}
+assert(Object.keys(packageJson.dependencies || {}).length === 0, "runtime has no third-party package dependency");
+
+const archivePath = join(root, "releases", "drufiyai-ultra-immersive.zip");
+if (existsSync(archivePath)) {
+  assert(statSync(archivePath).size > 0, "downloadable ZIP is non-empty");
+  const listing = execFileSync("unzip", ["-l", archivePath], { encoding: "utf8" });
+  for (const file of ["package.json", ...pages]) assert(listing.includes(file), `ZIP contains ${file}`);
+}
+
+console.log("\nPost-entry experience verification complete.");

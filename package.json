@@ -1,0 +1,18 @@
+{
+  "name": "drufiyai-ultra-immersive",
+  "version": "3.2.0",
+  "private": true,
+  "description": "DrufiyAI cinematic multi-page experience and portable precision design system",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "start": "node scripts/dev-server.mjs",
+    "test": "node scripts/verify-u01.mjs && node scripts/verify-experience.mjs",
+    "build": "node scripts/package-release.mjs",
+    "package": "node scripts/package-release.mjs",
+    "context": "node scripts/build-context-doc.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

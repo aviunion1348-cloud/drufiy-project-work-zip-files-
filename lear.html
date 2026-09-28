@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lear — Local DevOps Agent | DrufiyAI</title>
+    <meta name="description" content="Lear is a local DevOps agent for small engineering teams." />
+    <meta name="theme-color" content="#050707" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./interior.css" />
+    <link rel="stylesheet" href="./design-system/cinematic-fx.css" />
+    <script src="./design-system/sound-catalog.js" defer></script>
+    <script src="./design-system/performance.js" defer></script>
+    <script src="./design-system/cinematic-fx.js" defer></script>
+    <script src="./interior.js" defer></script>
+  </head>
+  <body class="detail-page" data-page="lear">
+    <a class="skip-link" href="#lear-main">Skip to Lear</a>
+    <div class="detail-loader" aria-hidden="true"><div class="detail-loader-inner"><i class="detail-loader-mark"></i><span>INITIALIZING LEAR / LOCAL FIELD</span></div></div>
+
+    <header class="detail-nav">
+      <a class="detail-logo" href="./index.html">DrufiyAI</a>
+      <div class="detail-nav-center"><i></i><span>LEAR / LOCAL DEVOPS</span></div>
+      <div class="detail-nav-actions"><a href="./index.html#products">All models</a><button class="detail-sound" type="button" aria-pressed="false"><span>AUDIO OFF</span><b aria-hidden="true">◌</b></button><label class="detail-volume" title="Cinematic effects volume"><span>VOL</span><input class="detail-volume-input" type="range" min="0" max="100" value="82" step="1" aria-label="Cinematic effects volume" /><output>82</output></label></div>
+    </header>
+    <div class="detail-progress" aria-hidden="true"><i></i></div>
+
+    <main id="lear-main">
+      <section class="detail-hero" aria-labelledby="lear-title">
+        <video class="detail-hero-video" autoplay muted loop playsinline preload="metadata" data-film-label="LEAR / SPACECRAFT OPERATIONS" aria-hidden="true" poster="https://cdn.pixabay.com/video/2022/08/05/126832-737028191_tiny.jpg">
+          <source src="https://cdn.pixabay.com/video/2022/08/05/126832-737028191_large.mp4" type="video/mp4" />
+        </video>
+        <div class="detail-hero-scrim" aria-hidden="true"></div><div class="detail-hero-grid" aria-hidden="true"></div>
+        <div class="detail-hero-inner">
+          <div class="detail-kicker"><span>MODEL / 01</span><i></i><span>AVAILABLE FOR EARLY ACCESS</span></div>
+          <h1 id="lear-title">Le<em>ar</em></h1>
+          <div class="detail-hero-bottom">
+            <p>A local DevOps agent for small engineering teams. Lear reads your real infrastructure signals, finds what actually broke, and proposes a fix that waits for your approval.</p>
+            <div class="detail-hero-meta"><span><b>LOCAL</b>OPERATION</span><span><b>CONNECTED</b>SIGNALS</span><span><b>HUMAN</b>APPROVAL</span></div>
+          </div>
+        </div>
+        <div class="detail-scroll-hint" aria-hidden="true"><span>DESCEND INTO LEAR</span><i></i></div>
+      </section>
+
+      <section class="detail-section" aria-labelledby="lear-capabilities">
+        <div class="detail-container">
+          <header class="detail-heading-grid" data-detail-reveal>
+            <div><div class="detail-kicker"><span>OPERATING PRINCIPLES</span><i></i><span>CLOSE TO THE WORK</span></div><h2 id="lear-capabilities">One system. One difficult job.</h2></div>
+            <p>Lear is designed around the operational context generic tools miss: infrastructure signals, repository history, deployment state, and the people responsible for the decision.</p>
+          </header>
+          <div class="capability-grid">
+            <article class="capability-card" data-detail-reveal><span>01 / PROXIMITY</span><div class="capability-icon" aria-hidden="true"></div><h3>Runs locally</h3><p>Local operation keeps sensitive context where it belongs.</p></article>
+            <article class="capability-card" data-detail-reveal><span>02 / CONTEXT</span><div class="capability-icon" aria-hidden="true"></div><h3>Connects your stack</h3><p>Signals become useful when the model can read them together instead of in isolation.</p></article>
+            <article class="capability-card" data-detail-reveal><span>03 / CONTROL</span><div class="capability-icon" aria-hidden="true"></div><h3>Acts with approval</h3><p>People stay in control of consequential changes.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-section" aria-labelledby="lear-investigation">
+        <div class="detail-container detail-split">
+          <div class="detail-split-copy" data-detail-reveal><div class="detail-kicker"><span>INVESTIGATION FIELD</span><i></i><span>TRACEABLE</span></div><h2 id="lear-investigation">From signal to proposed fix.</h2><p>Every stage stays visible: what Lear read, which events it connected, what it believes caused the incident, and the change it proposes for review.</p></div>
+          <div class="detail-terminal" data-detail-reveal tabindex="0" aria-label="Lear investigation demo. Activate to replay.">
+            <div class="detail-terminal-header"><span class="terminal-dots"><i></i><i></i><i></i></span><span>LEAR / INVESTIGATION</span><span>CONNECTED</span></div>
+            <div class="detail-terminal-body">
+              <p><span>&gt;</span> reading cluster and CI signals</p>
+              <p><span>&gt;</span> correlating 4 related events</p>
+              <p class="is-error"><span>!</span> root cause: failed migration</p>
+              <p class="is-indent">proposed: roll back deployment</p>
+              <p><span>&gt;</span> waiting for your approval<i></i></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-quote"><blockquote>Most tools tell you something broke. Ours help explain why.</blockquote><cite>DRUFIYAI / OPERATING BELIEF</cite></section>
+
+      <section class="detail-section" aria-labelledby="lear-boundary">
+        <div class="detail-container">
+          <div class="detail-heading-grid" data-detail-reveal><div><div class="detail-kicker"><span>TRUST BOUNDARY</span><i></i><span>VISIBLE BY DESIGN</span></div><h2 id="lear-boundary">Useful systems know where they stop.</h2></div><p>When evidence is incomplete, Lear says so. A suggestion is not a solution until the system confirms it, and a consequential action does not proceed without a person.</p></div>
+        </div>
+      </section>
+
+      <a class="detail-next" href="./prash.html"><div class="detail-next-inner"><div><span>NEXT MODEL / 00</span><h2>Explore Prash.</h2></div><b aria-hidden="true">↗</b></div></a>
+    </main>
+
+    <footer class="detail-footer"><div class="detail-footer-inner"><span>Drufiy AI Private Limited</span><span>© 2026 DrufiyAI</span></div></footer>
+  </body>
+</html>
