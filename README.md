@@ -1,40 +1,77 @@
-# DrufiyAI — Precision Engineering UI
+# DrufiyAI — Ultra Immersive Systems Experience
 
-U-01 establishes the design-system foundation and cinematic entry experience for DrufiyAI.
+A build-free cinematic, multi-page DrufiyAI experience with a precision-engineering design system, the supplied Mostar-inspired opening sequence, live high-technology film surfaces, dedicated Lear and Prash routes, and an npm-powered local test server.
 
-## Run locally
+## Downloadable package
 
-No install or build step is required.
+A ready-to-send archive is committed at:
+
+[`releases/drufiyai-ultra-immersive.zip`](releases/drufiyai-ultra-immersive.zip)
+
+The archive includes the full runnable source, documentation, agent handoff, integrity manifest, and npm commands. Remote images, fonts, and films remain remote so the package stays lightweight.
+
+## Run with npm
+
+Requirements: Node.js 18 or newer.
 
 ```bash
-python3 -m http.server 4173 --bind 0.0.0.0
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:4173`.
+Open `http://localhost:4173`.
 
-## Included in U-01
+Production-style local start:
 
-- Cinematic 3,700px sticky-scroll entry adapted to DrufiyAI
-- Responsive color, typography, spacing, radius, elevation, motion, and focus tokens
-- Live remote rocket-film background with accessible fallback
-- Infinite keyboard-operable principle rail
-- 320 deterministic motion recipes
-- 128 opt-in procedural sound recipes
-- W3C-style machine-readable token JSON
+```bash
+npm start
+```
+
+Use a custom port:
+
+```bash
+npm run dev -- --port 8080
+```
+
+## Test and package
+
+```bash
+npm test
+npm run build
+```
+
+`npm run build` regenerates the shareable ZIP and `releases/SHA256SUMS.txt`.
+
+## Routes
+
+| Route | Experience |
+|---|---|
+| `/` | Mostar-inspired cinematic entry plus the full post-entry systems journey |
+| `/lear.html` | Lear local DevOps model experience |
+| `/prash.html` | Prash CI/CD failure-analysis experience |
+| `/method.html` | How DrufiyAI builds dedicated models |
+| `/principles.html` | Trust and system-boundary principles |
+| `/signal-map.html` | Interactive signal architecture |
+
+## Included
+
+- 3,700px sticky-scroll entry with pointer parallax and infinite card rail
+- Seven live remote film surfaces across the primary experience
+- Dedicated live-film hero treatment for every detail page
+- Lazy video activation, pause/resume behavior, poster fallbacks, and reduced-motion fallbacks
+- Interactive signal theatre and signal architecture
+- Lear and Prash animated terminal sequences
+- Luxury magnetic controls, 3D tilt surfaces, custom cursor, radar, orbit, network, and starfield systems
+- Functional development contact endpoint with field and email validation; no PII persistence
+- Responsive color, typography, spacing, radius, elevation, focus, and motion tokens
+- **1,200 deterministic motion recipes**
+- **128 opt-in procedural sound recipes**
+- W3C-style machine-readable design tokens
 - Safe cross-repository foundation adapter
-- Reduced-motion and forced-colors support
+- Exact 7 MiB agent handoff document
+- Dependency-free runtime and server
 
-## Scope
-
-This branch implements **U-01 only**. It deliberately does not implement:
-
-- U-02 Sidebar redesign
-- U-03 Dashboard redesign
-- U-04 Component library
-
-See [`docs/U-01-DESIGN-SYSTEM.md`](docs/U-01-DESIGN-SYSTEM.md) for the complete architecture and handoff.
-
-## Portable installation
+## Design-system portability
 
 Dry run against another checkout:
 
@@ -42,10 +79,16 @@ Dry run against another checkout:
 node scripts/apply-u01.mjs --target /path/to/project
 ```
 
-Apply the foundation:
+Apply the portable foundation:
 
 ```bash
 node scripts/apply-u01.mjs --target /path/to/project --write
 ```
 
-The adapter is intentionally explicit and does not alter business logic or push Git changes.
+The adapter is intentionally explicit. It does not rewrite unknown business logic or push Git changes.
+
+## Documentation
+
+- [`docs/POST-ENTRY-EXPERIENCE.md`](docs/POST-ENTRY-EXPERIENCE.md)
+- [`docs/U-01-DESIGN-SYSTEM.md`](docs/U-01-DESIGN-SYSTEM.md)
+- [`docs/7 MB context doc.txt`](docs/7%20MB%20context%20doc.txt)

@@ -58,7 +58,7 @@ globalThis.window = globalThis;
 globalThis.matchMedia = () => ({ matches: false });
 await import(pathToFileURL(join(root, "design-system/motion-catalog.js")));
 await import(pathToFileURL(join(root, "design-system/sound-catalog.js")));
-assert(globalThis.DrufiyMotion.size === 320, "motion catalog exposes 320 recipes");
+assert(globalThis.DrufiyMotion.size === 1200, "motion catalog exposes 1,200 recipes");
 assert(globalThis.DrufiySound.size === 128, "sound catalog exposes 128 recipes");
 
 const contextSize = statSync(join(root, "docs/7 MB context doc.txt")).size;

@@ -6,7 +6,7 @@
 
 **Date:** 2026-09-28
 
-**Scope boundary:** U-01 only. U-02 Sidebar, U-03 Dashboard, and U-04 Component Library are intentionally not implemented.
+**Scope boundary:** This document covers the U-01 foundation. The subsequent post-entry multi-page experience is documented separately in `POST-ENTRY-EXPERIENCE.md`; U-02 Sidebar, U-03 Dashboard, and U-04 Component Library remain intentionally separate.
 
 ## 1. Outcome
 
@@ -16,7 +16,7 @@ U-01 establishes a framework-agnostic visual and interaction foundation for the 
 - Centralized CSS custom properties for color, type, spacing, shape, elevation, blur, motion, focus, and z-index.
 - A machine-readable W3C-style token file (`design-system/tokens.json`).
 - A portable global reset/accessibility foundation.
-- A deterministic catalog of **320 motion recipes**.
+- A deterministic catalog expanded to **1,200 motion recipes** while retaining the original recipe identifiers.
 - A procedural, opt-in catalog of **128 sound recipes**, generated with Web Audio and shipped without binary audio assets.
 - A live rocket-film backdrop after the cinematic entry, with a poster fallback and reduced-motion fallback.
 - A safe, idempotent adapter that can install the U-01 foundation into common vanilla, React, Vite, Next, Remix, Astro, Vue, or Svelte project layouts.
@@ -105,14 +105,14 @@ These values should be consumed by U-02, U-03, and U-04 rather than recreated.
 
 ## 6. Motion system
 
-`design-system/motion-catalog.js` creates 320 distinct, deterministic recipes at runtime:
+`design-system/motion-catalog.js` creates 1,200 distinct, deterministic recipes at runtime:
 
-- 5 families: reveal, drift, signal, focus, cinematic
+- 10 families: reveal, drift, signal, focus, cinematic, orbit, scan, glitch, magnetic, parallax
 - 8 directions: up, down, left, right, forward, backward, in, out
-- 4 depths: near, mid, far, deep
-- 2 tempos: swift, steady
+- 5 depths: near, mid, far, deep, orbital
+- 3 tempos: instant, swift, steady
 
-Formula: `5 × 8 × 4 × 2 = 320`.
+Formula: `10 × 8 × 5 × 3 = 1,200`.
 
 Use:
 
@@ -242,7 +242,7 @@ It intentionally does **not** push Git commits, execute package scripts, rewrite
 │   ├── tokens.css                     # canonical CSS custom properties
 │   ├── tokens.json                    # machine-readable token mirror
 │   ├── foundation.css                 # reset, accessibility, portable primitives
-│   ├── motion-catalog.js              # 320 motion recipes
+│   ├── motion-catalog.js              # 1,200 motion recipes
 │   └── sound-catalog.js               # 128 procedural audio recipes
 ├── scripts/
 │   └── apply-u01.mjs                  # safe cross-repository installer
@@ -264,7 +264,7 @@ Open `http://localhost:4173` locally or the provided preview URL in Arena.
 ## 14. Verification performed
 
 - JavaScript syntax checks for all runtime files.
-- Catalog cardinality checks: motion = 320; sound = 128.
+- Catalog cardinality checks: motion = 1,200; sound = 128.
 - HTML parsing check and duplicate-ID check.
 - CSS brace balance check.
 - Portable adapter dry run and fixture install test.

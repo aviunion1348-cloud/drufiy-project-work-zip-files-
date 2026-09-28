@@ -203,6 +203,13 @@
     activeSight = index;
     updateSightSlider();
     window.DrufiySound?.play("confirm:highMid:soft");
+
+    // The cinematic rail is also the first navigation layer. Product and
+    // principle cards open their dedicated immersive pages when activated.
+    const destination = card.dataset.href;
+    if (destination) {
+      window.setTimeout(() => window.location.assign(destination), 120);
+    }
   }
 
   function setupSightSlider() {

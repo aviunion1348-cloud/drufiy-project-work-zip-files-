@@ -1,35 +1,42 @@
 /*
  * DrufiyAI U-01 motion catalog
- * 5 families × 8 directions × 4 depth levels × 2 tempos = 320 deterministic recipes.
+ * 10 families × 8 directions × 5 depth levels × 3 tempos = 1,200 deterministic recipes.
  * Recipes use the Web Animations API and honor prefers-reduced-motion.
  */
 
 (function bootstrapMotionCatalog(global) {
   "use strict";
 
-  const families = ["reveal", "drift", "signal", "focus", "cinematic"];
+  const families = ["reveal", "drift", "signal", "focus", "cinematic", "orbit", "scan", "glitch", "magnetic", "parallax"];
   const directions = ["up", "down", "left", "right", "forward", "backward", "in", "out"];
-  const depths = ["near", "mid", "far", "deep"];
-  const tempos = ["swift", "steady"];
+  const depths = ["near", "mid", "far", "deep", "orbital"];
+  const tempos = ["instant", "swift", "steady"];
 
   const depthValue = {
     near: { distance: 10, scale: 0.018, blur: 1 },
     mid: { distance: 22, scale: 0.035, blur: 3 },
     far: { distance: 38, scale: 0.06, blur: 6 },
     deep: { distance: 58, scale: 0.09, blur: 10 },
+    orbital: { distance: 85, scale: 0.13, blur: 14 },
   };
 
   const tempoValue = {
+    instant: { duration: 150, easing: "cubic-bezier(0.2, 0, 0, 1)" },
     swift: { duration: 280, easing: "cubic-bezier(0.16, 1, 0.3, 1)" },
     steady: { duration: 640, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
   };
 
   const familyValue = {
-    reveal: { opacity: true, multiplier: 1, overshoot: 0 },
-    drift: { opacity: false, multiplier: 0.65, overshoot: 0.05 },
-    signal: { opacity: true, multiplier: 0.38, overshoot: 0.12 },
-    focus: { opacity: false, multiplier: 0.22, overshoot: 0.035 },
-    cinematic: { opacity: true, multiplier: 1.4, overshoot: 0.08 },
+    reveal: { opacity: true, multiplier: 1, overshoot: 0, duration: 1 },
+    drift: { opacity: false, multiplier: 0.65, overshoot: 0.05, duration: 1.2 },
+    signal: { opacity: true, multiplier: 0.38, overshoot: 0.12, duration: 0.75 },
+    focus: { opacity: false, multiplier: 0.22, overshoot: 0.035, duration: 0.8 },
+    cinematic: { opacity: true, multiplier: 1.4, overshoot: 0.08, duration: 1.65 },
+    orbit: { opacity: false, multiplier: 1.1, overshoot: 0.16, duration: 1.4 },
+    scan: { opacity: true, multiplier: 0.5, overshoot: 0.02, duration: 0.65 },
+    glitch: { opacity: true, multiplier: 0.28, overshoot: -0.035, duration: 0.35 },
+    magnetic: { opacity: false, multiplier: 0.72, overshoot: 0.1, duration: 0.7 },
+    parallax: { opacity: false, multiplier: 0.45, overshoot: 0.025, duration: 1.1 },
   };
 
   function directionVector(direction) {
@@ -62,7 +69,7 @@
       direction,
       depth,
       tempo,
-      duration: family === "cinematic" ? t.duration * 1.65 : t.duration,
+      duration: Math.round(t.duration * f.duration),
       easing: t.easing,
       keyframes: [
         {

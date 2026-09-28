@@ -15,12 +15,14 @@
     <link rel="preconnect" href="https://raft-blast-61784561.figma.site" crossorigin />
     <link rel="preconnect" href="https://cdn.pixabay.com" crossorigin />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./experience.css" />
     <script src="./design-system/motion-catalog.js" defer></script>
     <script src="./design-system/sound-catalog.js" defer></script>
     <script src="./script.js" defer></script>
+    <script src="./post-entry.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#foundation">Skip to design system</a>
+    <a class="skip-link" href="#experience">Skip to immersive experience</a>
 
     <main class="site-shell">
       <section
@@ -39,8 +41,8 @@
             <header class="site-header" aria-label="Primary navigation">
               <a class="site-logo" href="#cinema" aria-label="DrufiyAI home">DrufiyAI</a>
               <nav class="site-nav" aria-label="Main menu">
-                <a href="#products-foundation">Products</a>
-                <a href="#method">How we build</a>
+                <a href="#products">Products</a>
+                <a href="#how-we-build">How we build</a>
                 <a href="#principles">Principles</a>
               </nav>
               <div class="header-actions">
@@ -61,7 +63,7 @@
 
               <section class="sights-slider" aria-label="DrufiyAI system principles slider">
                 <div class="sights-track">
-                  <article class="sight-card" tabindex="0" role="button" aria-label="Open Lear card">
+                  <article class="sight-card" tabindex="0" role="button" aria-label="Open Lear page" data-href="./lear.html">
                     <span class="sight-kicker">Local DevOps</span>
                     <img
                       class="sight-pin"
@@ -72,7 +74,7 @@
                     <p>A local DevOps agent for small engineering teams.</p>
                   </article>
 
-                  <article class="sight-card" tabindex="0" role="button" aria-label="Open Prash card">
+                  <article class="sight-card" tabindex="0" role="button" aria-label="Open Prash page" data-href="./prash.html">
                     <span class="sight-kicker">CI/CD failures</span>
                     <img
                       class="sight-pin"
@@ -83,7 +85,7 @@
                     <p>Prash was our first model for CI and CD failures.</p>
                   </article>
 
-                  <article class="sight-card" tabindex="0" role="button" aria-label="Open evidence first card">
+                  <article class="sight-card" tabindex="0" role="button" aria-label="Open how we build page" data-href="./method.html">
                     <span class="sight-kicker">Root cause</span>
                     <img
                       class="sight-pin"
@@ -94,7 +96,7 @@
                     <p>Most tools tell you something broke. Ours help explain why.</p>
                   </article>
 
-                  <article class="sight-card" tabindex="0" role="button" aria-label="Open human approval card">
+                  <article class="sight-card" tabindex="0" role="button" aria-label="Open principles page" data-href="./principles.html">
                     <span class="sight-kicker">Human control</span>
                     <img
                       class="sight-pin"
@@ -105,7 +107,7 @@
                     <p>People stay in control of consequential changes.</p>
                   </article>
 
-                  <article class="sight-card" tabindex="0" role="button" aria-label="Open system boundaries card">
+                  <article class="sight-card" tabindex="0" role="button" aria-label="Open principles page" data-href="./principles.html">
                     <span class="sight-kicker">Honest limits</span>
                     <img
                       class="sight-pin"
@@ -189,7 +191,7 @@
           <section class="story-panel story-panel-bazaar" aria-label="DrufiyAI principles">
             <h2>Useful systems know their boundaries.</h2>
             <p>Trust is designed into the way our models observe, decide, and act.</p>
-            <a class="note-button" href="#foundation">
+            <a class="note-button" href="#experience">
               <span aria-hidden="true">↗</span>
               <span>Explore the system</span>
             </a>
@@ -197,7 +199,289 @@
         </div>
       </section>
 
-      <section class="foundation-hangar" id="foundation" aria-labelledby="foundation-title">
+      <section class="experience-shell" id="experience" aria-label="DrufiyAI immersive systems experience">
+        <nav class="experience-dock ds-glass" aria-label="Immersive experience navigation">
+          <a class="dock-brand" href="#experience"><i></i> DRUFIY / SYSTEMS</a>
+          <div class="dock-links">
+            <a href="#products">Models</a>
+            <a href="#signal-theatre">Signals</a>
+            <a href="#how-we-build">Method</a>
+            <a href="#principles">Principles</a>
+          </div>
+          <span class="dock-state"><i></i> FIELD ONLINE</span>
+        </nav>
+
+        <aside class="chapter-rail" aria-label="Experience progress">
+          <span class="chapter-rail-label">SYSTEM JOURNEY</span>
+          <ol>
+            <li><a href="#experience" aria-label="Chapter 1: Threshold"><i></i><span>01</span></a></li>
+            <li><a href="#products" aria-label="Chapter 2: Models"><i></i><span>02</span></a></li>
+            <li><a href="#signal-theatre" aria-label="Chapter 3: Signals"><i></i><span>03</span></a></li>
+            <li><a href="#how-we-build" aria-label="Chapter 4: Method"><i></i><span>04</span></a></li>
+            <li><a href="#principles" aria-label="Chapter 5: Principles"><i></i><span>05</span></a></li>
+          </ol>
+        </aside>
+
+        <section class="experience-chapter gateway-chapter" aria-labelledby="gateway-title" data-chapter="experience">
+          <video class="chapter-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="https://cdn.pixabay.com/video/2025/04/07/270341_tiny.jpg">
+            <source src="https://cdn.pixabay.com/video/2025/04/07/270341_large.mp4" type="video/mp4" />
+          </video>
+          <div class="chapter-scrim gateway-scrim" aria-hidden="true"></div>
+          <canvas class="starfield-canvas" data-starfield aria-hidden="true"></canvas>
+          <div class="chapter-orbit orbit-one" aria-hidden="true"></div>
+          <div class="chapter-orbit orbit-two" aria-hidden="true"></div>
+
+          <div class="chapter-inner gateway-layout">
+            <div class="gateway-copy" data-lux-reveal>
+              <div class="chapter-kicker"><span>POST ENTRY / 01</span><i></i><span>LIVE FIELD</span></div>
+              <h2 id="gateway-title">Most tools tell you something broke. <em>Ours help explain why.</em></h2>
+              <p>We study the problems generic tools leave unresolved, then build models that understand one job deeply.</p>
+              <div class="gateway-actions">
+                <a class="lux-button lux-button-primary magnetic" href="#products"><span>Enter model deck</span><b aria-hidden="true">↘</b></a>
+                <a class="lux-button lux-button-ghost magnetic" href="./method.html"><span>How we work</span><b aria-hidden="true">↗</b></a>
+              </div>
+            </div>
+
+            <div class="gateway-instrument ds-glass" data-lux-reveal data-delay="180">
+              <div class="instrument-header">
+                <span>REASONING FIELD</span>
+                <span class="instrument-live"><i></i> SYNCHRONIZED</span>
+              </div>
+              <div class="instrument-radar" aria-hidden="true">
+                <i class="radar-ring radar-ring-one"></i>
+                <i class="radar-ring radar-ring-two"></i>
+                <i class="radar-ring radar-ring-three"></i>
+                <i class="radar-sweep"></i>
+                <span class="radar-node node-ci">CI</span>
+                <span class="radar-node node-cloud">CLOUD</span>
+                <span class="radar-node node-obs">OBS</span>
+                <span class="radar-core">D</span>
+              </div>
+              <div class="instrument-readout">
+                <span><b>04</b> signals correlated</span>
+                <span><b>01</b> root cause isolated</span>
+                <span><b>HUMAN</b> approval required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chapter-marquee" aria-hidden="true">
+            <div>UNDERSTAND THE SIGNAL · TRACE THE CAUSE · PROPOSE WITH EVIDENCE · WAIT FOR APPROVAL · UNDERSTAND THE SIGNAL · TRACE THE CAUSE · PROPOSE WITH EVIDENCE · WAIT FOR APPROVAL ·</div>
+          </div>
+        </section>
+
+        <section class="experience-chapter product-chapter" id="products" aria-labelledby="products-title" data-chapter="products">
+          <video class="chapter-video lazy-video" muted loop playsinline preload="none" aria-hidden="true" poster="https://cdn.pixabay.com/video/2020/08/30/48566-454914159_tiny.jpg">
+            <source data-src="https://cdn.pixabay.com/video/2020/08/30/48566-454914159_large.mp4" type="video/mp4" />
+          </video>
+          <div class="chapter-scrim product-scrim" aria-hidden="true"></div>
+
+          <div class="chapter-inner">
+            <header class="lux-section-header" data-lux-reveal>
+              <div class="chapter-kicker"><span>MODEL DECK / 02</span><i></i><span>PURPOSE BUILT</span></div>
+              <div class="lux-heading-grid">
+                <h2 id="products-title">Lear and Prash, built from the same belief.</h2>
+                <p>We choose a hard operational problem and stay with it until the work becomes simpler for the people doing it.</p>
+              </div>
+            </header>
+
+            <div class="model-deck">
+              <article class="model-card model-card-lear tilt-surface" data-lux-reveal>
+                <video class="model-film lazy-video" muted loop playsinline preload="none" aria-hidden="true" poster="https://cdn.pixabay.com/video/2023/10/05/183651-871678756_tiny.jpg">
+                  <source data-src="https://cdn.pixabay.com/video/2023/10/05/183651-871678756_large.mp4" type="video/mp4" />
+                </video>
+                <div class="model-film-scrim" aria-hidden="true"></div>
+                <div class="model-topline">
+                  <span class="model-status"><i></i> AVAILABLE FOR EARLY ACCESS</span>
+                  <span>MODEL / 01</span>
+                </div>
+                <div class="model-content">
+                  <div>
+                    <span class="model-overline">LOCAL DEVOPS AGENT</span>
+                    <h3>Lear</h3>
+                  </div>
+                  <p>A local DevOps agent for small engineering teams. Lear reads your real infrastructure signals, finds what actually broke, and proposes a fix that waits for your approval.</p>
+                  <ul class="model-tags" aria-label="Lear capabilities">
+                    <li>Runs locally</li><li>Connects your stack</li><li>Acts with approval</li>
+                  </ul>
+                  <a class="model-link magnetic" href="./lear.html"><span>Visit Lear</span><b aria-hidden="true">↗</b></a>
+                </div>
+                <div class="model-telemetry" aria-hidden="true">
+                  <span>CLUSTER / LINKED</span><i></i><span>CI / READING</span><i></i><span>APPROVAL / WAITING</span>
+                </div>
+              </article>
+
+              <article class="model-card model-card-prash tilt-surface" data-lux-reveal data-delay="120">
+                <video class="model-film lazy-video" muted loop playsinline preload="none" aria-hidden="true" poster="https://cdn.pixabay.com/video/2016/08/22/4760-179739327_tiny.jpg">
+                  <source data-src="https://cdn.pixabay.com/video/2016/08/22/4760-179739327_large.mp4" type="video/mp4" />
+                </video>
+                <div class="model-film-scrim" aria-hidden="true"></div>
+                <div class="model-topline">
+                  <span class="model-status model-status-cyan"><i></i> FOUNDATION MODEL</span>
+                  <span>MODEL / 00</span>
+                </div>
+                <div class="model-content">
+                  <div>
+                    <span class="model-overline">CI/CD FAILURE ANALYSIS</span>
+                    <h3>Prash</h3>
+                  </div>
+                  <p>Prash was our first model for CI and CD failures. It taught us how much context a narrow problem demands, and became the foundation for Lear.</p>
+                  <ul class="model-tags" aria-label="Prash capabilities">
+                    <li>Focus CI failures</li><li>Built in real repos</li>
+                  </ul>
+                  <a class="model-link magnetic" href="./prash.html"><span>Explore Prash</span><b aria-hidden="true">↗</b></a>
+                </div>
+                <div class="model-telemetry" aria-hidden="true">
+                  <span>REPO / TRACED</span><i></i><span>FIX / PROPOSED</span><i></i><span>CHECKS / PASSED</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="experience-chapter signal-chapter" id="signal-theatre" aria-labelledby="signal-title" data-chapter="signal-theatre">
+          <div class="signal-aurora" aria-hidden="true"></div>
+          <canvas class="network-canvas" data-network-canvas aria-hidden="true"></canvas>
+          <div class="chapter-inner signal-layout">
+            <div class="signal-copy" data-lux-reveal>
+              <div class="chapter-kicker"><span>SIGNAL THEATRE / 03</span><i></i><span>TRACEABLE</span></div>
+              <h2 id="signal-title">The answer lives between the signals.</h2>
+              <p>Infrastructure incidents rarely arrive as a single clean error. The interface keeps source, reasoning, uncertainty, and approval in one visible chain.</p>
+              <a class="inline-route" href="./signal-map.html">Open the signal architecture <span aria-hidden="true">↗</span></a>
+            </div>
+
+            <div class="signal-console ds-glass" data-lux-reveal data-delay="160">
+              <div class="console-bar">
+                <span>LEAR / INVESTIGATION</span>
+                <span><i></i> CONNECTED</span>
+              </div>
+              <div class="console-grid">
+                <div class="signal-sources" aria-label="Input signals">
+                  <button type="button" class="source-chip is-active"><i></i><span><b>CI / code</b><small>failure signals</small></span></button>
+                  <button type="button" class="source-chip"><i></i><span><b>cloud</b><small>runtime signals</small></span></button>
+                  <button type="button" class="source-chip"><i></i><span><b>observability</b><small>alerts and traces</small></span></button>
+                </div>
+                <div class="reasoning-core" aria-label="DrufiyAI specialised reasoning">
+                  <div class="core-halo" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <strong>DrufiyAI</strong><span>specialised reasoning</span>
+                </div>
+                <div class="signal-outputs" aria-label="Model outputs">
+                  <a href="./lear.html"><i></i><span><b>Lear</b><small>local DevOps</small></span></a>
+                  <a href="./prash.html"><i></i><span><b>Prash</b><small>CI repair</small></span></a>
+                </div>
+              </div>
+              <div class="console-terminal" role="status" aria-label="Animated investigation sequence">
+                <p><span>&gt;</span> reading cluster and CI signals</p>
+                <p><span>&gt;</span> correlating 4 related events</p>
+                <p class="terminal-alert"><span>!</span> root cause: failed migration</p>
+                <p class="terminal-indent">proposed: roll back deployment</p>
+                <p><span>&gt;</span> waiting for your approval<i class="terminal-cursor"></i></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="experience-chapter build-chapter" id="how-we-build" aria-labelledby="build-title" data-chapter="how-we-build">
+          <video class="chapter-video lazy-video" muted loop playsinline preload="none" aria-hidden="true" poster="https://cdn.pixabay.com/video/2017/11/02/12716-241674181_tiny.jpg">
+            <source data-src="https://cdn.pixabay.com/video/2017/11/02/12716-241674181_large.mp4" type="video/mp4" />
+          </video>
+          <div class="chapter-scrim build-scrim" aria-hidden="true"></div>
+          <div class="chapter-inner">
+            <header class="lux-section-header" data-lux-reveal>
+              <div class="chapter-kicker"><span>HOW WE BUILD / 04</span><i></i><span>DEPTH BEFORE WIDTH</span></div>
+              <div class="lux-heading-grid">
+                <h2 id="build-title">We go deep before we go wide.</h2>
+                <p>The work starts with a real pain point, not a broad category and a polished demo.</p>
+              </div>
+            </header>
+
+            <div class="build-sequence">
+              <article class="build-step" data-lux-reveal>
+                <span class="build-number">01</span>
+                <div class="build-line"><i></i></div>
+                <h3>Find the unresolved problem</h3>
+                <p>Talk to the people carrying the operational load and study the failure in context.</p>
+                <span class="build-coordinate">OBSERVE / 00°</span>
+              </article>
+              <article class="build-step" data-lux-reveal data-delay="100">
+                <span class="build-number">02</span>
+                <div class="build-line"><i></i></div>
+                <h3>Build a dedicated model</h3>
+                <p>Design the reasoning, data, and evaluations around one job.</p>
+                <span class="build-coordinate">REASON / 120°</span>
+              </article>
+              <article class="build-step" data-lux-reveal data-delay="200">
+                <span class="build-number">03</span>
+                <div class="build-line"><i></i></div>
+                <h3>Test it in real systems</h3>
+                <p>Put it in front of the people who need it and learn from what happens.</p>
+                <span class="build-coordinate">PROVE / 240°</span>
+              </article>
+            </div>
+            <a class="wide-route magnetic" href="./method.html"><span>Explore the complete method</span><b aria-hidden="true">↗</b></a>
+          </div>
+        </section>
+
+        <section class="experience-chapter principles-chapter" id="principles" aria-labelledby="principles-main-title" data-chapter="principles">
+          <video class="chapter-video lazy-video" muted loop playsinline preload="none" aria-hidden="true" poster="https://cdn.pixabay.com/video/2024/08/30/228835_tiny.jpg">
+            <source data-src="https://cdn.pixabay.com/video/2024/08/30/228835_large.mp4" type="video/mp4" />
+          </video>
+          <div class="chapter-scrim principles-scrim" aria-hidden="true"></div>
+          <div class="chapter-inner">
+            <header class="lux-section-header" data-lux-reveal>
+              <div class="chapter-kicker"><span>WHAT WE BELIEVE / 05</span><i></i><span>BOUNDARIES CREATE TRUST</span></div>
+              <div class="lux-heading-grid">
+                <h2 id="principles-main-title">Useful systems know their boundaries.</h2>
+                <p>Trust is designed into the way our models observe, decide, and act.</p>
+              </div>
+            </header>
+
+            <div class="principle-vault">
+              <a href="./principles.html#approval" class="principle-tile tilt-surface" data-lux-reveal><span>01</span><i aria-hidden="true">↗</i><h3>Asks before it acts</h3><p>People stay in control of consequential changes.</p></a>
+              <a href="./principles.html#proof" class="principle-tile tilt-surface" data-lux-reveal data-delay="80"><span>02</span><i aria-hidden="true">↗</i><h3>Proves every fix</h3><p>A suggestion is not a solution until the system confirms it.</p></a>
+              <a href="./principles.html#local" class="principle-tile tilt-surface" data-lux-reveal data-delay="160"><span>03</span><i aria-hidden="true">↗</i><h3>Runs close to the work</h3><p>Local operation keeps sensitive context where it belongs.</p></a>
+              <a href="./principles.html#boundaries" class="principle-tile tilt-surface" data-lux-reveal data-delay="240"><span>04</span><i aria-hidden="true">↗</i><h3>Knows where it stops</h3><p>When the evidence is incomplete, the model says so.</p></a>
+            </div>
+          </div>
+        </section>
+
+        <section class="experience-chapter contact-chapter" id="contact" aria-labelledby="contact-main-title" data-chapter="contact">
+          <video class="chapter-video lazy-video" muted loop playsinline preload="none" aria-hidden="true" poster="https://cdn.pixabay.com/video/2019/05/22/23882-338327769_tiny.jpg">
+            <source data-src="https://cdn.pixabay.com/video/2019/05/22/23882-338327769_large.mp4" type="video/mp4" />
+          </video>
+          <div class="chapter-scrim contact-scrim" aria-hidden="true"></div>
+          <div class="chapter-inner contact-layout">
+            <div class="contact-copy" data-lux-reveal>
+              <div class="chapter-kicker"><span>OPEN CHANNEL / 06</span><i></i><span>HUMAN TO HUMAN</span></div>
+              <h2 id="contact-main-title">Working on a problem generic AI keeps missing?</h2>
+              <p>Tell us what the system is doing, what you have tried, and where the usual tools stop helping.</p>
+              <div class="contact-orbit" aria-hidden="true"><i></i><i></i><span>CHANNEL<br />READY</span></div>
+            </div>
+
+            <form class="lux-contact-form ds-glass" data-contact-form data-lux-reveal data-delay="160">
+              <label><span>NAME</span><input type="text" name="name" autocomplete="name" required placeholder="Your name" /></label>
+              <label><span>EMAIL</span><input type="email" name="email" autocomplete="email" required placeholder="you@company.com" /></label>
+              <label><span>WHAT ARE YOU WORKING ON?</span><textarea name="message" rows="5" required placeholder="Describe the operational problem..."></textarea></label>
+              <div class="form-action-row">
+                <button class="lux-button lux-button-primary magnetic" type="submit"><span>Send message</span><b aria-hidden="true">↗</b></button>
+                <p class="form-status" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <footer class="immersive-footer">
+          <div class="footer-orbit" aria-hidden="true"></div>
+          <div class="chapter-inner footer-layout">
+            <div><a class="footer-brand" href="#cinema">DrufiyAI</a><p>Purpose-built intelligence for difficult operational problems.</p></div>
+            <div><span>PRODUCTS</span><a href="./lear.html">Lear</a><a href="./prash.html">Prash</a></div>
+            <div><span>COMPANY</span><a href="#how-we-build">How we build</a><a href="#contact">Contact</a><a href="https://github.com/Drufiy" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          </div>
+          <div class="chapter-inner footer-legal"><span>Drufiy AI Private Limited</span><span>© 2026 DrufiyAI</span></div>
+        </footer>
+      </section>
+
+      <section class="foundation-hangar" id="design-system" aria-labelledby="foundation-title">
         <video
           class="foundation-video"
           autoplay
@@ -238,7 +522,7 @@
 
           <hr class="ds-divider" />
 
-          <section class="token-section" id="products-foundation" aria-labelledby="color-title" data-reveal>
+          <section class="token-section" id="system-color" aria-labelledby="color-title" data-reveal>
             <div class="section-index">01 / COLOR</div>
             <div>
               <h3 id="color-title">Signal over decoration.</h3>
@@ -287,13 +571,13 @@
 
           <hr class="ds-divider" />
 
-          <section class="token-section" id="method" aria-labelledby="motion-title" data-reveal>
+          <section class="token-section" id="system-motion" aria-labelledby="motion-title" data-reveal>
             <div class="section-index">03 / MOTION</div>
             <div>
               <h3 id="motion-title">Motion is evidence.</h3>
               <p class="section-copy">
                 Depth, direction, and tempo communicate hierarchy. The portable catalog exposes
-                320 deterministic motion recipes and automatically collapses them when reduced
+                1,200 deterministic motion recipes and automatically collapses them when reduced
                 motion is requested.
               </p>
               <div class="motion-grid" aria-label="Motion scale">
@@ -318,7 +602,7 @@
 
           <hr class="ds-divider" />
 
-          <section class="token-section" id="principles" aria-labelledby="principles-title" data-reveal>
+          <section class="token-section" id="system-principles" aria-labelledby="principles-title" data-reveal>
             <div class="section-index">04 / PRINCIPLES</div>
             <div>
               <h3 id="principles-title">Trust is part of the interface.</h3>
@@ -333,7 +617,7 @@
 
           <hr class="ds-divider" />
 
-          <section class="token-section" id="contact" aria-labelledby="contact-title" data-reveal>
+          <section class="token-section" id="system-handoff" aria-labelledby="contact-title" data-reveal>
             <div class="section-index">05 / HANDOFF</div>
             <div class="handoff-panel ds-glass">
               <div>
