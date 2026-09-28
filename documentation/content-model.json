@@ -1,0 +1,305 @@
+{
+  "$schema": "https://example.com/content-model-starter.schema.json",
+  "meta": {
+    "purpose": "CMS-agnostic content schema extracted from the live drufiy.com / lear.drufiy.com / prash.drufiy.com sites on 2026-09-28. Feed this into templates so a UI redesign never has to hand-edit copy inside markup.",
+    "source": "Black-box audit of live public pages; see 01-current-site-audit.md for full narrative detail."
+  },
+  "shared": {
+    "integrations": [
+      "AWS", "GCP", "Azure", "Kubernetes", "GitHub", "GitLab", "Datadog",
+      "Grafana", "Terraform", "PagerDuty", "Snyk", "Vercel", "Gitleaks + secrets"
+    ],
+    "contactEmails": [
+      { "label": "Founders & partnerships", "email": "founders@drufiy.com" },
+      { "label": "General inquiries", "email": "drufiyinnovations@gmail.com" }
+    ],
+    "booking": {
+      "provider": "Cal.com",
+      "handle": "drufiy-ejtkst",
+      "eventType": "30min",
+      "url": "https://cal.com/drufiy-ejtkst/30min"
+    },
+    "crossLinks": {
+      "drufiy": "https://drufiy.com/",
+      "lear": "https://lear.drufiy.com/",
+      "prash": "https://prash.drufiy.com/"
+    }
+  },
+  "sites": {
+    "drufiy.com": {
+      "title": "DrufiyAI | AI systems for difficult operations",
+      "pages": {
+        "/": {
+          "hero": {
+            "lines": [
+              "Most tools tell you something broke.",
+              "Ours help explain why."
+            ]
+          },
+          "products": {
+            "heading": "Lear and Prash, built from the same belief.",
+            "intro": "We choose a hard operational problem and stay with it until the work becomes simpler for the people doing it.",
+            "cards": [
+              {
+                "id": "lear",
+                "badge": "Available for early access",
+                "name": "Lear",
+                "description": "A local DevOps agent for small engineering teams. Lear reads your real infrastructure signals, finds what actually broke, and proposes a fix that waits for your approval.",
+                "tags": ["Runs locally", "Connects your stack", "Acts with approval"],
+                "cta": { "label": "Visit Lear →", "href": "https://lear.drufiy.com/" },
+                "terminal": [
+                  "lear / investigation                    ● connected",
+                  "> reading cluster and CI signals",
+                  "> correlating 4 related events",
+                  "! root cause: failed migration",
+                  "proposed: roll back deployment",
+                  "> waiting for your approval_"
+                ]
+              },
+              {
+                "id": "prash",
+                "badge": "The model that came first",
+                "name": "Prash",
+                "description": "Prash was our first model for CI and CD failures. It taught us how much context a narrow problem demands, and became the foundation for Lear.",
+                "tags": ["Focus CI failures", "Built in real repos"],
+                "cta": { "label": "Explore Prash →", "href": "https://prash.drufiy.com/" },
+                "terminal": [
+                  "prash / run #4827                       verified",
+                  "> GitHub Actions build failed",
+                  "> tracing cause through repository",
+                  "! missing await in auth.ts:142",
+                  "> fix PR opened for review",
+                  "✓ checks passed after fix"
+                ]
+              }
+            ]
+          },
+          "howWeBuild": {
+            "heading": "We go deep before we go wide.",
+            "sub": "The work starts with a real pain point, not a broad category and a polished demo.",
+            "steps": [
+              { "n": 1, "title": "Find the unresolved problem", "body": "Talk to the people carrying the operational load and study the failure in context." },
+              { "n": 2, "title": "Build a dedicated model", "body": "Design the reasoning, data, and evaluations around one job." },
+              { "n": 3, "title": "Test it in real systems", "body": "Put it in front of the people who need it and learn from what happens." }
+            ]
+          },
+          "whatWeBelieve": {
+            "heading": "Useful systems know their boundaries.",
+            "sub": "Trust is designed into the way our models observe, decide, and act.",
+            "principles": [
+              { "title": "Asks before it acts", "body": "People stay in control of consequential changes." },
+              { "title": "Proves every fix", "body": "A suggestion is not a solution until the system confirms it." },
+              { "title": "Runs close to the work", "body": "Local operation keeps sensitive context where it belongs." },
+              { "title": "Knows where it stops", "body": "When the evidence is incomplete, the model says so." }
+            ]
+          },
+          "leadForm": {
+            "heading": "Working on a problem generic AI keeps missing?",
+            "sub": "Tell us what the system is doing, what you have tried, and where the usual tools stop helping.",
+            "fields": [
+              { "name": "name", "label": "Name", "type": "text", "required": true },
+              { "name": "email", "label": "Email", "type": "email", "required": true },
+              { "name": "message", "label": "What are you working on?", "type": "textarea", "required": true }
+            ],
+            "submitLabel": "Send message"
+          }
+        }
+      },
+      "legalPagesStatus": {
+        "/privacy": "404 - not published",
+        "/terms": "404 - not published",
+        "/about": "404 - not published",
+        "/contact": "404 - not published (contact exists only as homepage lead form)"
+      }
+    },
+    "lear.drufiy.com": {
+      "titles": {
+        "/": "Lear | The AI on-call engineer for small teams",
+        "/how-it-works": "The Loop | How Lear works",
+        "/trust": "On Your Infra | Trust & control",
+        "/savings": "What You'll Save | Lear savings calculator",
+        "/contact": "Talk to us | Lear"
+      },
+      "pages": {
+        "/": {
+          "hero": {
+            "eyebrow": "Autonomous on-call · runs on your infra",
+            "h1": "The AI on-call engineer for teams too small to have one.",
+            "body": "Lear watches your CI, cloud, and Kubernetes from inside your own infrastructure. When something breaks, it finds the cause and writes the fix in plain English. Nothing touches production until you approve.",
+            "ctas": [
+              { "label": "See what Lear saves you →", "href": "/savings" },
+              { "label": "Talk to us", "href": "/contact" }
+            ],
+            "chips": ["Runs on your infra", "Approval by default", "13 integrations live"],
+            "screenshot": {
+              "src": "screens/dashboard.webp",
+              "alt": "The Lear desktop app: a mission-control dashboard showing 86% infrastructure health, 10 of 13 connectors active, and live telemetry across AWS, GCP, and Kubernetes."
+            }
+          },
+          "loopTeaser": {
+            "heading": "One agent. It watches, reasons, asks, then fixes.",
+            "cta": { "label": "See the full loop →", "href": "/how-it-works" },
+            "steps": [
+              { "n": 1, "title": "Watches", "body": "your CI, cloud, and Kubernetes, with full context." },
+              { "n": 2, "title": "Diagnoses", "body": "finds the actual root cause, not a guess." },
+              { "n": 3, "title": "Proposes", "body": "one clear fix, explained in plain English." },
+              { "n": 4, "title": "You approve", "body": "nothing touches production without your yes." },
+              { "n": 5, "title": "Fixes & verifies", "body": "runs the fix and confirms the system recovered." }
+            ]
+          },
+          "liveDemo": {
+            "heading": "A real recovery, start to finish.",
+            "disclosure": "Lear has diagnosed and fixed real failures on real AWS and GCP machines, after approval. The full recording is on its way.",
+            "screenshot": {
+              "src": "screens/copilot.webp",
+              "alt": "Lear Copilot answering 'check what happened to AWS' with a live status report for the ap-south-1 region, including a real EC2 node inventory pulled from the account."
+            }
+          },
+          "onYourInfra": {
+            "heading": "It runs on your infrastructure. Not ours.",
+            "body": "Connect any of thirteen integrations with your own credentials. Lear checks them against the real provider APIs and works where your systems already live. Your credentials never leave your environment. Every action is proposed, approved, and written to a log the agent cannot edit.",
+            "cta": { "label": "How we earn trust →", "href": "/trust" },
+            "screenshot": {
+              "src": "screens/connect.png",
+              "alt": "Lear's Connect Your Infrastructure screen: configuring live credentials for one of thirteen backend services, grouped by infrastructure, CI/CD, observability, security, and infrastructure-as-code."
+            }
+          },
+          "positioning": {
+            "heading": "Everyone else built this for enterprises. We built it for you."
+          },
+          "savingsTeaser": {
+            "heading": "Find out what firefighting is costing your team.",
+            "cta": { "label": "Open the calculator →", "href": "/savings" },
+            "example": { "amount": "$62,400", "note": "≈ 624 engineer-hours pulled back from firefighting." }
+          },
+          "pricing": {
+            "heading": "You only pay a slice of what we save you.",
+            "body": "Start with a free, read-only trial. When you are ready, Lear earns the right to act. Pricing is 15 to 20% of the savings we measure together. If we do not save you money, you do not pay us."
+          },
+          "closingCta": {
+            "heading": "See what Lear could save your team.",
+            "ctas": [
+              { "label": "Open the calculator →", "href": "/savings" },
+              { "label": "Talk to us", "href": "/contact" }
+            ]
+          }
+        },
+        "/how-it-works": {
+          "eyebrow": "The loop",
+          "h1": "One agent. It watches, reasons, asks, then fixes.",
+          "steps": [
+            { "n": 1, "title": "Read", "body": "Lear watches CI, cloud, and Kubernetes with full context: logs, recent changes, config, and events." },
+            { "n": 2, "title": "Diagnose", "body": "It works out the real root cause, using a diagnosis engine tested against real production failures." },
+            { "n": 3, "title": "Propose", "body": "It writes one fix and explains it, in plain English, over Slack or email." },
+            { "n": 4, "title": "Approve", "body": "You say yes. By default, nothing runs without a human. Approval is the whole point." },
+            { "n": 5, "title": "Execute", "body": "It runs the fix on your infrastructure, using credentials that never leave your environment." },
+            { "n": 6, "title": "Verify", "body": "It checks the system actually recovered, and logs everything." }
+          ],
+          "honestLimits": {
+            "heading": "What Lear will not do on its own.",
+            "body": "Lear will not autonomously change production databases or customer data, and will not reroute production networking or load balancers. Those stay with your engineers."
+          }
+        },
+        "/trust": {
+          "eyebrow": "On your infra",
+          "h1": "Lear runs on your infrastructure, not ours.",
+          "pillars": [
+            { "n": 1, "title": "Your infra, your credentials", "body": "Lear runs inside your own environment. Credentials never leave it, and no hosted third party ever touches them." },
+            { "n": 2, "title": "Approval by default", "body": "Five permission modes, and the default is \"ask.\" Nothing runs in production without a human yes." },
+            { "n": 3, "title": "A log the agent can't edit", "body": "Every proposed and executed action is written to an append-only audit trail. The agent cannot rewrite its own history." },
+            { "n": 4, "title": "Dry-run anything", "body": "See exactly what Lear would do before it does anything real." },
+            { "n": 5, "title": "A circuit breaker", "body": "If something loops or starts to look wrong, Lear stops itself before you have to." }
+          ],
+          "deliberateLimits": "No autonomous changes to production databases or customer data. No production network or load-balancer changes. Those stay human, on purpose."
+        },
+        "/savings": {
+          "eyebrow": "What you'll save",
+          "h1": "See what Lear saves your team.",
+          "example": { "teamSize": 20, "amount": "$62,400", "hours": 624 },
+          "pricingNote": "Lear costs 15-20% of what it saves you. You keep the rest.",
+          "inputs": {
+            "region": { "type": "select", "options": ["US", "Europe", "India", "Other"] },
+            "teamSize": { "type": "slider", "default": 20 },
+            "incidentsPerWeek": { "type": "slider", "default": 5 },
+            "hoursPerIncident": { "type": "slider", "default": 2, "unit": "hrs" },
+            "engineersPerIncident": { "type": "slider", "default": 2 },
+            "loadedEngineerCostPerHour": { "type": "number", "editable": true },
+            "sreSalaryPerYear": { "type": "number", "editable": true }
+          },
+          "constants": { "coverageFactor": 0.6, "referenceSreSalary": 180000, "fteHoursPerYear": 2000 },
+          "outputs": ["Firefighting recovered / year", "engineer-hours back", "the hire you defer"],
+          "disclosure": "These are your numbers, not our customer results. We're pre-launch and showing the math in the open so you can check it. The model counts only recovered engineer time, conservatively, and ignores avoided downtime revenue.",
+          "cta": { "label": "talk to us", "href": "/contact" }
+        },
+        "/contact": {
+          "h1": "Let's talk.",
+          "body": "Want to see Lear running on your own infrastructure, or just have a question? Book a 30-minute call with a founder, or email us directly.",
+          "booking": "shared.booking",
+          "emails": "shared.contactEmails"
+        }
+      }
+    },
+    "prash.drufiy.com": {
+      "title": "Prash by Drufiy - CI that fixes itself",
+      "pages": {
+        "/": {
+          "hero": {
+            "eyebrow": "Early access · onboarding design partners",
+            "h1": "CI that fixes itself.",
+            "body": "Prash watches your GitHub Actions, diagnoses failures, and ships a verified PR automatically.",
+            "ctas": [
+              { "label": "Install the GitHub App", "href": "[GitHub App install URL]" },
+              { "label": "Watch 60s demo →", "href": "[demo video URL]" }
+            ]
+          },
+          "liveRunSimulation": {
+            "repo": "Aradhya648/Iris",
+            "timestamp": "3 minutes ago",
+            "pipeline": ["Detected", "Diagnosing", "Fix Ready", "Applying", "Verified"],
+            "ciLog": "Error: Cannot read property 'status' of undefined at handleWebhook (src/api.ts:45)"
+          },
+          "beforeAfter": {
+            "heading": "See the difference",
+            "before": {
+              "label": "Failed CI",
+              "command": "$ npm run test",
+              "output": "FAIL src/__tests__/api.spec.ts — should handle webhook_pending — TypeError: Cannot read property 'status' of undefined at handleWebhook (src/api.ts:45:12) — Tests: 1 failed, 22 passed"
+            },
+            "after": {
+              "label": "Prash Fix",
+              "commitMessage": "fix: handle webhook_pending state",
+              "result": "✓ All checks passed · Ready to merge"
+            }
+          },
+          "threeAgents": [
+            { "trigger": "On CI failure", "title": "Failure Diagnosis", "body": "Analyzes CI logs and pinpoints root causes automatically within seconds of a failure." },
+            { "trigger": "Automatic", "title": "Automated Fixes", "body": "Generates validated fixes and opens a ready-to-merge pull request automatically." },
+            { "trigger": "On every run", "title": "PR Verification", "body": "Runs the full CI pipeline on every fix before marking it verified and complete." }
+          ],
+          "howItWorks": {
+            "heading": "From failure to fix in four steps",
+            "steps": [
+              { "n": 1, "title": "Connect your repo", "body": "Install via GitHub App in 30 seconds. Works with any existing workflow." },
+              { "n": 2, "title": "Detect & diagnose", "body": "Prash watches your GitHub Actions and analyzes failures instantly as they happen." },
+              { "n": 3, "title": "Fix & create PR", "body": "Automatic fixes are generated, tested, and a PR is opened and ready for review." },
+              { "n": 4, "title": "Verify & ship", "body": "All CI tests pass before Prash marks the fix verified. No false positives." }
+            ]
+          },
+          "whyPrash": {
+            "heading": "Built for the 2am CI failure",
+            "stats": [
+              { "value": "~0s", "label": "Sub-5 minute diagnosis", "note": "Root cause in seconds, not hours of manual log trawling." },
+              { "value": "0%", "label": "Automated fixes that work", "note": "Verified through your full CI pipeline before opening the PR." },
+              { "value": "0", "label": "Zero config overhead", "note": "Install the GitHub App. Prash figures everything else out." }
+            ]
+          },
+          "closingCta": {
+            "heading": "Stop debugging CI",
+            "sub": "Free during early access. No credit card.",
+            "cta": { "label": "Install the GitHub App", "href": "[GitHub App install URL]" }
+          }
+        }
+      }
+    }
+  }
+}

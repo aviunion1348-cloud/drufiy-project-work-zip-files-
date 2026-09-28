@@ -1,0 +1,104 @@
+{
+  "$schema": "https://example.com/design-tokens-starter.schema.json",
+  "meta": {
+    "purpose": "Starter design tokens for the Drufiy UI redesign. Values are placeholders reflecting Direction A ('Signal Room') from 03-ui-redesign-directions.md — replace with your chosen direction's real values. Structure/keys are what matters: components should read from these tokens, not hardcode values.",
+    "lastUpdated": "2026-09-28"
+  },
+  "color": {
+    "background": {
+      "base": "#0B0D10",
+      "raised": "#12151A",
+      "overlay": "rgba(11,13,16,0.85)"
+    },
+    "surface": {
+      "card": "#14171C",
+      "cardBorder": "rgba(255,255,255,0.08)",
+      "terminal": "#0E1013"
+    },
+    "text": {
+      "primary": "#F5F6F7",
+      "secondary": "#A7ADB6",
+      "muted": "#6B7280",
+      "inverse": "#0B0D10"
+    },
+    "accent": {
+      "brand": "#F2A93B",
+      "lear": "#3BD1F2",
+      "prash": "#B08BF2",
+      "success": "#3BF28A",
+      "warning": "#F2C43B",
+      "danger": "#F2513B"
+    }
+  },
+  "type": {
+    "family": {
+      "sans": "\"General Sans\", \"Inter\", system-ui, sans-serif",
+      "mono": "\"JetBrains Mono\", \"IBM Plex Mono\", ui-monospace, monospace"
+    },
+    "scale": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.375rem",
+      "2xl": "1.75rem",
+      "3xl": "2.25rem",
+      "4xl": "3rem",
+      "5xl": "3.75rem"
+    },
+    "weight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "lineHeight": {
+      "tight": 1.1,
+      "snug": 1.3,
+      "normal": 1.5,
+      "relaxed": 1.7
+    }
+  },
+  "space": {
+    "0": "0px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "24px",
+    "6": "32px",
+    "7": "48px",
+    "8": "64px",
+    "9": "96px",
+    "10": "128px"
+  },
+  "radius": {
+    "sm": "6px",
+    "md": "10px",
+    "lg": "16px",
+    "pill": "999px"
+  },
+  "shadow": {
+    "card": "0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35)",
+    "focusRing": "0 0 0 3px rgba(242,169,59,0.45)"
+  },
+  "motion": {
+    "duration": {
+      "fast": "120ms",
+      "base": "200ms",
+      "slow": "400ms"
+    },
+    "easing": {
+      "standard": "cubic-bezier(0.2, 0, 0, 1)",
+      "enter": "cubic-bezier(0, 0, 0.2, 1)",
+      "exit": "cubic-bezier(0.4, 0, 1, 1)"
+    }
+  },
+  "breakpoints": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1536px"
+  }
+}

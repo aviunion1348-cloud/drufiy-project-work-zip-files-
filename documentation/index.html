@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Drufiy — UI Redesign Documentation Package</title>
+<style>
+  :root {
+    --ink: #16181c;
+    --sub: #52585f;
+    --accent: #b5601a;
+    --line: #e4e1da;
+    --bg: #fdfcfa;
+    --code-bg: #f1efe9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Iowan Old Style","Palatino Linotype", Georgia, "Times New Roman", serif;
+    line-height: 1.65;
+  }
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 40px 120px;
+  }
+  .masthead {
+    border-bottom: 3px solid var(--ink);
+    padding-bottom: 20px;
+    margin-bottom: 36px;
+  }
+  .masthead .kicker {
+    font-family: "Courier New", monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: var(--accent);
+  }
+  .masthead h1 {
+    font-size: 34px;
+    margin: 8px 0 4px;
+  }
+  .masthead .meta {
+    color: var(--sub);
+    font-size: 14px;
+  }
+  h1, h2, h3, h4 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .doc-section h1 {
+    font-size: 26px;
+    margin-top: 0;
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+    padding-bottom: 6px;
+  }
+  .doc-section:first-child h1 { border-top: none; }
+  .doc-section h2 { font-size: 20px; margin-top: 34px; color: var(--accent); }
+  .doc-section h3 { font-size: 16px; margin-top: 22px; }
+  p, li { font-size: 15.5px; }
+  code {
+    font-family: "SFMono-Regular", Consolas, "Courier New", monospace;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+    overflow-x: auto;
+  }
+  pre code { background: none; padding: 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #f4f1ea; font-family: "Helvetica Neue", Arial, sans-serif; }
+  blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 16px 0;
+    padding: 4px 16px;
+    color: var(--sub);
+    background: #faf6ee;
+  }
+  hr { border: none; border-top: 1px solid var(--line); margin: 30px 0; }
+  .page-break { page-break-before: always; }
+  a { color: var(--accent); }
+  ul, ol { padding-left: 22px; }
+  input[type=checkbox] { margin-right: 6px; }
+  @media print {
+    body { background: white; }
+    .wrap { padding: 0; max-width: none; }
+    a { color: var(--ink); text-decoration: none; }
+  }
+  .toc-note {
+    font-size: 13px;
+    color: var(--sub);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #f4f1ea;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 30px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div class="kicker">Drufiy · UI Redesign Documentation Package</div>
+    <h1>Drufiy Website — Full System &amp; UI Redesign Documentation</h1>
+    <div class="meta">Audit + system design + redesign brief + guardrails + AI prompt + QA checklist &middot; Prepared 2026-09-28 &middot; drufiy.com / lear.drufiy.com / prash.drufiy.com</div>
+  </div>
+  <div class="toc-note">
+    This document bundles, in reading order: the auditor cover sheet, the
+    package index, the full current-site audit, the target system design,
+    three UI redesign directions, the core-preservation guardrails, the
+    ready-to-paste AI redesign prompt, and the QA acceptance checklist.
+    Print this page to PDF for a single-file submission. Machine-readable
+    companions (<code>design-tokens.json</code>, <code>content-model.json</code>)
+    are included alongside this file in the documentation folder.
+  </div>
+  <section class="doc-section"><h1 id="07-auditor-cover-sheet">07 — Auditor Cover Sheet</h1>
+<p><strong>Subject:</strong> UI redesign planning package for Drufiy (drufiy.com,
+lear.drufiy.com, prash.drufiy.com)
+<strong>Submitted as:</strong> Sample documentation prior to executing the redesign
+<strong>Prepared:</strong> 2026-09-28
+<strong>Method:</strong> Black-box audit of the live public sites (no source code, backend,
+or credentials were accessed). All figures, copy, links, and integration
+names below were independently read off the live pages on the date above.</p>
+<h2 id="what-this-package-contains">What this package contains</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Document</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>01-current-site-audit.md</code></td>
+<td>Full as-is record of every page, section, sentence, number, link, form, and integration on the live site today. This is the baseline the redesign will be measured against.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>02-system-design-and-ia.md</code></td>
+<td>Target information architecture and component contracts for the redesign — defines what must functionally stay the same across all three properties.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>03-ui-redesign-directions.md</code></td>
+<td>Three concrete, distinct new visual directions to choose from for the "entry page" and overall site.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>04-core-preservation-guardrails.md</code></td>
+<td>The explicit "do not touch" list: routes, legal/commercial claims (e.g. the 15–20% pricing model), exact strings (emails, booking link, integrations list), and live integrations (lead form, Cal.com booking, savings calculator, GitHub App install).</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>05-ai-redesign-prompt.md</code></td>
+<td>A single, ready-to-paste prompt (with one fill-in-the-blank section) to hand to an AI coding tool so it restyles the UI without altering the items in document 4.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>06-qa-acceptance-checklist.md</code></td>
+<td>Point-by-point verification checklist to confirm, after the redesign, that (a) the UI genuinely changed and (b) nothing in the core — content, numbers, links, forms, integrations — was altered.</td>
+</tr>
+<tr>
+<td>—</td>
+<td><code>design-tokens.json</code>, <code>content-model.json</code></td>
+<td>Machine-readable companions summarizing the same information for direct use by developers/tools.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="why-this-approach">Why this approach</h2>
+<p>The live site currently combines marketing content with several pieces of
+real, load-bearing logic and commitments: a lead-generation form, a live
+Cal.com booking embed, two direct contact emails, a working savings
+calculator with a disclosed formula, a "GitHub App install" OAuth entry
+point, and specific commercial/safety claims (a 15–20% outcome-based pricing
+model; explicit statements about what the product will and will not do
+autonomously). A UI redesign that is not scoped carefully can easily and
+silently break or misrepresent any of these. This package separates "what the
+site says and does" (fixed, documented in full in §1) from "how it looks"
+(open, three directions proposed in §3), and encodes that separation as an
+explicit, auditable constraint set (§4) enforced through the actual prompt
+used to generate the new UI (§5), with a sign-off checklist (§6).</p>
+<h2 id="known-pre-existing-gap-not-introduced-by-this-redesign">Known pre-existing gap (not introduced by this redesign)</h2>
+<p><code>drufiy.com/privacy</code>, <code>/terms</code>, <code>/about</code>, and <code>/contact</code> currently return 404
+on the live site — there is no published Privacy Policy or Terms of Service
+on the parent domain today, despite the homepage collecting personal data via
+a lead form. This is flagged here for the record; the redesign plan
+explicitly instructs against fabricating legal text to fill this gap (see
+<code>04-core-preservation-guardrails.md</code> §1), since that requires a real legal
+decision by Drufiy, not a design decision.</p>
+<h2 id="sign-off">Sign-off</h2>
+<ul>
+<li>[ ] Auditor has reviewed <code>01-current-site-audit.md</code> against the live site
+      and confirms it is an accurate as-is record.</li>
+<li>[ ] Auditor has reviewed <code>04-core-preservation-guardrails.md</code> and confirms
+      it captures all commercially/legally sensitive content correctly.</li>
+<li>[ ] Auditor approves proceeding to use <code>05-ai-redesign-prompt.md</code> to
+      generate the new UI, to be verified against <code>06-qa-acceptance-checklist.md</code>
+      once produced.</li>
+</ul>
+<p>Prepared by: <strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>_</em>_  Date: </strong><strong><em>_</em></strong><strong><em>_</em></strong><strong><em>
+Reviewed by (auditor): </em></strong><strong><em>_</em></strong><strong><em>_</em></strong>_  Date: <strong><em>_</em></strong><strong><em>_</em></strong>_____</p></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="drufiy-ui-redesign-documentation-package">Drufiy — UI Redesign Documentation Package</h1>
+<p><strong>Prepared for:</strong> Drufiy (DrufiyAI) — corporate site + product sites (Lear, Prash)
+<strong>Prepared as:</strong> Pre-redesign audit, system design spec, and AI redesign brief
+<strong>Purpose:</strong> Give you (and your auditor) a complete, written record of how the current
+live site is built and behaves, a target system design for the redesign, a locked
+list of things that must never change ("core"), and a ready-to-paste prompt you can
+hand to any AI coding tool to reskin the UI without breaking anything underneath.</p>
+<blockquote>
+<p>Everything in this package was produced by reading the <strong>live, public</strong> site at
+<code>drufiy.com</code>, <code>lear.drufiy.com</code>, and <code>prash.drufiy.com</code> on <strong>2026-09-28</strong>. No
+private source code, credentials, or backend systems were accessed — this is a
+black-box audit of what a visitor and the auditor can independently verify.</p>
+</blockquote>
+<h2 id="how-to-use-this-package">How to use this package</h2>
+<ol>
+<li>Read <strong>01-current-site-audit.md</strong> first. This is the ground truth of what
+   exists today — every page, every section, every word of copy, every link,
+   every form field, every integration name. This is what the auditor will
+   check the redesign against.</li>
+<li>Read <strong>02-system-design-and-ia.md</strong> for the target technical/information
+   architecture — how the redesigned site should be structured so it stays a
+   single coherent system across the 3 properties (<code>drufiy.com</code>, <code>lear.drufiy.com</code>,
+   <code>prash.drufiy.com</code>).</li>
+<li>Read <strong>03-ui-redesign-directions.md</strong> to pick (or brief someone to pick) a new
+   visual direction for the "entry page" (homepage) and the rest of the site.</li>
+<li>Read <strong>04-core-preservation-guardrails.md</strong> — this is the "do not touch"
+   contract. It exists specifically so that an AI redesign tool changes <strong>only</strong>
+   the visual layer and never the routes, copy meaning, legal claims, form
+   fields, integrations list, links, or booking/contact flows.</li>
+<li>Copy <strong>05-ai-redesign-prompt.md</strong> into whatever AI tool you use to regenerate
+   the UI. Fill in the one bracketed section (<code>[[ENTRY PAGE / NEW UI DIRECTION]]</code>)
+   with the direction you picked in step 3, or paste your own reference
+   screenshots/links there.</li>
+<li>Use <strong>06-qa-acceptance-checklist.md</strong> to verify the output before you ship it,
+   and hand the same checklist to your auditor.</li>
+<li><strong>07-auditor-cover-sheet.md</strong> is a one-page summary you can print/attach as
+   the cover of your audit submission.</li>
+<li><code>design-tokens.json</code> and <code>content-model.json</code> are machine-readable companions
+   your AI tool or a developer can load directly instead of re-typing values
+   from the prose documents.</li>
+<li><code>index.html</code> is a single-file, print-ready rendering of this whole package
+   (open it in a browser and print to PDF) for a clean auditor hand-off.</li>
+</ol>
+<h2 id="file-map">File map</h2>
+<pre><code>documentation/
+├── 00-INDEX.md                        ← you are here
+├── 01-current-site-audit.md           ← full as-is inventory of drufiy.com, lear.*, prash.*
+├── 02-system-design-and-ia.md         ← target architecture, sitemap, component contracts
+├── 03-ui-redesign-directions.md       ← 3 creative directions for the new UI / entry page
+├── 04-core-preservation-guardrails.md ← the &quot;do not touch&quot; list
+├── 05-ai-redesign-prompt.md           ← the ready-to-paste prompt for your AI tool
+├── 06-qa-acceptance-checklist.md      ← test/verification checklist (for you + auditor)
+├── 07-auditor-cover-sheet.md          ← 1-page summary for the audit submission
+├── design-tokens.json                 ← machine-readable design token starter set
+├── content-model.json                 ← machine-readable content schema (CMS-agnostic)
+└── index.html                         ← printable, single-file version of this package
+</code></pre></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="01-current-site-audit-as-is">01 — Current Site Audit (As-Is)</h1>
+<p><strong>Audited:</strong> 2026-09-28, live production sites, black-box (public pages only).
+<strong>Properties covered:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Role</th>
+<th>Status seen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>drufiy.com</code></td>
+<td>Corporate / parent brand site</td>
+<td>Live, single main page + 404s on guessed routes</td>
+</tr>
+<tr>
+<td><code>lear.drufiy.com</code></td>
+<td>Product marketing site — "Lear" (AI on-call/DevOps agent)</td>
+<td>Live, multi-page</td>
+</tr>
+<tr>
+<td><code>prash.drufiy.com</code></td>
+<td>Product marketing site — "Prash" (CI auto-fix agent)</td>
+<td>Live, single main page</td>
+</tr>
+</tbody>
+</table>
+<p>Robots policy: <code>drufiy.com/robots.txt</code> publishes an <strong>IETF "content-signals"</strong> policy
+(the emerging <code>search</code> / <code>ai-input</code> / <code>ai-train</code> opt-in/opt-out standard), not a
+classic disallow list. <strong>This file and its intent must be preserved as-is</strong> in any
+redesign — it is a legal/rights statement, not styling.</p>
+<hr />
+<h2 id="1-drufiycom-corporate-site">1. <code>drufiy.com</code> — Corporate site</h2>
+<h3 id="11-sitemap-observed">1.1 Sitemap (observed)</h3>
+<ul>
+<li><code>/</code> — Home (only page that resolves; <code>/about</code>, <code>/contact</code>, <code>/privacy</code>, <code>/terms</code>
+  all currently return the framework's default <strong>404</strong> page). This is a real gap —
+  see §4 "Findings &amp; risks" below. It must be flagged to the auditor, and a
+  redesign <strong>must not silently invent new legal claims</strong> on these routes without
+  the client supplying real Privacy/Terms text.</li>
+<li>No <code>sitemap.xml</code> (404).</li>
+</ul>
+<h3 id="12-home-page-full-content-structure-top-to-bottom">1.2 Home page — full content &amp; structure (top to bottom)</h3>
+<ol>
+<li><strong>Hero</strong>
+   - Tagline line: <em>"Most tools tell you something broke."</em> → bold pay-off:
+     <em>"Ours help explain why."</em>
+   - Implicit brand line (page <code>&lt;title&gt;</code>): <strong>"DrufiyAI | AI systems for difficult
+     operations."</strong></li>
+<li><strong>"Our products" — Lear &amp; Prash showcase</strong> (section heading: <em>"Lear and Prash,
+   built from the same belief."</em>)
+   - Intro line: "We choose a hard operational problem and stay with it until the
+     work becomes simpler for the people doing it."
+   - <strong>Card 1 — Lear</strong> (badge: "Available for early access")<ul>
+<li>Heading: <strong>Lear</strong></li>
+<li>Body: "A local DevOps agent for small engineering teams. Lear reads your
+   real infrastructure signals, finds what actually broke, and proposes a fix
+   that waits for your approval."</li>
+<li>3 inline capability tags: <strong>Runs</strong> locally / <strong>Connects</strong> your stack /
+   <strong>Acts</strong> with approval</li>
+<li>CTA: <strong>"Visit Lear →"</strong> → links to <code>https://lear.drufiy.com/</code></li>
+<li>Embedded <strong>live terminal/status widget</strong> (decorative, product-accurate):
+   ```
+   lear / investigation                         ● connected<blockquote>
+<p>reading cluster and CI signals
+correlating 4 related events
+   ! root cause: failed migration
+   proposed: roll back deployment
+waiting for your approval_
+   ```</p>
+</blockquote>
+</li>
+<li><strong>Card 2 — Prash</strong> (badge: "The model that came first")</li>
+<li>Heading: <strong>Prash</strong></li>
+<li>Body: "Prash was our first model for CI and CD failures. It taught us how
+   much context a narrow problem demands, and became the foundation for Lear."</li>
+<li>2 inline capability tags: <strong>Focus</strong> CI failures / <strong>Built</strong> in real repos</li>
+<li>CTA: <strong>"Explore Prash →"</strong> → links to <code>https://prash.drufiy.com/</code></li>
+<li>Embedded terminal widget:
+   ```
+   prash / run #4827                              verified<blockquote>
+<p>GitHub Actions build failed
+tracing cause through repository
+   ! missing await in auth.ts:142
+fix PR opened for review
+   ✓ checks passed after fix
+   ```</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>"How we build"</strong> (heading: <em>"We go deep before we go wide."</em>)
+   - Sub-line: "The work starts with a real pain point, not a broad category and a
+     polished demo."
+   - 3-step numbered list:<ol>
+<li><strong>Find the unresolved problem</strong> — "Talk to the people carrying the
+    operational load and study the failure in context."</li>
+<li><strong>Build a dedicated model</strong> — "Design the reasoning, data, and
+    evaluations around one job."</li>
+<li><strong>Test it in real systems</strong> — "Put it in front of the people who need it
+    and learn from what happens."</li>
+</ol>
+</li>
+<li><strong>"What we believe"</strong> (heading: <em>"Useful systems know their boundaries."</em>)
+   - Sub-line: "Trust is designed into the way our models observe, decide, and
+     act."
+   - 4 principle cards (icon + title + one-line description):<ol>
+<li><strong>Asks before it acts</strong> — "People stay in control of consequential
+    changes."</li>
+<li><strong>Proves every fix</strong> — "A suggestion is not a solution until the system
+    confirms it."</li>
+<li><strong>Runs close to the work</strong> — "Local operation keeps sensitive context
+    where it belongs."</li>
+<li><strong>Knows where it stops</strong> — "When the evidence is incomplete, the model
+    says so."</li>
+</ol>
+</li>
+<li><strong>Contact / lead-capture form</strong> (heading: <em>"Working on a problem generic AI
+   keeps missing?"</em>)
+   - Sub-line: "Tell us what the system is doing, what you have tried, and where
+     the usual tools stop helping."
+   - Fields (in order): <strong>Name</strong> (text), <strong>Email</strong> (email), <strong>What are you
+     working on?</strong> (long text / textarea)
+   - Submit button: <strong>"Send message"</strong></li>
+</ol>
+<h3 id="13-global-chrome">1.3 Global chrome</h3>
+<ul>
+<li>No separate footer content was exposed distinctly from the contact section in
+  the rendered text — treat nav/footer as <strong>minimal</strong>: primarily brand mark +
+  the two product links (Lear, Prash) surfaced inline in the products section.
+  When rebuilding, keep a persistent header with the <strong>Drufiy wordmark</strong> and the
+  two outbound product links, since these are the only primary navigation
+  affordances the current site relies on.</li>
+</ul>
+<h3 id="14-brand-voice-notes-for-the-redesign-brief-not-styling-instructions">1.4 Brand &amp; voice notes (for the redesign brief, not styling instructions)</h3>
+<ul>
+<li>Short, declarative sentences. Confident, slightly terse, engineer-to-engineer
+  tone ("Ours help explain why.").</li>
+<li>Recurring motif: <strong>numbered process steps</strong> (01/02/03…) used on every property.</li>
+<li>Recurring motif: <strong>terminal/console readouts</strong> used as literal product proof,
+  not generic decoration — copy inside them is specific (real-looking file paths,
+  line numbers, statuses like <code>connected</code>, <code>verified</code>, <code>waiting for your
+  approval_</code>).</li>
+<li>Recurring motif: <strong>plain-language trust claims</strong> ("nothing touches production
+  without your yes", "you don't pay us if we don't save you money").</li>
+</ul>
+<hr />
+<h2 id="2-leardrufiycom-product-site-multi-page">2. <code>lear.drufiy.com</code> — Product site (multi-page)</h2>
+<h3 id="21-sitemap-observed-all-resolving">2.1 Sitemap (observed, all resolving)</h3>
+<ul>
+<li><code>/</code> — Home</li>
+<li><code>/how-it-works</code> — "The Loop"</li>
+<li><code>/trust</code> — "On Your Infra"</li>
+<li><code>/savings</code> — Savings calculator</li>
+<li><code>/contact</code> — Talk to us (booking + email)</li>
+</ul>
+<h3 id="22-home-structure">2.2 <code>/</code> Home — structure</h3>
+<ol>
+<li><strong>Hero</strong>
+   - Eyebrow: "Autonomous on-call · runs on your infra"
+   - H1: <em>"The AI on-call engineer for teams too small to have one."</em>
+   - Body: "Lear watches your CI, cloud, and Kubernetes from inside your own
+     infrastructure. When something breaks, it finds the cause and writes the fix
+     in plain English. Nothing touches production until you approve."
+   - CTAs: <strong>"See what Lear saves you →"</strong> (<code>/savings</code>), <strong>"Talk to us"</strong>
+     (<code>/contact</code>)
+   - 3 stat/feature chips: "Runs on your infra", "Approval by default", "13
+     integrations live"
+   - Hero product screenshot: <code>screens/dashboard.webp</code> — <em>"mission-control
+     dashboard showing 86% infrastructure health, 10 of 13 connectors active, and
+     live telemetry across AWS, GCP, and Kubernetes."</em></li>
+<li><strong>Integrations strip</strong> — "Works with the stack you already run": AWS, GCP,
+   Azure, Kubernetes, GitHub, GitLab, Datadog, Grafana, Terraform, PagerDuty,
+   Snyk, Vercel, Gitleaks + secrets. <strong>(13 items — must stay exactly 13 and
+   exactly these names; copy elsewhere on the site references "13 integrations
+   live" and "Thirteen integrations, live today.")</strong></li>
+<li><strong>Problem framing</strong> — <em>"When production breaks at 3am, a big company pages
+   its on-call rotation. You page your one exhausted engineer."</em> + supporting
+   paragraph about AI writing more code than ever breaking more than ever.</li>
+<li><strong>"The loop" — 5-step process</strong> (links out to <code>/how-it-works</code>):
+   01 Watches → 02 Diagnoses → 03 Proposes → 04 You approve → 05 Fixes &amp;
+   verifies. Each has a 1-line description.</li>
+<li><strong>"See it run" — live demo section</strong>
+   - Heading: <em>"A real recovery, start to finish."</em>
+   - Copy about asking Lear "what just happened", pulling live telemetry,
+     reasoning about cause.
+   - Disclosed status line: "Lear has diagnosed and fixed real failures on real
+     AWS and GCP machines, after approval. The full recording is on its way."
+     <strong>(Keep this exact honesty framing — do not upgrade it to a stronger claim.)</strong>
+   - Screenshot: <code>screens/copilot.webp</code> — Lear Copilot answering "check what
+     happened to AWS" with ap-south-1 status + EC2 inventory.</li>
+<li><strong>"On your infra" section</strong> (links to <code>/trust</code>)
+   - Heading: <em>"It runs on your infrastructure. Not ours."</em>
+   - Copy: "Connect any of thirteen integrations with your own credentials...
+     Your credentials never leave your environment. Every action is proposed,
+     approved, and written to a log the agent cannot edit."
+   - Screenshot: <code>screens/connect.png</code> — "Connect Your Infrastructure" screen.</li>
+<li><strong>Positioning section</strong> — <em>"Everyone else built this for enterprises. We built
+   it for you."</em> — differentiation paragraph re: small teams without a
+   dedicated SRE.</li>
+<li><strong>Savings teaser</strong> — heading <em>"Find out what firefighting is costing your
+   team."</em>, sub-copy "Move a few sliders. See your number. It is your math, not
+   our marketing.", CTA <strong>"Open the calculator →"</strong> (<code>/savings</code>), example stat:
+   "$62,400 / year ≈ 624 engineer-hours pulled back from firefighting."</li>
+<li><strong>Pricing section</strong>
+   - Heading: <em>"You only pay a slice of what we save you."</em>
+   - Copy: "Start with a free, read-only trial. When you are ready, Lear earns
+     the right to act. Pricing is <strong>15 to 20%</strong> of the savings we measure
+     together. If we do not save you money, you do not pay us."
+     <strong>(These numbers — 15–20% — are a real commercial claim. Treat as legally
+     load-bearing text: do not let an AI redesign tool paraphrase/round it.)</strong></li>
+<li><strong>Closing CTA band</strong> — <em>"See what Lear could save your team."</em> → <strong>"Open the
+    calculator →"</strong> / <strong>"Talk to us"</strong>.</li>
+</ol>
+<h3 id="23-how-it-works-the-loop">2.3 <code>/how-it-works</code> — "The Loop"</h3>
+<ul>
+<li>Eyebrow "The loop", H1 <em>"One agent. It watches, reasons, asks, then fixes."</em></li>
+<li>Intro: differentiates Lear from a chatbot/script — "runs unattended... only
+  comes to you when a decision is genuinely yours."</li>
+<li><strong>6-step loop</strong> (note: home page teaser shows 5 steps, this page shows the
+  canonical 6): 01 Read, 02 Diagnose, 03 Propose, 04 Approve, 05 Execute, 06
+  Verify — each with a longer description than the homepage teaser.</li>
+<li>"Proactive, with full context. Not reactive, with a prompt." explainer block.</li>
+<li>"It remembers what worked." — replay of known-good fixes for repeat incidents.</li>
+<li>"Trust is earned one approved fix at a time." — explains the <strong>permission
+  ladder</strong>: read-only → approval-gated → full autonomy (opt-in, never default).</li>
+<li><strong>Honest limits block</strong> — "What Lear will not do on its own": will not
+  autonomously change production databases/customer data; will not reroute
+  production networking/load balancers. <strong>(This is a safety/liability claim —
+  must be preserved verbatim in meaning.)</strong></li>
+<li>Integrations list repeated (same 13).</li>
+<li>CTA: "See what Lear saves you →" (<code>/savings</code>).</li>
+</ul>
+<h3 id="24-trust-on-your-infra">2.4 <code>/trust</code> — "On Your Infra"</h3>
+<ul>
+<li>Eyebrow "On your infra", H1 <em>"Lear runs on your infrastructure, not ours."</em></li>
+<li>Sub: "The whole product is built so you never have to hand your production
+  over to a stranger."</li>
+<li><strong>5 numbered trust pillars:</strong>
+  1. Your infra, your credentials
+  2. Approval by default — "Five permission modes, and the default is 'ask.'"
+  3. A log the agent can't edit — append-only audit trail
+  4. Dry-run anything
+  5. A circuit breaker — self-stop on anomalous loops</li>
+<li><strong>Deliberate limits block</strong> — same "no autonomous prod DB / no network or LB
+  changes" claim repeated. <strong>(Keep consistent with <code>/how-it-works</code>.)</strong></li>
+<li>CTA: "See what Lear saves you →" (<code>/savings</code>).</li>
+</ul>
+<h3 id="25-savings-savings-calculator-interactive">2.5 <code>/savings</code> — Savings calculator (interactive)</h3>
+<ul>
+<li>Eyebrow "What you'll save", H1 <em>"See what Lear saves your team."</em></li>
+<li>Intro paragraph re: small teams absorbing outage cost personally.</li>
+<li><strong>Headline computed example:</strong> "Lear could save your 20-engineer team roughly
+  <strong>$62,400</strong> a year." + "Lear costs 15–20% of what it saves you. You keep the
+  rest."</li>
+<li><strong>Interactive inputs (must remain functionally identical — this is the core
+  logic of the page):</strong></li>
+<li>Region selector: <strong>US / Europe / India / Other</strong></li>
+<li>Team size slider (example default: 20)</li>
+<li>Production incidents per week slider (example default: 5)</li>
+<li>Hours to resolve one incident today slider (example default: 2 hrs)</li>
+<li>Engineers pulled into each incident slider (example default: 2)</li>
+<li>"Assumptions (edit these)" — advanced/editable inputs:<ul>
+<li>Loaded engineer cost / hour ($)</li>
+<li>Dedicated SRE salary / year ($)</li>
+</ul>
+</li>
+<li>Disclosed fixed constant: "Conservative coverage factor fixed at 0.6: the
+    model assumes Lear meaningfully reduces effort on ~60% of routine
+    incidents, not 100%."</li>
+<li><strong>Outputs:</strong></li>
+<li>"Firefighting recovered / year" — computed $ figure</li>
+<li>"N engineer-hours back"</li>
+<li>"The hire you defer" explainer: "624 hrs is 31% of a full-time SRE (2,000
+    hrs/yr), worth about $X against a $180,000 salary." (numbers scale with
+    inputs)</li>
+<li>Expandable "+ see the math" section</li>
+<li><strong>Methodology disclosure (important, must be preserved verbatim in meaning):</strong>
+  "These are your numbers, not our customer results. We're pre-launch and
+  showing the math in the open so you can check it. The model counts only
+  recovered engineer time, conservatively, and ignores avoided downtime
+  revenue."</li>
+<li>CTA: "Want us to run this against a real incident of yours? talk to us and
+  we'll show you live." → <code>/contact</code>. Plus a repeated "Talk to us" button.</li>
+</ul>
+<h3 id="26-contact-talk-to-us">2.6 <code>/contact</code> — "Talk to us"</h3>
+<ul>
+<li>H1 <em>"Let's talk."</em></li>
+<li>Copy: "Want to see Lear running on your own infrastructure, or just have a
+  question? Book a 30-minute call with a founder, or email us directly."</li>
+<li><strong>Embedded scheduling widget: Cal.com</strong>, booking link
+  <code>https://cal.com/drufiy-ejtkst/30min</code> (org handle <strong><code>drufiy-ejtkst</code></strong>, 30-minute
+  event type). Shows calendar (Sept/Oct 2026 in the crawl) and time slots.
+  <strong>This exact booking link/handle must be preserved — it is a live scheduling
+  integration, not a decorative image.</strong></li>
+<li><strong>Direct emails published (must be preserved exactly, character-for-character):</strong></li>
+<li>Founders &amp; partnerships: <strong><code>founders@drufiy.com</code></strong></li>
+<li>General inquiries: <strong><code>drufiyinnovations@gmail.com</code></strong></li>
+</ul>
+<hr />
+<h2 id="3-prashdrufiycom-product-site-single-page">3. <code>prash.drufiy.com</code> — Product site (single page)</h2>
+<h3 id="31-sitemap-observed">3.1 Sitemap (observed)</h3>
+<ul>
+<li><code>/</code> — Home (single long-scroll page with anchored sections; no other routes
+  were discovered).</li>
+</ul>
+<h3 id="32-home-structure">3.2 Home — structure</h3>
+<ol>
+<li><strong>Hero</strong>
+   - Eyebrow: "Early access · onboarding design partners"
+   - H1: <em>"CI that fixes itself."</em>
+   - Body: "Prash watches your GitHub Actions, diagnoses failures, and ships a
+     verified PR automatically."
+   - CTAs: <strong>"Install the GitHub App"</strong> (primary — this is a real OAuth/GitHub
+     App install action, must remain a functional link/flow, not just styled
+     text), <strong>"Watch 60s demo →"</strong></li>
+<li><strong>Live-looking CI run simulation widget</strong> (decorative but product-accurate):
+   - Repo label <code>Aradhya648/Iris</code>, "3 minutes ago"
+   - Status pipeline: <strong>Detected → Diagnosing → Fix Ready → Applying →
+     Verified</strong>
+   - CI log panel with a real-looking stack trace:
+     <code>Error: Cannot read property 'status' of undefined at handleWebhook
+     (src/api.ts:45)</code>
+   - "AI Analysis" live-typing panel ("Prash is analyzing...")</li>
+<li><strong>"Before / After" section</strong> — heading <em>"See the difference"</em>
+   - <strong>Failed CI panel:</strong> <code>$ npm run test</code>, failing Jest output
+     (<code>src/__tests__/api.spec.ts</code>, <code>should handle webhook_pending</code>,
+     <code>TypeError: Cannot read property 'status' of undefined</code>).
+   - <strong>Prash Fix panel:</strong> a realistic unified diff fixing <code>handleWebhook</code>,
+     ending "✓ All checks passed · Ready to merge".</li>
+<li><strong>"Three specialized agents" section</strong></li>
+<li><strong>Failure Diagnosis</strong> — "Analyzes CI logs and pinpoints root causes
+      automatically within seconds of a failure." (trigger: On CI failure)</li>
+<li><strong>Automated Fixes</strong> — "Generates validated fixes and opens a
+      ready-to-merge pull request automatically." (trigger: Automatic) + a
+      second example diff.</li>
+<li><strong>PR Verification</strong> — "Runs the full CI pipeline on every fix before
+      marking it verified and complete." (trigger: On every run)</li>
+<li><strong>"From failure to fix in four steps"</strong>
+   - Includes a GitHub OAuth setup mini-transcript: <code>$ authorize GitHub App</code>
+     → <code>✓ workflows: read</code> / <code>✓ pull-requests: write</code> / <code>✓ checks: write</code>.
+   - 4 numbered steps: <strong>01 Connect your repo</strong> (Install via GitHub App in 30
+     seconds), <strong>02 Detect &amp; diagnose</strong>, <strong>03 Fix &amp; create PR</strong>, <strong>04 Verify &amp;
+     ship</strong>.</li>
+<li><strong>"Why Prash" stat band</strong> — "Built for the 2am CI failure":
+   - <code>~0s</code> Sub-5 minute diagnosis
+   - <code>0%</code>→ "Automated fixes that work" (verified through full CI pipeline)
+   - <code>0</code> Zero config overhead</li>
+<li><strong>Closing CTA</strong> — <em>"Stop debugging CI"</em>, "Free during early access. No credit
+   card.", button <strong>"Install the GitHub App"</strong>.</li>
+</ol>
+<hr />
+<h2 id="4-cross-cutting-technicalcontent-observations">4. Cross-cutting technical/content observations</h2>
+<h3 id="41-shared-design-system-across-all-3-properties">4.1 Shared design system across all 3 properties</h3>
+<ul>
+<li>All three sites share the <strong>same visual language</strong>: dark, developer-tool
+  aesthetic; monospace "terminal window" widgets used as literal product
+  screenshots/simulations; numbered (<code>01 02 03…</code>) step sequences; short eyebrow
+  labels above every H1; arrow-suffixed link CTAs (<code>→</code>); stat/metric call-outs
+  reduced to a single bold number.</li>
+<li>This shared language is why the redesign should ship as <strong>one design system
+  with per-product accents</strong>, not three unrelated skins (see <code>02-system-design</code>).</li>
+</ul>
+<h3 id="42-forms-integrations-inventory-functional-do-not-break">4.2 Forms &amp; integrations inventory (functional — do not break)</h3>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Type</th>
+<th>Fields / Action</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>drufiy.com</code> home</td>
+<td>Lead form</td>
+<td>Name, Email, "What are you working on?" (textarea), Send message</td>
+<td>Destination endpoint unknown (backend not exposed to black-box audit) — <strong>preserve field names, order, and required-ness</strong>; ask the client/dev team for the real submit handler before wiring a new UI to it.</td>
+</tr>
+<tr>
+<td><code>lear.drufiy.com/contact</code></td>
+<td>Scheduling</td>
+<td>Cal.com embed, handle <code>drufiy-ejtkst</code>, <code>/30min</code> event</td>
+<td>Live third-party embed — keep the exact booking link.</td>
+</tr>
+<tr>
+<td><code>lear.drufiy.com/contact</code></td>
+<td>Static contact</td>
+<td><code>mailto:founders@drufiy.com</code>, <code>mailto:drufiyinnovations@gmail.com</code></td>
+<td>Preserve exact addresses and their labels ("Founders &amp; partnerships" vs "General inquiries").</td>
+</tr>
+<tr>
+<td><code>lear.drufiy.com/savings</code></td>
+<td>Interactive calculator</td>
+<td>Region select (US/Europe/India/Other), 4 sliders, 2 editable assumption inputs, fixed 0.6 coverage constant</td>
+<td>This is a <strong>calculation engine</strong>, not decoration — the formula/behavior must be re-implemented identically, only the visual chrome should change.</td>
+</tr>
+<tr>
+<td><code>prash.drufiy.com</code></td>
+<td>External auth flow</td>
+<td>"Install the GitHub App" (GitHub App OAuth install)</td>
+<td>Must remain a real link/flow to GitHub's install screen — never replace with a fake button.</td>
+</tr>
+<tr>
+<td><code>drufiy.com</code> → <code>lear.drufiy.com</code> / <code>prash.drufiy.com</code></td>
+<td>Cross-site nav</td>
+<td>"Visit Lear →", "Explore Prash →"</td>
+<td>Absolute links to the live subdomains — must not be turned into anchors/relative paths.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-integrations-list-exact-13-items-appears-on-leardrufiycom-home-and-how-it-works">4.3 Integrations list (exact, 13 items — appears on <code>lear.drufiy.com</code> home and <code>/how-it-works</code>)</h3>
+<p>AWS, GCP, Azure, Kubernetes, GitHub, GitLab, Datadog, Grafana, Terraform,
+PagerDuty, Snyk, Vercel, <strong>Gitleaks + secrets</strong>.</p>
+<h3 id="44-numericcommercial-claims-that-must-not-drift-in-a-redesign">4.4 Numeric/commercial claims that must not drift in a redesign</h3>
+<ul>
+<li>"13 integrations live" / "Thirteen integrations, live today." → tied to the
+  list above; if the list ever changes, this number must be updated everywhere
+  it appears, in lockstep.</li>
+<li>Pricing: <strong>"15 to 20%"</strong> of measured savings, free read-only trial.</li>
+<li>Example savings model: 20 engineers → <strong>$62,400/yr</strong>, <strong>624 engineer-hours</strong>,
+  <strong>0.6</strong> fixed coverage factor, <strong>$180,000</strong> reference SRE salary, <strong>2,000</strong>
+  hrs/yr full-time baseline.</li>
+<li>"5 permission modes", default is "ask".</li>
+<li>Prash: "sub-5 minute diagnosis" framing (shown as "~0s" stat placeholder on
+  the live site — likely an unanimated counter — treat the <strong>destination</strong>
+  values/labels as content, not the animation technique).</li>
+</ul>
+<h3 id="45-legal-compliance-status-flag-to-auditor">4.5 Legal / compliance status (flag to auditor)</h3>
+<ul>
+<li><code>drufiy.com/privacy</code>, <code>drufiy.com/terms</code>, <code>drufiy.com/about</code>, <code>drufiy.com/contact</code>
+  all currently 404. There is <strong>no visible privacy policy or terms of service</strong>
+  on the parent domain at the time of this audit, despite the site collecting
+  personal data via a lead form. <strong>This is a pre-existing gap, not something
+  introduced by the redesign</strong> — call it out explicitly to the auditor and to
+  Drufiy, and do not let an AI tool invent legal text to fill the gap; that
+  needs a human/legal decision.</li>
+<li><code>robots.txt</code> on <code>drufiy.com</code> publishes a formal <strong>content-signals</strong> opt-out
+  policy for search / ai-input / ai-train — preserve this file exactly.</li>
+</ul>
+<h3 id="46-seo-metadata-observed">4.6 SEO metadata observed</h3>
+<ul>
+<li><code>drufiy.com</code> <code>&lt;title&gt;</code>: <strong>"DrufiyAI | AI systems for difficult operations"</strong></li>
+<li><code>lear.drufiy.com</code> <code>&lt;title&gt;</code>: <strong>"Lear | The AI on-call engineer for small teams"</strong></li>
+<li><code>lear.drufiy.com/how-it-works</code> <code>&lt;title&gt;</code>: <strong>"The Loop | How Lear works"</strong></li>
+<li><code>lear.drufiy.com/trust</code> <code>&lt;title&gt;</code>: <strong>"On Your Infra | Trust &amp; control"</strong></li>
+<li><code>lear.drufiy.com/savings</code> <code>&lt;title&gt;</code>: <strong>"What You'll Save | Lear savings calculator"</strong></li>
+<li><code>lear.drufiy.com/contact</code> <code>&lt;title&gt;</code>: <strong>"Talk to us | Lear"</strong></li>
+<li><code>prash.drufiy.com</code> <code>&lt;title&gt;</code>: <strong>"Prash by Drufiy - CI that fixes itself"</strong></li>
+<li>All pages expose a "Skip to content" / "Skip to main content" link before the
+  main landmark — an accessibility affordance already in place on <code>lear.*</code> and
+  <code>prash.*</code>. <strong>Keep this pattern; extend it to <code>drufiy.com</code> if missing.</strong></li>
+</ul>
+<hr />
+<h2 id="5-summary-judgement-what-a-redesign-is-really-touching">5. Summary judgement (what a redesign is really touching)</h2>
+<p>The current build is a clean, intentional <strong>dark developer-tool marketing
+system</strong>: three coordinated sites, one visual grammar, a handful of real
+interactive surfaces (lead form, savings calculator, Cal.com booking, GitHub
+App install), and copy that doubles as legal/commercial commitment (pricing
+percentages, safety guarantees, integration counts). A redesign should treat
+<strong>all copy, all numbers, all links, all field names, and all third-party
+integrations as fixed data</strong>, and treat <strong>only</strong> layout, color, type,
+imagery, motion, and component chrome as changeable. Sections 2–4 of this
+package operationalize exactly that split.</p></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="02-target-system-design-information-architecture">02 — Target System Design &amp; Information Architecture</h1>
+<p>This section describes how the <strong>redesigned</strong> Drufiy web presence should be
+structured so the three properties stay one coherent system, and so a UI
+restyle can never quietly break a route, a form, or a cross-site link. This is
+the spec your developer / AI tool should build against.</p>
+<h2 id="1-system-overview">1. System overview</h2>
+<pre><code>                         ┌───────────────────────────────┐
+                         │        Shared Design System     │
+                         │  (design-tokens.json + a shared  │
+                         │   component library: Header,     │
+                         │   TerminalWidget, StepList,       │
+                         │   IntegrationGrid, StatBand,      │
+                         │   PricingBand, LeadForm,          │
+                         │   Calculator, Footer)             │
+                         └───────────────┬─────────────────┘
+                                          │ consumed by
+             ┌────────────────────────────┼────────────────────────────┐
+             │                            │                            │
+   ┌─────────▼─────────┐        ┌────────▼─────────┐        ┌─────────▼─────────┐
+   │   drufiy.com       │        │ lear.drufiy.com   │        │ prash.drufiy.com   │
+   │  Corporate / hub    │───────▶  Product site      │        │  Product site       │
+   │  1 page today        │ links │  5 pages           │        │  1 page today        │
+   └─────────┬───────────┘        └────────┬──────────┘        └──────────┬──────────┘
+             │                              │                              │
+        Lead form  ─────▶ [backend TBD]     ├─ Cal.com booking embed       ├─ GitHub App OAuth install
+                                             ├─ mailto: founders@ / general │
+                                             └─ Savings calculator (client-side formula)
+</code></pre>
+<p>Key design decision to carry into the rebuild: <strong>keep the 3-site split</strong>
+(<code>drufiy.com</code> as the brand/hub, <code>lear.</code> and <code>prash.</code> as dedicated product
+sites). Do not collapse them into one app/one domain during a <em>UI</em> redesign —
+that is an information-architecture change, not a visual one, and is out of
+scope unless the client explicitly asks for it separately.</p>
+<h2 id="2-sitemap-for-the-redesign-must-resolve-to-the-same-or-better-set-of-routes">2. Sitemap for the redesign (must resolve to the same or better set of routes)</h2>
+<h3 id="drufiycom"><code>drufiy.com</code></h3>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Status today</th>
+<th>Redesign requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Live</td>
+<td>Rebuild visually; keep all 5 sections (Hero, Products, How we build, What we believe, Contact) and their content contracts (§3).</td>
+</tr>
+<tr>
+<td><code>/privacy</code></td>
+<td>404</td>
+<td>Not required by this UI redesign. If client supplies real legal copy, add the route using the same shared layout shell; otherwise leave as-is and flag to auditor — <strong>do not fabricate legal text</strong>.</td>
+</tr>
+<tr>
+<td><code>/terms</code></td>
+<td>404</td>
+<td>Same as above.</td>
+</tr>
+<tr>
+<td><code>/robots.txt</code></td>
+<td>Live, content-signals policy</td>
+<td>Copy byte-for-byte into the new build. Do not regenerate with a generic <code>Disallow:</code> file.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="leardrufiycom"><code>lear.drufiy.com</code></h3>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Redesign requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Rebuild visually; keep all 10 sections listed in audit §2.2, in the same order, with the same CTAs pointing to the same destinations.</td>
+</tr>
+<tr>
+<td><code>/how-it-works</code></td>
+<td>Keep the 6-step loop content and the "honest limits" block verbatim in meaning.</td>
+</tr>
+<tr>
+<td><code>/trust</code></td>
+<td>Keep the 5 trust pillars + deliberate limits block verbatim in meaning.</td>
+</tr>
+<tr>
+<td><code>/savings</code></td>
+<td>Keep the calculator's inputs, the 0.6 constant, the output formulas, and the methodology disclaimer. Only the chrome (cards, sliders' skin, typography) may change.</td>
+</tr>
+<tr>
+<td><code>/contact</code></td>
+<td>Keep the Cal.com embed (<code>drufiy-ejtkst</code> / <code>30min</code>) and both email addresses, exactly as published.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prashdrufiycom"><code>prash.drufiy.com</code></h3>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Redesign requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>Rebuild visually; keep all 7 sections in the same order, the CI-log/diff content, the 3-agent breakdown, the 4-step flow, the stat band, and the "Install the GitHub App" CTA as a real, working link.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-component-contracts-what-must-stay-functionally-identical">3. Component contracts (what must stay functionally identical)</h2>
+<p>Treat each of the following as a <strong>component with a fixed "props" contract</strong> —
+the redesign may restyle the component entirely (new colors, new shape, new
+animation) but must not remove or rename the data it displays or the actions
+it triggers.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Used on</th>
+<th>Fixed contract</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SiteHeader</code></td>
+<td>All 3 sites</td>
+<td>Brand mark, link(s) to the other Drufiy product(s), primary CTA.</td>
+</tr>
+<tr>
+<td><code>Hero</code></td>
+<td>All home pages</td>
+<td>Eyebrow text, H1, supporting paragraph, 1–2 CTAs with their real <code>href</code>s.</td>
+</tr>
+<tr>
+<td><code>TerminalWidget</code></td>
+<td>drufiy.com home (×2), lear home (×2 screenshots), prash home (CI simulation)</td>
+<td>A code/log-styled panel showing literal, specific product output (not lorem ipsum). Content is data, not layout.</td>
+</tr>
+<tr>
+<td><code>ProductCard</code></td>
+<td>drufiy.com home</td>
+<td>Badge, name, description, capability tags, CTA link, embedded <code>TerminalWidget</code>.</td>
+</tr>
+<tr>
+<td><code>NumberedStepList</code></td>
+<td>drufiy.com ("How we build"), lear (<code>/</code>, <code>/how-it-works</code>), prash (<code>/</code>)</td>
+<td>Ordered list, each item = number + title + description. Count of steps is content-defined (3, 5, 6, or 4 depending on page) — <strong>do not force a uniform count across pages</strong>.</td>
+</tr>
+<tr>
+<td><code>PrincipleGrid</code></td>
+<td>drufiy.com ("What we believe")</td>
+<td>4 cards: title + one-line description.</td>
+</tr>
+<tr>
+<td><code>IntegrationGrid</code></td>
+<td>lear.drufiy.com (<code>/</code>, <code>/how-it-works</code>)</td>
+<td>Exactly the 13 named integrations; must read from a single shared list so the two pages never drift apart.</td>
+</tr>
+<tr>
+<td><code>StatCallout</code></td>
+<td>lear <code>/savings</code>, prash <code>/</code></td>
+<td>Big number + label, values computed or content-supplied, not hardcoded into markup as an image.</td>
+</tr>
+<tr>
+<td><code>Calculator</code></td>
+<td>lear <code>/savings</code></td>
+<td>Region select + 4 sliders + 2 numeric assumption fields + fixed constant (0.6) → live-recomputed outputs. This is logic, not just a component — reimplement the formula, don't just theme the old one if it's being replaced.</td>
+</tr>
+<tr>
+<td><code>PricingBand</code></td>
+<td>lear <code>/</code></td>
+<td>"15 to 20%" commercial claim, free/read-only trial condition, money-back-style guarantee line.</td>
+</tr>
+<tr>
+<td><code>LeadForm</code></td>
+<td>drufiy.com <code>/</code></td>
+<td>Fields: Name, Email, "What are you working on?" (textarea). Submit label "Send message". Preserve field order, labels, and (if known) <code>name</code>/<code>id</code> attributes used by any existing backend/analytics.</td>
+</tr>
+<tr>
+<td><code>BookingEmbed</code></td>
+<td>lear <code>/contact</code></td>
+<td>Cal.com iframe/embed pointing at <code>drufiy-ejtkst/30min</code>.</td>
+</tr>
+<tr>
+<td><code>ContactEmailList</code></td>
+<td>lear <code>/contact</code></td>
+<td><code>founders@drufiy.com</code> (Founders &amp; partnerships), <code>drufiyinnovations@gmail.com</code> (General inquiries).</td>
+</tr>
+<tr>
+<td><code>GitHubInstallCTA</code></td>
+<td>prash <code>/</code> (×2)</td>
+<td>Real link/flow to the GitHub App install page — never a dead <code>&lt;button&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>BeforeAfterDiff</code></td>
+<td>prash <code>/</code></td>
+<td>Two-pane failing-test vs. fixed-diff comparison; content is realistic code, not generic.</td>
+</tr>
+<tr>
+<td><code>SiteFooter</code></td>
+<td>All 3 sites</td>
+<td>Cross-links between <code>drufiy.com</code>, <code>lear.drufiy.com</code>, <code>prash.drufiy.com</code>; contact email(s); (future) legal links once real Privacy/Terms exist.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-content-model-see-also-content-modeljson">4. Content model (see also <code>content-model.json</code>)</h2>
+<p>Every text/number block above should be pulled from a small content object per
+page rather than hand-typed into markup, so that:</p>
+<ol>
+<li>A new UI can be swapped in by only changing components/templates, never the
+   content file.</li>
+<li>Anyone (including a non-technical auditor) can diff the <em>content</em> file
+   before/after a redesign and see that nothing changed — only the presentation
+   layer.</li>
+</ol>
+<p><code>content-model.json</code> in this package gives a starting schema:
+<code>hero</code>, <code>products[]</code>, <code>steps[]</code>, <code>principles[]</code>, <code>integrations[]</code>,
+<code>calculator</code>, <code>pricing</code>, <code>leadForm</code>, <code>contact</code>, <code>bookingEmbed</code>.</p>
+<h2 id="5-design-tokens-see-also-design-tokensjson">5. Design tokens (see also <code>design-tokens.json</code>)</h2>
+<p>Rather than hardcoding colors/fonts per component, define once:</p>
+<ul>
+<li><code>color.background.*</code>, <code>color.surface.*</code>, <code>color.text.*</code>, <code>color.accent.*</code>
+  (one accent per product is fine: e.g. Drufiy = neutral, Lear = one hue, Prash
+  = a second hue — this is <em>new</em>, not from the current site, and is exactly the
+  kind of change this redesign is for).</li>
+<li><code>type.family.sans</code>, <code>type.family.mono</code> (mono is load-bearing — the terminal
+  widgets are a core brand device; keep a monospace family even in a new
+  direction).</li>
+<li><code>space.*</code> (4/8pt spacing scale), <code>radius.*</code>, <code>shadow.*</code>, <code>motion.duration.*</code>,
+  <code>motion.easing.*</code>.</li>
+<li>Breakpoints: <code>sm 640</code>, <code>md 768</code>, <code>lg 1024</code>, <code>xl 1280</code>, <code>2xl 1536</code> (standard,
+  adjust to your framework's defaults).</li>
+</ul>
+<h2 id="6-accessibility-requirements-baseline-to-preserveraise-not-lower">6. Accessibility requirements (baseline to preserve/raise, not lower)</h2>
+<ul>
+<li>Keep "Skip to content" links on every page (already present on <code>lear.*</code> and
+  <code>prash.*</code>; add to <code>drufiy.com</code>).</li>
+<li>All interactive widgets that currently render as styled <code>&lt;div&gt;</code>s (calculator
+  sliders, region select, terminal panels) must use real form controls
+  (<code>&lt;input type="range"&gt;</code>, <code>&lt;select&gt;</code>, etc.) with labels, not divs styled to
+  look like inputs.</li>
+<li>Color contrast: whatever new palette is chosen, body text must meet WCAG AA
+  (4.5:1) against its background; this is a hard constraint regardless of
+  visual direction.</li>
+<li>Every CTA must have discernible link/button text (avoid icon-only arrows with
+  no <code>aria-label</code>).</li>
+</ul>
+<h2 id="7-performance-seo-preservation-checklist">7. Performance &amp; SEO preservation checklist</h2>
+<ul>
+<li>Keep the exact <code>&lt;title&gt;</code> values listed in audit §4.6 unless the client
+  explicitly approves new ones (titles are indexed; changing them resets
+  search history).</li>
+<li>Keep all existing outbound/cross-site links as absolute URLs to the live
+  subdomains.</li>
+<li>Preserve <code>robots.txt</code> as-is.</li>
+<li>If migrating framework/host, set up 301s for any route that changes (none
+  should change per this spec).</li>
+<li>Preserve image alt text equivalents for the three product screenshots
+  (<code>dashboard.webp</code>, <code>copilot.webp</code>, <code>connect.png</code>) — the current alt text is
+  descriptive and should be kept or improved, never removed.</li>
+</ul>
+<h2 id="8-what-genuinely-is-in-scope-for-diff-ui-the-fun-part">8. What genuinely <em>is</em> in scope for "diff UI" (the fun part)</h2>
+<p>Everything visual is fair game:
+- Layout system (grid vs. asymmetric, card-based vs. editorial long-form).
+- Color system and theme (dark developer theme is not mandatory — see
+  <code>03-ui-redesign-directions.md</code> for alternatives, including light/hybrid).
+- Typography pairing, scale, and rhythm.
+- Iconography and illustration style.
+- Motion/microinteractions (scroll reveals, hover states, animated counters for
+  the stat bands, animated terminal "typing").
+- The specific look of the terminal/log widgets (as long as they keep showing
+  the same literal content).
+- Navigation chrome (sticky header, mega-menu, sidebar, whatever fits the new
+  direction) as long as it still links to the same destinations.
+- The homepage/"entry page" concept as a whole (this is explicitly what you'll
+  brief in <code>05-ai-redesign-prompt.md</code>).</p></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="03-ui-redesign-directions-pick-one-or-brief-your-own">03 — UI Redesign Directions (pick one, or brief your own)</h1>
+<p>The current site is a competent but very "default YC dev-tool" look: near-black
+background, single accent, monospace terminal cards, numbered steps, arrow
+CTAs. Below are three distinct directions that keep every content contract from
+<code>02-system-design-and-ia.md</code> intact but genuinely change the UI. Pick one as the
+"entry page" (homepage) direction and it should cascade to the rest of the
+site for consistency — or mix-and-match elements and describe your own in the
+same format.</p>
+<hr />
+<h2 id="direction-a-signal-room-evolved-dark-more-editorial">Direction A — "Signal Room" (evolved dark, more editorial)</h2>
+<ul>
+<li><strong>Mood:</strong> mission control, but warmer and more human than a generic dark SaaS
+  template — think a NASA ops room crossed with a well-typeset engineering blog.</li>
+<li><strong>Background:</strong> near-black <code>#0B0D10</code> with a very subtle warm noise/grain
+  texture instead of flat color.</li>
+<li><strong>Accent system:</strong> amber/signal-orange for Drufiy-level content, shifting to
+  a cool cyan for Lear and a violet for Prash — so a visitor always knows which
+  product's "gravity" they're in, without changing layout.</li>
+<li><strong>Type:</strong> a humanist sans for headings (e.g., a Söhne/General Sans-style
+  grotesk) at a large, confident scale; keep a monospace (e.g., JetBrains Mono
+  / Berkeley Mono style) strictly for terminal widgets, code, and numbers —
+  this reinforces "we build for engineers" without making the whole site feel
+  like a code editor.</li>
+<li><strong>Terminal widgets:</strong> redesign as real "glass panel" cards with soft inner
+  shadow, animated cursor blink, and a colored left-rail status dot instead of
+  plain text <code>● connected</code> — keep the literal log lines unchanged.</li>
+<li><strong>Entry page (Hero) idea:</strong> full-bleed hero with the "Most tools tell you
+  something broke. Ours help explain why." line set very large, and the two
+  product terminal widgets animate in as if streaming live, side-by-side,
+  immediately under the fold — turning "Our products" into part of the hero
+  rather than a separate scroll section.</li>
+<li><strong>Motion:</strong> scroll-linked reveal of each numbered step, animated counters for
+  stat call-outs ($62,400, 13 integrations, 15–20%).</li>
+</ul>
+<h2 id="direction-b-field-notes-light-editorial-trust-forward">Direction B — "Field Notes" (light, editorial, trust-forward)</h2>
+<ul>
+<li><strong>Mood:</strong> the opposite bet from most AI dev-tool sites — a light,
+  high-trust, almost publication-like feel (paper-white surfaces, generous
+  margins, restrained color), aimed at buyers who are tired of dark "AI hacker"
+  aesthetics and want something that reads as mature and safe to give
+  infrastructure credentials to.</li>
+<li><strong>Background:</strong> off-white <code>#FAFAF7</code>, ink-near-black text <code>#12140F</code>, one
+  restrained accent (deep forest green or oxblood) used sparingly for links and
+  the "approval" motif.</li>
+<li><strong>Type:</strong> a serif or slab-serif for H1/H2 (signals editorial authority),
+  paired with a clean grotesk for body and UI chrome, and monospace kept only
+  for actual code/log content.</li>
+<li><strong>Terminal widgets:</strong> reimagined as inset "receipt"-style panels with a
+  dotted border, like a printed audit log — visually reinforces the "a log the
+  agent can't edit" trust message.</li>
+<li><strong>Entry page (Hero) idea:</strong> headline as a pull-quote in large serif type,
+  the two terminal widgets rendered small and monochrome to the side like
+  footnotes/evidence, with a single strong CTA. The "What we believe" 4
+  principles become the visual anchor of the page (trust-first framing),
+  moved up higher on the page than today.</li>
+<li><strong>Motion:</strong> minimal — fades only; this direction is about calm confidence,
+  not spectacle.</li>
+</ul>
+<h2 id="direction-c-console-native-leans-further-into-the-dev-tool-identity">Direction C — "Console Native" (leans further into the dev-tool identity)</h2>
+<ul>
+<li><strong>Mood:</strong> doubles down on "this is a tool built by engineers, for engineers"
+  — closer to a real terminal/IDE than the current site, but cleaner and more
+  deliberate than the current default dark theme.</li>
+<li><strong>Background:</strong> true black <code>#000000</code> with a visible, consistent 8px grid and
+  hairline borders (1px, low-opacity white) delineating every section like
+  panes in a terminal multiplexer (tmux-style).</li>
+<li><strong>Accent system:</strong> single accent, a saturated green (<code>#39FF88</code>-family)
+  reminiscent of classic terminal phosphor, used only for status/positive
+  states (<code>connected</code>, <code>verified</code>, <code>✓ checks passed</code>) — everything else stays
+  grayscale so the accent keeps its meaning as "status," which doubles as a
+  usability improvement.</li>
+<li><strong>Type:</strong> monospace everywhere, including headings (a well-hinted mono like
+  Berkeley Mono, IBM Plex Mono, or Departure Mono), sized aggressively for
+  hierarchy since mono fonts need more size contrast to read as headings.</li>
+<li><strong>Terminal widgets:</strong> become the literal layout grid of the page, not just a
+  decorative card — e.g., the whole "Our products" section is laid out like a
+  split-pane terminal session with Lear on the left pane and Prash on the
+  right, connected by a thin "process tree" line.</li>
+<li><strong>Entry page (Hero) idea:</strong> the hero itself boots up like a CLI ("$ drufiy
+  status" → prints the tagline, then the two product statuses) using a short,
+  skippable animation, then settles into the static page.</li>
+<li><strong>Motion:</strong> typewriter/boot-sequence intro on first load (skippable, respects
+  <code>prefers-reduced-motion</code>), otherwise minimal.</li>
+</ul>
+<hr />
+<h2 id="how-to-brief-this-to-the-ai-tool">How to brief this to the AI tool</h2>
+<p>When you fill in <code>05-ai-redesign-prompt.md</code>, name the direction (A, B, or C),
+or describe your own blend, e.g.:</p>
+<blockquote>
+<p>"Use Direction A for the overall system, but the light-background trust
+framing from Direction B specifically for the <code>/trust</code> and <code>/how-it-works</code>
+pages on lear.drufiy.com, since those pages are about safety, not
+excitement."</p>
+</blockquote>
+<p>You can also paste <strong>reference links/screenshots</strong> from other sites you like —
+the guardrails in <code>04-core-preservation-guardrails.md</code> and the prompt's
+constraints will keep those references from ever overwriting content, copy,
+routes, or functionality, no matter how different the visual reference is.</p></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="04-core-preservation-guardrails-do-not-touch">04 — Core Preservation Guardrails ("Do Not Touch")</h1>
+<p>This is the contract that keeps a UI redesign from causing "ruckus in core."
+Anything listed here is <strong>content, data, logic, or a live integration</strong> — never
+presentation — and must survive a redesign byte-for-byte unless the client
+(Drufiy) explicitly signs off on a change in writing.</p>
+<h2 id="1-routes-domains">1. Routes &amp; domains</h2>
+<ul>
+<li>Do not rename, merge, or remove any existing route listed in
+  <code>02-system-design-and-ia.md</code> §2.</li>
+<li>Do not change <code>drufiy.com</code>, <code>lear.drufiy.com</code>, <code>prash.drufiy.com</code> as three
+  separate hostnames unless explicitly instructed — this is an architecture
+  decision, not a UI one.</li>
+<li>Do not add a <code>sitemap.xml</code> or change <code>robots.txt</code> content — <code>robots.txt</code>
+  already contains a deliberate legal "content signals" policy; copy it as-is.</li>
+</ul>
+<h2 id="2-copy-meaning-commerciallegal-claims">2. Copy meaning &amp; commercial/legal claims</h2>
+<ul>
+<li>Preserve the <strong>meaning</strong> of every sentence flagged in
+  <code>01-current-site-audit.md</code>, especially:</li>
+<li>Pricing: <strong>"15 to 20%"</strong> of measured savings; free, read-only trial;
+    "if we do not save you money, you do not pay us."</li>
+<li>Safety/limits: Lear "will not autonomously change production databases or
+    customer data" and "will not reroute production networking or load
+    balancers."</li>
+<li>Trust claims: "credentials never leave your environment," "a log the agent
+    cannot edit," "nothing touches production without your yes," "five
+    permission modes, default is 'ask.'"</li>
+<li>Savings calculator disclosure: "These are your numbers, not our customer
+    results... The model counts only recovered engineer time, conservatively,
+    and ignores avoided downtime revenue."</li>
+<li>Prash demo honesty framing: "Lear has diagnosed and fixed real failures on
+    real AWS and GCP machines, after approval. The full recording is on its
+    way."</li>
+<li>Light copy-editing (grammar, rhythm, length) is allowed <strong>only</strong> if it does
+  not change the factual/commercial meaning above. When in doubt, keep the
+  original sentence.</li>
+<li>Do not invent new numeric claims (new percentages, new customer counts, new
+  "trusted by" logos, testimonials, review scores) that are not already on the
+  live site. If the new design "needs" social proof, leave a clearly marked
+  placeholder rather than fabricating it.</li>
+</ul>
+<h2 id="3-exact-strings-that-must-not-change">3. Exact strings that must not change</h2>
+<ul>
+<li><strong>Integrations list (13, exact names, exact order not required but set must
+  match):</strong> AWS, GCP, Azure, Kubernetes, GitHub, GitLab, Datadog, Grafana,
+  Terraform, PagerDuty, Snyk, Vercel, Gitleaks + secrets.</li>
+<li><strong>Emails:</strong> <code>founders@drufiy.com</code>, <code>drufiyinnovations@gmail.com</code>.</li>
+<li><strong>Booking link:</strong> <code>https://cal.com/drufiy-ejtkst/30min</code> (and its parent
+  <code>https://cal.com/drufiy-ejtkst</code>).</li>
+<li><strong>Cross-site links:</strong> <code>https://lear.drufiy.com/</code>, <code>https://prash.drufiy.com/</code>.</li>
+<li><strong>Page <code>&lt;title&gt;</code> values</strong> listed in audit §4.6, unless the client approves
+  new SEO titles.</li>
+<li>Numeric example in the savings calculator: <code>20</code> engineers → <code>$62,400</code>/yr,
+  <code>624</code> engineer-hours, <code>0.6</code> fixed coverage factor, <code>$180,000</code> reference SRE
+  salary, <code>2,000</code> hrs/yr baseline. If you re-derive the calculator UI, the
+  <strong>formula</strong> producing these outputs must be preserved (recompute the same
+  numbers from the same example inputs as a regression test — see
+  <code>06-qa-acceptance-checklist.md</code>).</li>
+</ul>
+<h2 id="4-forms-embeds-and-third-party-flows">4. Forms, embeds, and third-party flows</h2>
+<ul>
+<li><code>drufiy.com</code> lead form: keep fields <strong>Name, Email, "What are you working
+  on?"</strong> in that order, same input types, same submit label "Send message."
+  If the current submit target/handler is unknown, do not silently point it at
+  a new endpoint without confirming with whoever owns the backend — a restyle
+  should not break lead capture.</li>
+<li><code>lear.drufiy.com/contact</code>: keep the live <strong>Cal.com embed</strong> functional (same
+  handle/event), keep both <strong>mailto:</strong> links with their exact labels.</li>
+<li><code>lear.drufiy.com/savings</code>: this is a <strong>calculator, not a static graphic</strong> —
+  region select + 4 sliders + 2 numeric assumption inputs + fixed 0.6 constant
+  must remain live/interactive and mathematically equivalent.</li>
+<li><code>prash.drufiy.com</code>: the <strong>"Install the GitHub App"</strong> CTA must remain a real
+  link/flow into GitHub's App install/OAuth screen, in both places it appears
+  (hero and closing CTA). Never mock this as a plain styled button with no
+  destination.</li>
+</ul>
+<h2 id="5-accessibility-technical-baselines">5. Accessibility &amp; technical baselines</h2>
+<ul>
+<li>Do not remove "Skip to content" links; add one to <code>drufiy.com</code> if the rebuild
+  doesn't already include it.</li>
+<li>Do not drop below WCAG AA contrast on body text, regardless of the new
+  palette chosen.</li>
+<li>Do not convert real form controls (sliders, selects, text inputs) into
+  non-semantic <code>&lt;div&gt;</code>s for style reasons — restyle the real controls instead.</li>
+<li>Do not remove descriptive alt text from the three Lear product screenshots.</li>
+</ul>
+<h2 id="6-brand-assets">6. Brand assets</h2>
+<ul>
+<li>Keep product names exactly as branded: <strong>Drufiy</strong> (company/parent, also
+  styled "DrufiyAI" in the homepage <code>&lt;title&gt;</code>), <strong>Lear</strong>, <strong>Prash</strong>. Do not
+  rename, pluralize, or genericize them ("the Drufiy platform," "our AI," etc.)
+  in headings that currently use the product name.</li>
+<li>If a new logo/wordmark is designed, it should still clearly read as
+  "Drufiy" and, on the product sites, as "Lear by Drufiy" / "Prash by Drufiy"
+  (the <code>&lt;title&gt;</code> of <code>prash.drufiy.com</code> already uses this "by Drufiy" pattern —
+  consider extending it to Lear for consistency, but this is a <strong>content
+  suggestion, not a requirement</strong>, so mark it clearly if adopted, since it is a
+  discretionary copy change, not a pure restyle).</li>
+</ul>
+<h2 id="7-what-an-ai-redesign-tool-is-explicitly-allowed-to-change">7. What an AI redesign tool is explicitly <em>allowed</em> to change</h2>
+<p>For clarity (so the guardrails don't get over-applied and stall the actual
+redesign): colors, typography, spacing, layout/grid, component shapes, icons,
+illustrations, imagery treatment, motion/animation, navigation <em>presentation</em>
+(not destinations), page background treatments, card/section ordering <strong>within
+a page only if content relationships are preserved</strong> (e.g., don't separate the
+0.6 constant from the calculator it belongs to), and the overall "entry page"
+concept per <code>03-ui-redesign-directions.md</code>.</p>
+<h2 id="8-escalation-rule">8. Escalation rule</h2>
+<p>If following an instruction in the new UI brief would require changing
+anything in sections 1–6 above, the AI tool should <strong>stop and flag it</strong> rather
+than silently comply — e.g., "You asked me to combine Lear and Prash into one
+product page; that changes the site architecture and the '15–20% savings'
+pricing claim's context — confirm before I proceed."</p></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="05-ready-to-paste-ai-redesign-prompt">05 — Ready-to-Paste AI Redesign Prompt</h1>
+<p>Copy everything in the fenced block below into your AI coding tool (Cursor,
+Claude, ChatGPT, Copilot Workspace, etc.), <strong>after</strong> attaching/uploading (or
+pasting the contents of) these companion files from this package so the model
+has the full ground truth:</p>
+<ul>
+<li><code>01-current-site-audit.md</code></li>
+<li><code>02-system-design-and-ia.md</code></li>
+<li><code>04-core-preservation-guardrails.md</code></li>
+<li><code>design-tokens.json</code></li>
+<li><code>content-model.json</code></li>
+</ul>
+<p>Then fill in the one bracketed section near the bottom,
+<code>[[ENTRY PAGE / NEW UI DIRECTION]]</code>, with your chosen direction from
+<code>03-ui-redesign-directions.md</code> (A, B, C, a blend, or your own reference
+links/screenshots).</p>
+<hr />
+<pre><code>ROLE
+You are a senior front-end/design engineer redesigning the visual layer (UI)
+of the Drufiy web presence: drufiy.com (corporate/hub), lear.drufiy.com
+(product site, 5 pages), and prash.drufiy.com (product site, 1 page). You have
+been given an audit of the current live site, a target system design, and a
+locked list of things that must never change. Treat those documents as ground
+truth, not as suggestions.
+
+OBJECTIVE
+Redesign the UI — layout, visual style, typography, color, iconography,
+motion, component chrome, and the overall &quot;entry page&quot; (homepage) concept —
+for all three properties, as ONE coherent new design system with per-product
+accents. Do not change what the site says, what it does, where its links and
+forms go, or how its interactive logic behaves. This is a reskin + rebuild of
+presentation, not a rewrite of the product, copy, pricing, or business logic.
+
+HARD CONSTRAINTS (do not violate these under any circumstance; if a
+requirement below conflicts with a constraint, stop and ask instead of
+guessing):
+
+1. Keep every route listed in the system design doc. Do not add, remove, merge,
+   or rename pages/URLs. Keep drufiy.com, lear.drufiy.com, and prash.drufiy.com
+   as three separate properties.
+2. Keep every piece of copy's MEANING intact, including all numbers: the
+   &quot;15 to 20%&quot; pricing claim, the free/read-only-trial condition, the
+   &quot;if we do not save you money, you do not pay us&quot; guarantee, the explicit
+   list of things Lear will never do autonomously (production databases/
+   customer data, production networking/load balancers), the trust claims
+   (&quot;credentials never leave your environment,&quot; &quot;a log the agent cannot
+   edit,&quot; &quot;nothing touches production without your yes,&quot; &quot;five permission
+   modes, default is 'ask'&quot;), and the savings-calculator disclosure
+   (&quot;These are your numbers, not our customer results... conservatively,
+   ignores avoided downtime revenue&quot;). Light copy-editing for rhythm is fine;
+   changing facts, numbers, or commitments is not.
+3. Keep the exact integrations list (13 items: AWS, GCP, Azure, Kubernetes,
+   GitHub, GitLab, Datadog, Grafana, Terraform, PagerDuty, Snyk, Vercel,
+   Gitleaks + secrets) everywhere it appears, and keep the &quot;13&quot; / &quot;Thirteen&quot;
+   references in sync with that list.
+4. Keep these exact strings unchanged: founders@drufiy.com,
+   drufiyinnovations@gmail.com, https://cal.com/drufiy-ejtkst/30min,
+   https://lear.drufiy.com/, https://prash.drufiy.com/, and the page &lt;title&gt;
+   values from the audit doc (unless I explicitly give you new ones).
+5. Keep all forms and interactive logic real and functional, not decorative:
+   - The drufiy.com lead form keeps fields Name, Email, &quot;What are you working
+     on?&quot; (textarea), in that order, submit label &quot;Send message.&quot; Use real
+     &lt;form&gt;/&lt;input&gt;/&lt;textarea&gt;/&lt;button&gt; elements with working labels and
+     accessible states; do not fabricate a new backend endpoint without
+     telling me — wire it to the existing handler/endpoint if you can find or
+     I provide one, otherwise leave a clearly marked TODO and a working
+     client-side validation state.
+   - lear.drufiy.com/contact keeps a real Cal.com embed for
+     drufiy-ejtkst/30min and both mailto: links with their existing labels
+     (&quot;Founders &amp; partnerships,&quot; &quot;General inquiries&quot;).
+   - lear.drufiy.com/savings stays a REAL, live-recalculating calculator: a
+     region select (US/Europe/India/Other), four inputs/sliders (team size,
+     incidents per week, hours per incident, engineers pulled in), two
+     editable assumption inputs (loaded engineer cost/hour, SRE salary/year),
+     and a fixed 0.6 coverage constant, producing the same category of outputs
+     (recovered $/year, engineer-hours back, &quot;hire you defer&quot; framing). Verify
+     your rebuilt formula reproduces the published example: 20 engineers ≈
+     $62,400/yr ≈ 624 engineer-hours, referenced against a $180,000/yr,
+     2,000-hr baseline SRE.
+   - prash.drufiy.com keeps &quot;Install the GitHub App&quot; as a real, working link/
+     flow to GitHub's App install screen in both places it appears (hero and
+     closing CTA) — never a dead button.
+6. Do not turn real form controls into non-semantic styled &lt;div&gt;s. Sliders,
+   selects, and text inputs must remain real, labeled, keyboard-accessible
+   controls even inside heavily restyled &quot;terminal&quot; widgets.
+7. Preserve &quot;Skip to content&quot; links on every page (add one to drufiy.com if
+   it's missing). Meet WCAG AA contrast (4.5:1 body text) regardless of the
+   new palette. Keep descriptive alt text on the Lear product screenshots
+   (dashboard, copilot, connect-your-infrastructure).
+8. Do not fabricate new commercial claims: no invented testimonials, no
+   invented &quot;trusted by&quot; logos, no invented review scores or customer counts
+   that don't already exist on the live site. If the new layout wants a
+   social-proof slot, leave it as an explicit, clearly labeled placeholder
+   instead of inventing content.
+9. Do not touch drufiy.com/robots.txt content or logic.
+10. If completing a request in this prompt would require breaking any of the
+    above, stop and tell me exactly what the conflict is instead of silently
+    resolving it.
+
+WHAT YOU SHOULD FEEL FREE TO CHANGE (this is the actual point of the project)
+Layout and grid systems, color palette and theming (including moving away
+from the current dark developer-tool look if the chosen direction calls for
+it), typography (pairing, scale, rhythm — but keep a monospace family
+available for terminal/code/log content, since that's a core brand device
+across all three sites), iconography and illustration, the visual design of
+the &quot;terminal/log&quot; widgets (keep their literal text content, restyle
+everything about their container), card and section shapes, navigation
+chrome, hero/entry-page concept and structure, motion and micro-interactions,
+and how the numbered step-lists / stat call-outs / integration grid /
+before-after diff / pricing band are visually presented.
+
+DELIVERABLE FORMAT
+1. A short written design rationale (5–10 sentences) explaining the new
+   direction and how it maps onto the existing content model.
+2. Updated design tokens (colors, type, spacing, radii, motion) as a
+   structured file (e.g., design-tokens.json/.css variables/Tailwind config —
+   match whatever stack this codebase uses).
+3. Rebuilt components/templates for every component listed in
+   &quot;02-system-design-and-ia.md&quot; §3 (SiteHeader, Hero, TerminalWidget,
+   ProductCard, NumberedStepList, PrincipleGrid, IntegrationGrid, StatCallout,
+   Calculator, PricingBand, LeadForm, BookingEmbed, ContactEmailList,
+   GitHubInstallCTA, BeforeAfterDiff, SiteFooter), restyled per the new
+   direction, with content still sourced from the existing content model/data
+   (do not hardcode copy directly into presentational markup if the codebase
+   already separates content from templates — preserve that separation; if it
+   doesn't exist yet, introduce a simple content file per page as part of this
+   redesign so future copy edits don't require touching layout code again).
+4. Rebuilt pages for every route in the sitemap (02-system-design-and-ia.md
+   §2), using the new components.
+5. A short &quot;what changed vs. what didn't&quot; summary per page, so a non-technical
+   reviewer can sanity-check that only presentation changed.
+6. Do NOT delete or refactor away any working backend/API code, environment
+   variables, analytics snippets, or third-party embeds you find in the
+   existing codebase while doing this — if you must move them to accommodate
+   new markup, keep them wired up exactly the same way.
+
+[[ENTRY PAGE / NEW UI DIRECTION]]
+&lt;&lt;&lt; PASTE YOUR CHOSEN DIRECTION HERE, e.g.:
+&quot;Use Direction A — 'Signal Room' — from my UI redesign directions doc, for the
+overall system. Make the drufiy.com homepage the flagship 'entry page': a
+full-bleed hero with the 'Most tools tell you something broke. Ours help
+explain why.' line set very large, with the Lear and Prash terminal widgets
+streaming in live side-by-side right under the fold. Carry the amber/cyan/
+violet accent system across drufiy.com/lear.drufiy.com/prash.drufiy.com
+respectively. Use Direction B's calmer, light treatment specifically for
+lear.drufiy.com/trust and /how-it-works, since those pages are about safety
+rather than excitement.&quot;
+
+(Replace this whole block with your real direction, reference links, or
+uploaded screenshots before running this prompt.)
+&gt;&gt;&gt;
+
+Before you write any code, restate in your own words: (a) the 3 properties and
+their routes, (b) the exact integrations list, (c) the exact pricing claim,
+(d) the exact emails and booking link, and (e) the calculator's inputs and
+constant — to confirm you've internalized the constraints. Then proceed with
+the redesign.
+</code></pre>
+<hr />
+<h3 id="tips-for-using-this-prompt-well">Tips for using this prompt well</h3>
+<ul>
+<li>If your AI tool has a smaller context window, paste <code>04-core-preservation-
+  guardrails.md</code> in full even if you can't fit the others — that file alone
+  prevents the worst "ruckus in core" outcomes.</li>
+<li>Run it <strong>once per property</strong> if the tool struggles with all three sites at
+  once (<code>drufiy.com</code> first as the flagship entry page, then <code>lear.drufiy.com</code>,
+  then <code>prash.drufiy.com</code>), reusing the same design tokens output from the
+  first run so all three stay visually consistent.</li>
+<li>After the AI produces output, run it through <code>06-qa-acceptance-checklist.md</code>
+  before you consider the task done.</li>
+</ul></section>
+<div class='page-break'></div>
+<section class="doc-section"><h1 id="06-qa-acceptance-checklist">06 — QA &amp; Acceptance Checklist</h1>
+<p>Use this after the AI/dev produces the redesign, and hand the same list to
+your auditor. Every row should be checked against the <strong>live redesigned site</strong>,
+compared to <code>01-current-site-audit.md</code> (the as-is record) and
+<code>04-core-preservation-guardrails.md</code> (the do-not-touch list).</p>
+<h2 id="a-routes-navigation">A. Routes &amp; navigation</h2>
+<ul>
+<li>[ ] <code>drufiy.com/</code> loads and contains all 5 original sections (Hero, Products,
+      How we build, What we believe, Contact).</li>
+<li>[ ] <code>lear.drufiy.com/</code>, <code>/how-it-works</code>, <code>/trust</code>, <code>/savings</code>, <code>/contact</code> all
+      resolve and contain their original sections.</li>
+<li>[ ] <code>prash.drufiy.com/</code> resolves and contains all 7 original sections.</li>
+<li>[ ] "Visit Lear →" on drufiy.com still points to <code>https://lear.drufiy.com/</code>.</li>
+<li>[ ] "Explore Prash →" on drufiy.com still points to <code>https://prash.drufiy.com/</code>.</li>
+<li>[ ] No previously-working route now 404s.</li>
+<li>[ ] <code>robots.txt</code> content is byte-for-byte unchanged.</li>
+</ul>
+<h2 id="b-copy-commercial-claims">B. Copy &amp; commercial claims</h2>
+<ul>
+<li>[ ] Pricing still reads "15 to 20%" of measured savings, free read-only
+      trial, "if we do not save you money, you do not pay us."</li>
+<li>[ ] Lear's "will not" safety limits (no autonomous prod DB/customer data
+      changes, no autonomous networking/load-balancer changes) still present,
+      on both <code>/how-it-works</code> and <code>/trust</code>.</li>
+<li>[ ] Savings-calculator disclosure paragraph ("These are your numbers, not
+      our customer results...") still present, unedited in meaning.</li>
+<li>[ ] No new testimonials, "trusted by" logos, review scores, or customer
+      counts have been invented.</li>
+<li>[ ] All 13 integrations still listed, spelled identically, on both
+      <code>lear.drufiy.com/</code> and <code>/how-it-works</code>.</li>
+</ul>
+<h2 id="c-forms-embeds-flows">C. Forms, embeds &amp; flows</h2>
+<ul>
+<li>[ ] drufiy.com lead form has exactly 3 fields — Name, Email, "What are you
+      working on?" — in that order, with a "Send message" submit button, and
+      actually submits (check network tab / success state).</li>
+<li>[ ] lear.drufiy.com/contact shows a working Cal.com booking embed for
+      <code>drufiy-ejtkst/30min</code>.</li>
+<li>[ ] lear.drufiy.com/contact lists both <code>founders@drufiy.com</code> and
+      <code>drufiyinnovations@gmail.com</code> as live <code>mailto:</code> links with their original
+      labels.</li>
+<li>[ ] lear.drufiy.com/savings: moving the region select and all four sliders
+      recalculates the output numbers live (not static).</li>
+<li>[ ] Plugging the documented example inputs (20 engineers, defaults) still
+      produces ≈ $62,400/yr and ≈ 624 engineer-hours.</li>
+<li>[ ] prash.drufiy.com "Install the GitHub App" (both instances) links to a
+      real GitHub App install/OAuth destination, not a dead button or <code>#</code>.</li>
+</ul>
+<h2 id="d-accessibility">D. Accessibility</h2>
+<ul>
+<li>[ ] "Skip to content" link present and functional on all pages, including
+      drufiy.com.</li>
+<li>[ ] Body text contrast ratio ≥ 4.5:1 against its background in the new
+      palette (spot-check with a contrast checker).</li>
+<li>[ ] Calculator sliders/selects are real, labeled, keyboard-operable form
+      controls (tab to them, operate with arrow keys).</li>
+<li>[ ] Product screenshots (dashboard, copilot, connect) retain descriptive alt
+      text.</li>
+<li>[ ] All CTAs have real, readable link text or an <code>aria-label</code> (no bare
+      icon-only arrows).</li>
+</ul>
+<h2 id="e-visualui-change-verification-confirming-the-redesign-actually-happened">E. Visual/UI change verification (confirming the redesign actually happened)</h2>
+<ul>
+<li>[ ] New color palette/theme is visibly different from the original dark
+      theme (or matches the chosen direction from <code>03-ui-redesign-directions.md</code>
+      deliberately, if that direction is also dark).</li>
+<li>[ ] Typography has changed (new family/scale/rhythm), not just recolored.</li>
+<li>[ ] Layout/grid of at least the entry page (drufiy.com home) is structurally
+      different from the current one-column stack (per the chosen direction).</li>
+<li>[ ] Terminal/log widgets still show the exact original log content
+      (<code>root cause: failed migration</code>, <code>missing await in auth.ts:142</code>, etc.)
+      but in new visual chrome.</li>
+</ul>
+<h2 id="f-cross-property-consistency">F. Cross-property consistency</h2>
+<ul>
+<li>[ ] drufiy.com, lear.drufiy.com, and prash.drufiy.com feel like one design
+      system (shared type/spacing/components) with distinguishable per-product
+      accents, not three unrelated redesigns.</li>
+<li>[ ] Design tokens file (<code>design-tokens.json</code> or equivalent in the final repo)
+      is the single source of truth for color/type/spacing — spot check that
+      components reference it rather than one-off hardcoded values.</li>
+</ul>
+<h2 id="g-regression-sign-off">G. Regression / sign-off</h2>
+<ul>
+<li>[ ] A written "what changed vs. what didn't" summary exists per page (per the
+      prompt's deliverable #5) and matches what you observe.</li>
+<li>[ ] Nothing in <code>04-core-preservation-guardrails.md</code> was flagged as violated.</li>
+<li>[ ] Auditor has been given: this checklist (filled in), <code>01-current-site-
+      audit.md</code>, and before/after screenshots of each page.</li>
+</ul></section>
+</div>
+</body>
+</html>
