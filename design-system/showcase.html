@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AVI Design System — U-01 Showcase</title>
+<meta name="description" content="Living style guide for the AVI design system foundation layer." />
+<link rel="icon" href="data:," />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="avi-tokens.css" />
+<style>
+  /* Showcase-only chrome. Everything below still consumes avi- tokens. */
+  .sc-shell { max-width: var(--avi-container-max); margin: 0 auto; padding: var(--avi-space-16) var(--avi-container-pad) var(--avi-space-40); }
+  .sc-hero {
+    padding: var(--avi-space-24) 0 var(--avi-space-16);
+    border-bottom: 1px solid var(--avi-border-subtle);
+    margin-bottom: var(--avi-space-16);
+  }
+  .sc-hero h1 {
+    font-family: var(--avi-font-serif);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: var(--avi-leading-tight);
+    margin: var(--avi-space-4) 0;
+    letter-spacing: var(--avi-tracking-tight);
+  }
+  .sc-hero p { color: var(--avi-text-secondary); max-width: 640px; font-size: var(--avi-text-lg); line-height: var(--avi-leading-relaxed); }
+  .sc-badge {
+    display: inline-block; margin-top: var(--avi-space-6);
+    padding: 6px 14px; border-radius: var(--avi-radius-full);
+    border: 1px solid var(--avi-border-accent); background: var(--avi-accent-subtle);
+    color: var(--avi-accent-solid); font-family: var(--avi-font-mono); font-size: var(--avi-text-xs);
+    letter-spacing: var(--avi-tracking-wider); text-transform: uppercase;
+  }
+  section.sc-block { margin-bottom: var(--avi-space-24); }
+  .sc-block h2 { font-family: var(--avi-font-serif); font-size: var(--avi-text-4xl); margin-bottom: var(--avi-space-2); }
+  .sc-block .sc-sub { color: var(--avi-text-muted); font-family: var(--avi-font-mono); font-size: var(--avi-text-sm); margin-bottom: var(--avi-space-8); }
+
+  .sc-swatchgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--avi-space-4); }
+  .sc-swatch { border: 1px solid var(--avi-border-subtle); border-radius: var(--avi-radius-lg); overflow: hidden; background: var(--avi-bg-card); }
+  .sc-swatch-fill { height: 72px; }
+  .sc-swatch-label { padding: var(--avi-space-3) var(--avi-space-4); font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); }
+  .sc-swatch-label b { display: block; color: var(--avi-text-primary); font-size: var(--avi-text-sm); margin-bottom: 2px; }
+  .sc-swatch-label span { color: var(--avi-text-muted); }
+
+  .sc-typerow { display: flex; align-items: baseline; gap: var(--avi-space-6); padding: var(--avi-space-4) 0; border-bottom: 1px solid var(--avi-border-subtle); }
+  .sc-typerow .sc-sample { font-family: var(--avi-font-serif); flex: 1; }
+  .sc-typerow .sc-meta { font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted); width: 160px; flex: 0 0 auto; text-align: right; }
+
+  .sc-spacerow { display: flex; align-items: center; gap: var(--avi-space-4); margin-bottom: var(--avi-space-2); }
+  .sc-spacebar { background: var(--avi-gradient-accent); height: 14px; border-radius: 3px; }
+  .sc-spacerow .sc-meta { font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted); width: 130px; }
+
+  .sc-row { display: flex; flex-wrap: wrap; gap: var(--avi-space-4); align-items: center; }
+  .sc-card-demo { padding: var(--avi-space-8); width: 320px; }
+  .sc-card-demo h3 { font-family: var(--avi-font-serif); font-size: var(--avi-text-2xl); margin: var(--avi-space-3) 0; }
+  .sc-card-demo p { color: var(--avi-text-secondary); font-size: var(--avi-text-sm); line-height: var(--avi-leading-relaxed); }
+
+  .sc-motion-tile {
+    width: 140px; height: 100px; border-radius: var(--avi-radius-lg);
+    background: var(--avi-bg-card); border: 1px solid var(--avi-border-default);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted);
+  }
+  .sc-motion-tile.on-hover:hover { border-color: var(--avi-border-accent); background: var(--avi-accent-subtle); transition: var(--avi-transition-all); }
+  .sc-pulse-demo { width: 16px; height: 16px; border-radius: 50%; background: var(--avi-status-live); animation: sc-pulse 2s var(--avi-ease-in-out) infinite; }
+  @keyframes sc-pulse { 0%,100% { box-shadow: 0 0 0 0 var(--avi-accent-glow);} 50% { box-shadow: 0 0 0 10px transparent; } }
+
+  .sc-backdrop-demo {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(52,211,153,0.25), transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(6,182,212,0.2), transparent 60%),
+      var(--avi-bg-sink);
+    color: var(--avi-text-muted); font-family: var(--avi-font-mono); font-size: var(--avi-text-xs);
+    text-align: center; padding: var(--avi-space-4);
+  }
+</style>
+</head>
+<body data-avi>
+<a href="#main" class="avi-skip">Skip to content</a>
+
+<div class="sc-shell" id="main">
+  <header class="sc-hero">
+    <span class="avi-label">U-01 · Foundation Layer</span>
+    <h1>AVI Design System</h1>
+    <p>Precision Engineering — a single token layer that powers the entry
+    experience, the console dashboard, the sidebar, and every component
+    that follows. Nothing on this page is a one-off value; everything
+    below is rendered directly from <code>avi-tokens.css</code>.</p>
+    <span class="sc-badge">v1.0.0 · Locked &amp; ready for U-02</span>
+  </header>
+
+  <!-- COLOR -->
+  <section class="sc-block">
+    <h2>Color</h2>
+    <div class="sc-sub">Background scale, text scale, accent gradient, status, terminal, borders</div>
+
+    <div class="sc-swatchgrid" id="swatch-bg"></div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="sc-block">
+    <h2>Typography</h2>
+    <div class="sc-sub">font-serif · font-sans · font-mono — type scale --avi-text-xs → --avi-text-8xl</div>
+    <div id="type-scale"></div>
+  </section>
+
+  <!-- SPACING -->
+  <section class="sc-block">
+    <h2>Spacing</h2>
+    <div class="sc-sub">8px base grid — --avi-space-1 → --avi-space-40</div>
+    <div id="space-scale"></div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="sc-block">
+    <h2>Primitives</h2>
+    <div class="sc-sub">Buttons, tags, dots, dividers, inputs</div>
+
+    <div class="sc-row" style="margin-bottom: var(--avi-space-6);">
+      <button class="avi-btn avi-btn--gradient">Explore our models</button>
+      <button class="avi-btn avi-btn--outline">Talk to us</button>
+      <button class="avi-btn avi-btn--ghost">Ghost action</button>
+      <button class="avi-btn avi-btn--gradient avi-btn--sm">Small</button>
+      <button class="avi-btn avi-btn--gradient avi-btn--lg">Large</button>
+    </div>
+
+    <div class="sc-row" style="margin-bottom: var(--avi-space-6);">
+      <span class="avi-tag">Runs locally</span>
+      <span class="avi-tag">Connects your stack</span>
+      <span class="avi-tag">Acts with approval</span>
+      <span style="display:inline-flex; align-items:center; gap:8px; font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted);">
+        <span class="avi-dot"></span> LIVE
+      </span>
+      <span style="display:inline-flex; align-items:center; gap:8px; font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted);">
+        <span class="avi-dot" data-state="idle"></span> IDLE
+      </span>
+      <span style="display:inline-flex; align-items:center; gap:8px; font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted);">
+        <span class="avi-dot" data-state="warn"></span> WARN
+      </span>
+      <span style="display:inline-flex; align-items:center; gap:8px; font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted);">
+        <span class="avi-dot" data-state="error"></span> ERROR
+      </span>
+    </div>
+
+    <hr class="avi-divider" style="margin: var(--avi-space-8) 0;" />
+
+    <div class="sc-row" style="align-items:flex-start;">
+      <form class="avi-field" style="width: 280px;" onsubmit="return false;">
+        <label for="sc-name">Name</label>
+        <input class="avi-input" id="sc-name" placeholder="Your name" />
+      </form>
+      <form class="avi-field" style="width: 280px;" onsubmit="return false;">
+        <label for="sc-msg">What are you working on?</label>
+        <textarea class="avi-textarea" id="sc-msg" placeholder="Describe the problem you're facing..." style="min-height: 46px;"></textarea>
+      </form>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="sc-block">
+    <h2>Glass Cards</h2>
+    <div class="sc-sub">.avi-glass — backdrop blur, layered depth</div>
+    <div class="sc-row">
+      <div class="avi-glass sc-card-demo">
+        <span class="avi-label">Our Products</span>
+        <h3>Lear</h3>
+        <p>A local DevOps agent for small engineering teams. Reads real infrastructure signals and proposes fixes that wait for approval.</p>
+      </div>
+      <div class="avi-terminal sc-card-demo" style="padding:0;">
+        <div class="avi-terminal-bar">
+          <span style="font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-text-muted);">LEAR / INVESTIGATION</span>
+          <span style="display:inline-flex; align-items:center; gap:6px; font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); color: var(--avi-status-live);"><span class="avi-dot"></span>CONNECTED</span>
+        </div>
+        <div class="avi-terminal-body">
+          <div>&gt; reading cluster and CI signals</div>
+          <div>&gt; correlating 4 related events</div>
+          <div style="color: var(--avi-term-error);">! root cause: failed migration</div>
+          <div style="padding-left:16px;">proposed: roll back deployment</div>
+          <div>&gt; waiting for your approval_</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section class="sc-block">
+    <h2>Motion</h2>
+    <div class="sc-sub">Durations, easings, reveal/pulse keyframes — respects prefers-reduced-motion</div>
+    <div class="sc-row">
+      <div class="sc-motion-tile on-hover">hover me<br/>ease-out 300ms</div>
+      <div class="sc-motion-tile" style="flex-direction:column; gap:8px;">
+        <div class="sc-pulse-demo"></div>
+        pulse-glow 2s
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE BACKDROP PRIMITIVE -->
+  <section class="sc-block">
+    <h2>Live Backdrop Well</h2>
+    <div class="sc-sub">.avi-backdrop — reserved mount point for future live video/canvas feeds (scanline scrim + tint token already wired)</div>
+    <div class="avi-backdrop sc-backdrop-demo">
+      video/canvas mounts here at z(-1) · scrim: var(--avi-backdrop-tint)
+    </div>
+  </section>
+
+  <footer style="padding-top: var(--avi-space-16); border-top: 1px solid var(--avi-border-subtle); color: var(--avi-text-muted); font-family: var(--avi-font-mono); font-size: var(--avi-text-xs); display:flex; justify-content:space-between; flex-wrap:wrap; gap: var(--avi-space-4);">
+    <span>AVI Design System · avi-tokens.css</span>
+    <span>U-01 complete — see /CONTEXT-DOC.txt for roadmap</span>
+  </footer>
+</div>
+
+<script>
+  // Render color swatches + type scale + space scale directly from the
+  // computed CSS custom properties so this page can never drift out of
+  // sync with avi-tokens.css.
+  const root = getComputedStyle(document.documentElement);
+  const val = (name) => root.getPropertyValue(name).trim();
+
+  const colorGroups = [
+    ['--avi-bg-base','base'],['--avi-bg-raised','raised'],['--avi-bg-card','card'],
+    ['--avi-bg-card-hover','card-hover'],['--avi-bg-input','input'],['--avi-bg-sink','sink'],
+    ['--avi-text-primary','text primary'],['--avi-text-secondary','text secondary'],
+    ['--avi-text-muted','text muted'],['--avi-accent-solid','accent solid'],
+    ['--avi-accent-start','accent start'],['--avi-accent-end','accent end'],
+    ['--avi-status-live','status live'],['--avi-status-warning','status warning'],
+    ['--avi-status-error','status error'],['--avi-status-info','status info'],
+    ['--avi-term-bg','terminal bg'],['--avi-term-success','terminal success'],
+    ['--avi-term-error','terminal error'],['--avi-border-strong','border strong'],
+  ];
+  const swatchHost = document.getElementById('swatch-bg');
+  colorGroups.forEach(([varName, label]) => {
+    const v = val(varName);
+    const div = document.createElement('div');
+    div.className = 'sc-swatch';
+    div.innerHTML = `<div class="sc-swatch-fill" style="background:${v}"></div>
+      <div class="sc-swatch-label"><b>${label}</b><span>${varName}</span></div>`;
+    swatchHost.appendChild(div);
+  });
+
+  const typeSizes = ['--avi-text-xs','--avi-text-sm','--avi-text-base','--avi-text-lg','--avi-text-xl','--avi-text-2xl','--avi-text-3xl','--avi-text-4xl','--avi-text-5xl','--avi-text-6xl','--avi-text-7xl','--avi-text-8xl'];
+  const typeHost = document.getElementById('type-scale');
+  typeSizes.forEach(sz => {
+    const row = document.createElement('div');
+    row.className = 'sc-typerow';
+    row.innerHTML = `<div class="sc-sample" style="font-size:${val(sz)}">DrufiyAI builds AI systems</div><div class="sc-meta">${sz} · ${val(sz)}</div>`;
+    typeHost.appendChild(row);
+  });
+
+  const spaceSizes = ['--avi-space-1','--avi-space-2','--avi-space-4','--avi-space-6','--avi-space-8','--avi-space-12','--avi-space-16','--avi-space-24','--avi-space-32','--avi-space-40'];
+  const spaceHost = document.getElementById('space-scale');
+  spaceSizes.forEach(sp => {
+    const row = document.createElement('div');
+    row.className = 'sc-spacerow';
+    row.innerHTML = `<div class="sc-meta">${sp}</div><div class="sc-spacebar" style="width:${val(sp)}"></div><div class="sc-meta" style="text-align:left;">${val(sp)}</div>`;
+    spaceHost.appendChild(row);
+  });
+</script>
+</body>
+</html>

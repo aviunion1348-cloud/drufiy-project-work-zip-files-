@@ -1,0 +1,526 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   AVI DESIGN SYSTEM — U-01 / FOUNDATION LAYER
+   avi-tokens.css · v1.0.0 "PRECISION ENGINEERING"
+
+   A zero-dependency, fully self-contained design-token layer for the AVI
+   application. Drop this file into ANY page (entry, console, dashboard,
+   docs, third-party app) and every other AVI layer (animations, sfx,
+   video, adapt) keys off it.
+
+   DESIGN DIRECTION (per DrufiyAI "Precision Engineering" spec §5.1–5.2):
+     DEPTH    — layered cards, shadows, blur
+     MOTION   — purposeful animations conveying system intelligence
+     PRECISION— clean grid, mathematical spacing (8px base)
+     WARMTH   — warm dark tones, never pure black on surfaces
+     TRUST    — calm, professional, authoritative presence
+
+   SELF-REMIXING: every color/space/type value is a CSS custom property.
+   avi-adapt.js rewrites these properties at runtime when the repo is
+   cloned/forked/pushed to a new home, so the whole UI re-skins itself
+   while layout stays byte-identical. Never hard-code hex values in
+   components — always consume a token.
+
+   TOKEN NAMING:
+     --avi-{category}-{name}[-{variant}]
+   Categories: bg, text, accent, status, term, border, shadow, font,
+   text, space, radius, dur, ease, z, nav, side, btn, input, card, tag
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── 1. BACKGROUND SCALE ─────────────────────────────────────────── */
+  --avi-bg-base:          #08090A;   /* deepest page background          */
+  --avi-bg-raised:        #0F1114;   /* raised surfaces, panels, footer  */
+  --avi-bg-card:          #151820;   /* card backgrounds                 */
+  --avi-bg-card-hover:    #1A1E28;   /* card hover state                 */
+  --avi-bg-overlay:       rgba(15, 17, 20, 0.80);  /* modals / overlays  */
+  --avi-bg-glass:         rgba(21, 24, 32, 0.60);  /* glassmorphism fill */
+  --avi-bg-glass-strong:  rgba(21, 24, 32, 0.85);
+  --avi-bg-input:         #0C0E12;   /* form input fields                */
+  --avi-bg-sink:          #050709;   /* wells, terminals, video frames   */
+
+  /* ── 2. TEXT SCALE ───────────────────────────────────────────────── */
+  --avi-text-primary:     #F0F2F5;   /* headlines, primary copy          */
+  --avi-text-secondary:   #A0A8B8;   /* body text                        */
+  --avi-text-muted:       #5C6478;   /* metadata, captions, labels       */
+  --avi-text-faint:       #3A3F4B;   /* placeholders, disabled           */
+  --avi-text-inverse:     #08090A;   /* text sitting on accent fills     */
+
+  /* ── 3. ACCENT · EMERALD→CYAN GRADIENT SYSTEM ────────────────────── */
+  --avi-accent-start:     #34D399;   /* gradient start · emerald         */
+  --avi-accent-end:       #06B6D4;   /* gradient end   · cyan            */
+  --avi-accent-solid:     #3BE8B0;   /* single-color accent              */
+  --avi-accent-hover:     #2DD4BF;   /* hover accent                     */
+  --avi-accent-subtle:    rgba(59, 232, 176, 0.10);  /* tinted fills     */
+  --avi-accent-glow:      rgba(59, 232, 176, 0.15);  /* glow halos       */
+
+  /* ── 4. STATUS COLORS ────────────────────────────────────────────── */
+  --avi-status-live:      #34D399;   /* live / active / ok               */
+  --avi-status-warning:   #FBBF24;   /* caution / degraded               */
+  --avi-status-error:     #F87171;   /* failure / danger                 */
+  --avi-status-info:      #60A5FA;   /* informational                    */
+  --avi-status-idle:      #5C6478;   /* inactive / standby               */
+
+  /* ── 5. TERMINAL / SIGNAL COLORS ─────────────────────────────────── */
+  --avi-term-bg:          #0C0E12;
+  --avi-term-header:      #12151B;
+  --avi-term-text:        #C9CDD6;
+  --avi-term-prompt:      #5C6478;
+  --avi-term-command:     #3BE8B0;
+  --avi-term-output:      #A0A8B8;
+  --avi-term-error:       #F87171;
+  --avi-term-success:     #34D399;
+  --avi-term-highlight:   rgba(59, 232, 176, 0.08);
+
+  /* ── 6. BORDERS ──────────────────────────────────────────────────── */
+  --avi-border-subtle:    rgba(255, 255, 255, 0.06);
+  --avi-border-default:   rgba(255, 255, 255, 0.10);
+  --avi-border-strong:    rgba(255, 255, 255, 0.15);
+  --avi-border-accent:    rgba(59, 232, 176, 0.30);
+
+  /* ── 7. SHADOW SYSTEM ────────────────────────────────────────────── */
+  --avi-shadow-sm:        0 1px 2px rgba(0, 0, 0, 0.30);
+  --avi-shadow-md:        0 4px 12px rgba(0, 0, 0, 0.40);
+  --avi-shadow-lg:        0 8px 32px rgba(0, 0, 0, 0.50);
+  --avi-shadow-xl:        0 16px 64px rgba(0, 0, 0, 0.60);
+  --avi-shadow-glow:      0 0 40px rgba(59, 232, 176, 0.10);
+  --avi-shadow-glow-strong: 0 0 80px rgba(59, 232, 176, 0.15);
+
+  /* ── 8. TYPOGRAPHY ───────────────────────────────────────────────── */
+  /* Families (pages load Google Fonts + optional display serif Ogg)     */
+  --avi-font-serif: 'Instrument Serif', 'Ogg Medium', Georgia, 'Times New Roman', serif;
+  --avi-font-display: 'Ogg Medium', 'Instrument Serif', Georgia, serif;
+  --avi-font-sans: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --avi-font-mono: 'IBM Plex Mono', 'Fira Code', 'SF Mono', ui-monospace, Menlo, monospace;
+
+  /* Type scale — Major Third (1.25) extended */
+  --avi-text-xs:   0.75rem;    /* 12px  */
+  --avi-text-sm:   0.875rem;   /* 14px  */
+  --avi-text-base: 1rem;       /* 16px  */
+  --avi-text-lg:   1.125rem;   /* 18px  */
+  --avi-text-xl:   1.25rem;    /* 20px  */
+  --avi-text-2xl:  1.5rem;     /* 24px  */
+  --avi-text-3xl:  1.875rem;   /* 30px  */
+  --avi-text-4xl:  2.25rem;    /* 36px  */
+  --avi-text-5xl:  3rem;       /* 48px  */
+  --avi-text-6xl:  3.75rem;    /* 60px  */
+  --avi-text-7xl:  4.5rem;     /* 72px  */
+  --avi-text-8xl:  5.5rem;     /* 88px  */
+
+  /* Line heights */
+  --avi-leading-none:    1;
+  --avi-leading-tight:   1.15;
+  --avi-leading-snug:    1.3;
+  --avi-leading-normal:  1.5;
+  --avi-leading-relaxed: 1.65;
+
+  /* Letter spacing */
+  --avi-tracking-tighter: -0.03em;
+  --avi-tracking-tight:   -0.015em;
+  --avi-tracking-normal:  0;
+  --avi-tracking-wide:     0.05em;
+  --avi-tracking-wider:    0.10em;
+  --avi-tracking-widest:   0.15em;
+
+  /* Weights */
+  --avi-weight-light:    300;
+  --avi-weight-regular:  400;
+  --avi-weight-medium:   500;
+  --avi-weight-semibold: 600;
+  --avi-weight-bold:     700;
+  --avi-weight-extrabold: 800;
+
+  /* ── 9. SPACING · 8PX BASE GRID ──────────────────────────────────── */
+  --avi-space-0:    0;
+  --avi-space-px:   1px;
+  --avi-space-0-5:  2px;
+  --avi-space-1:    4px;
+  --avi-space-1-5:  6px;
+  --avi-space-2:    8px;
+  --avi-space-3:    12px;
+  --avi-space-4:    16px;
+  --avi-space-5:    20px;
+  --avi-space-6:    24px;
+  --avi-space-8:    32px;
+  --avi-space-10:   40px;
+  --avi-space-12:   48px;
+  --avi-space-14:   56px;
+  --avi-space-16:   64px;
+  --avi-space-20:   80px;
+  --avi-space-24:   96px;
+  --avi-space-28:   112px;
+  --avi-space-32:   128px;
+  --avi-space-40:   160px;
+
+  /* Layout */
+  --avi-container-max:  1400px;
+  --avi-container-pad:  clamp(20px, 4vw, 64px);
+  --avi-section-gap:    clamp(80px, 12vw, 160px);
+  --avi-column-gap:     clamp(24px, 4vw, 64px);
+  --avi-nav-height:     72px;
+  --avi-sidebar-width:  264px;
+  --avi-sidebar-width-collapsed: 76px;
+
+  /* ── 10. RADII ───────────────────────────────────────────────────── */
+  --avi-radius-xs:    4px;     /* tags, chips (tight)                */
+  --avi-radius-sm:    6px;
+  --avi-radius-md:    8px;     /* buttons, small inputs              */
+  --avi-radius-lg:    12px;    /* inputs, medium cards               */
+  --avi-radius-xl:    16px;    /* glass cards, panels                */
+  --avi-radius-2xl:   24px;    /* sight cards, hero panels           */
+  --avi-radius-full:  9999px;  /* pills, round buttons, dots         */
+
+  /* ── 11. MOTION SYSTEM ───────────────────────────────────────────── */
+  --avi-dur-instant:  100ms;
+  --avi-dur-fast:     200ms;
+  --avi-dur-normal:   300ms;
+  --avi-dur-slow:     500ms;
+  --avi-dur-slower:   800ms;
+  --avi-dur-slowest:  1200ms;
+
+  --avi-ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --avi-ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
+  --avi-ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --avi-ease-bounce:  cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  --avi-ease-smooth:  cubic-bezier(0.22, 1, 0.36, 1);   /* slider glide */
+  --avi-ease-linear:  linear;
+
+  --avi-transition-color:     color var(--avi-dur-fast) var(--avi-ease-out);
+  --avi-transition-bg:        background-color var(--avi-dur-fast) var(--avi-ease-out);
+  --avi-transition-border:    border-color var(--avi-dur-fast) var(--avi-ease-out);
+  --avi-transition-shadow:    box-shadow var(--avi-dur-normal) var(--avi-ease-out);
+  --avi-transition-transform: transform var(--avi-dur-normal) var(--avi-ease-out);
+  --avi-transition-opacity:   opacity var(--avi-dur-normal) var(--avi-ease-out);
+  --avi-transition-all:       all var(--avi-dur-normal) var(--avi-ease-out);
+
+  /* ── 12. Z-INDEX SCALE ───────────────────────────────────────────── */
+  --avi-z-base:      0;
+  --avi-z-scene:     1;
+  --avi-z-content:   10;
+  --avi-z-nav:       50;
+  --avi-z-dropdown:  60;
+  --avi-z-sticky:    70;
+  --avi-z-overlay:   90;
+  --avi-z-modal:     100;
+  --avi-z-toast:     110;
+  --avi-z-skip:      200;
+
+  /* ── 13. GRADIENTS (consuming accent tokens) ─────────────────────── */
+  --avi-gradient-accent:  linear-gradient(135deg, var(--avi-accent-start), var(--avi-accent-end));
+  --avi-gradient-accent-reverse: linear-gradient(135deg, var(--avi-accent-end), var(--avi-accent-start));
+  --avi-gradient-accent-soft: linear-gradient(90deg, var(--avi-accent-start), var(--avi-accent-solid));
+  --avi-gradient-divider: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  --avi-gradient-sheen:   linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
+
+  /* ── 14. LIVE-BACKDROP (video / synth-feed wells) ────────────────── */
+  --avi-backdrop-tint:    rgba(8, 9, 10, 0.55);  /* scrim over live video */
+  --avi-backdrop-tint-strong: rgba(8, 9, 10, 0.78);
+  --avi-scanline-alpha:   0.05;
+
+  /* ── 15. RUNTIME (written by avi-adapt.js — do not hand-edit) ────── */
+  --avi-fluid-scale: 1;          /* auto-fit typography multiplier      */
+  --avi-brand-hue-rotate: 0deg;  /* fork-derived identity rotation      */
+  --avi-brand-name: "AVI";       /* set as content property, see below  */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE LAYER — minimal, non-invasive reset + shared element styling.
+   Scoped to [data-avi] roots so token pages can coexist with host apps.
+   ═══════════════════════════════════════════════════════════════════════ */
+[data-avi], [data-avi] *, [data-avi] *::before, [data-avi] *::after {
+  box-sizing: border-box;
+}
+
+[data-avi] {
+  background: var(--avi-bg-base);
+  color: var(--avi-text-primary);
+  font-family: var(--avi-font-sans);
+  line-height: var(--avi-leading-normal);
+  letter-spacing: var(--avi-tracking-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+[data-avi] ::selection {
+  background: var(--avi-accent-glow);
+  color: var(--avi-text-primary);
+}
+
+[data-avi] :focus-visible {
+  outline: 2px solid var(--avi-accent-solid);
+  outline-offset: 2px;
+  border-radius: var(--avi-radius-xs);
+}
+
+/* Slim branded scrollbar */
+[data-avi] ::-webkit-scrollbar { width: 6px; height: 6px; }
+[data-avi] ::-webkit-scrollbar-track { background: var(--avi-bg-base); }
+[data-avi] ::-webkit-scrollbar-thumb {
+  background: var(--avi-border-strong);
+  border-radius: var(--avi-radius-full);
+}
+[data-avi] ::-webkit-scrollbar-thumb:hover { background: var(--avi-accent-hover); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRIMITIVES — glass, gradient text, dividers, pills, surfaces.
+   These are the atoms every component (U-04) will be built from.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Glass surface — the signature depth card */
+.avi-glass {
+  background: var(--avi-bg-glass);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border: 1px solid var(--avi-border-default);
+  border-radius: var(--avi-radius-xl);
+  box-shadow: var(--avi-shadow-lg);
+}
+
+.avi-glass-nav {
+  background: rgba(8, 9, 10, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Gradient text — headline accent treatment */
+.avi-text-gradient {
+  background: var(--avi-gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.avi-text-gradient-label {
+  background: var(--avi-gradient-accent-soft);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Gradient hairline divider */
+.avi-divider {
+  height: 1px;
+  border: 0;
+  background: var(--avi-gradient-divider);
+}
+
+/* Section label — mono, uppercase, tracked wide, with accent dot */
+.avi-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--avi-font-mono);
+  font-size: var(--avi-text-xs);
+  font-weight: var(--avi-weight-medium);
+  letter-spacing: var(--avi-tracking-widest);
+  text-transform: uppercase;
+}
+.avi-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--avi-radius-full);
+  background: var(--avi-gradient-accent);
+  flex: 0 0 auto;
+}
+
+/* Status dot with soft pulse halo */
+.avi-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--avi-radius-full);
+  background: var(--avi-status-live);
+  box-shadow: 0 0 0 0 var(--avi-accent-glow);
+}
+.avi-dot[data-state="idle"]  { background: var(--avi-status-idle); }
+.avi-dot[data-state="warn"]  { background: var(--avi-status-warning); }
+.avi-dot[data-state="error"] { background: var(--avi-status-error); }
+
+/* Tag / chip */
+.avi-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: var(--avi-radius-full);
+  border: 1px solid var(--avi-border-accent);
+  background: var(--avi-accent-subtle);
+  font-family: var(--avi-font-mono);
+  font-size: var(--avi-text-xs);
+  color: var(--avi-accent-solid);
+  white-space: nowrap;
+}
+
+/* Buttons — gradient pill / outline pill / ghost */
+.avi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 0;
+  border-radius: var(--avi-radius-full);
+  font-family: var(--avi-font-sans);
+  font-size: var(--avi-text-sm);
+  font-weight: var(--avi-weight-medium);
+  cursor: pointer;
+  transition: var(--avi-transition-all);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.avi-btn:active { transform: scale(0.98); }
+
+.avi-btn--gradient {
+  background: var(--avi-gradient-accent);
+  color: var(--avi-text-inverse);
+}
+.avi-btn--gradient:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: var(--avi-shadow-glow);
+}
+
+.avi-btn--outline {
+  background: transparent;
+  border: 1px solid var(--avi-border-default);
+  color: var(--avi-text-primary);
+}
+.avi-btn--outline:hover {
+  border-color: var(--avi-border-accent);
+  background: var(--avi-accent-subtle);
+}
+
+.avi-btn--ghost {
+  background: transparent;
+  color: var(--avi-text-secondary);
+}
+.avi-btn--ghost:hover { color: var(--avi-text-primary); background: var(--avi-bg-card); }
+
+.avi-btn--sm { padding: 8px 18px; font-size: var(--avi-text-xs); }
+.avi-btn--lg { padding: 14px 34px; font-size: var(--avi-text-base); }
+
+/* Inputs */
+.avi-field { display: block; }
+.avi-field > label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--avi-font-mono);
+  font-size: var(--avi-text-xs);
+  letter-spacing: var(--avi-tracking-wider);
+  text-transform: uppercase;
+  color: var(--avi-text-muted);
+}
+.avi-input,
+.avi-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--avi-radius-lg);
+  border: 1px solid var(--avi-border-default);
+  background: var(--avi-bg-input);
+  color: var(--avi-text-primary);
+  font-family: var(--avi-font-sans);
+  font-size: var(--avi-text-sm);
+  transition: var(--avi-transition-all);
+}
+.avi-input::placeholder,
+.avi-textarea::placeholder { color: var(--avi-text-faint); }
+.avi-input:focus,
+.avi-textarea:focus {
+  outline: none;
+  border-color: var(--avi-border-accent);
+  box-shadow: var(--avi-shadow-glow);
+}
+.avi-textarea { min-height: 140px; resize: vertical; }
+
+/* Terminal well */
+.avi-terminal {
+  background: var(--avi-term-bg);
+  border: 1px solid var(--avi-border-subtle);
+  border-radius: var(--avi-radius-lg);
+  overflow: hidden;
+  font-family: var(--avi-font-mono);
+  font-size: var(--avi-text-sm);
+  color: var(--avi-term-text);
+}
+.avi-terminal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--avi-term-header);
+  border-bottom: 1px solid var(--avi-border-subtle);
+}
+.avi-terminal-body { padding: 20px; min-height: 160px; line-height: 1.7; }
+
+/* Live backdrop well — the "black becomes live video" primitive.
+   Drop <div class="avi-backdrop" data-feed="launch"> around ANY content
+   and avi-video.js mounts a live feed behind it. */
+.avi-backdrop {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--avi-bg-sink);
+  border-radius: var(--avi-radius-xl);
+}
+.avi-backdrop > .avi-backdrop-media,
+.avi-backdrop > canvas,
+.avi-backdrop > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+.avi-backdrop::after {  /* readability scrim + subtle scanlines */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(255,255,255,var(--avi-scanline-alpha)) 0 1px,
+      transparent 1px 3px),
+    var(--avi-backdrop-tint);
+  pointer-events: none;
+}
+
+/* Skip link — accessibility */
+.avi-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: var(--avi-z-skip);
+  padding: 10px 18px;
+  background: var(--avi-accent-solid);
+  color: var(--avi-text-inverse);
+  border-radius: var(--avi-radius-md);
+  font-family: var(--avi-font-mono);
+  font-size: var(--avi-text-sm);
+}
+.avi-skip:focus { left: 16px; top: 16px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BACKDROP-FILTER FALLBACK — graceful degradation for older browsers.
+   ═══════════════════════════════════════════════════════════════════════ */
+@supports not ((backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))) {
+  .avi-glass     { background: rgba(21, 24, 32, 0.95); }
+  .avi-glass-nav { background: rgba(8, 9, 10, 0.98); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION — kill loops & transitions, keep final states.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  [data-avi] *,
+  [data-avi] *::before,
+  [data-avi] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
